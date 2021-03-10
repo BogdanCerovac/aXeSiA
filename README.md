@@ -1,2 +1,21 @@
 # aXeSiA
 Make use of open source to achieve simple, site-wide, accessibility evaluation based on multiple different implementations of Accessibility Conformance Testing (ACT) rules.
+
+## aXeSiA - my part in axe-hackaton 2021 - project description
+
+aXeSiA will provide an open source framework that will provide a basis for other modules and features.
+
+Additional features that could be added-on include but are not limited to;
+- accessibility regression testing - to follow up on issues continuously,
+- accessibility object model simulation and analysis - to try to catch problematic parts for assistive tech in advance,
+- statistical analysis and reporting - to follow up on a higher level and to prevent similar issues in development,
+- project management integration - for example Jira and MS DevOps bug reports,
+- User interface regression testing - screenshot comparator++ 
+ 
+Due to limited time of the hackaton we will focus on the aXeSiA framework basis first and try to make a minimal viable product with basic features that runs in the terminal (command line interface).
+
+Team number can vary but in the first part we will focus on the command line interface. User Interface & Experience design and development, statistic data analysis / machine learning / database / additional plugins / DevOps / project management can also be started in parallel so it is a matter of discussion.
+
+Git: https://github.com/BogdanCerovac/aXeSiA (for now)
+
+License: Mozilla Public License 2.0
