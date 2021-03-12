@@ -1,9 +1,11 @@
 # aXeSiA
 Make use of open source to achieve simple, site-wide, accessibility evaluation based on multiple different implementations of Accessibility Conformance Testing (ACT) rules.
 
+Main project page: https://github.com/BogdanCerovac/aXeSiA/projects/1
+
 ## aXeSiA - my part in axe-hackaton 2021 - project description
 
-aXeSiA will provide an open source framework that will provide a basis for other modules and features.
+aXeSiA will provide an open source framework based on other open source projects that will provide a basis for other modules and features.
 
 Additional features that could be added-on include but are not limited to;
 - accessibility regression testing - to follow up on issues continuously,
@@ -21,7 +23,7 @@ Git: https://github.com/BogdanCerovac/aXeSiA (for now)
 License: Mozilla Public License 2.0
 
 
-## Minimum viable product - command line tool - axe-hackaton basics
+## Minimum viable product - command line tool based on Puppeteer - axe-hackaton basics
 - parse sitemap.xml and save all urls to a list,
 - disable cookie consent overlays so that they are not in way,
 - loop through the list and process different tasks, for example:
