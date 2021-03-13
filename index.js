@@ -16,6 +16,7 @@
  */
 
 const Sitemapper = require('sitemapper');
+const {testTask} = require('./urlTestTask');
 
 /****************/
 
@@ -45,9 +46,19 @@ const started = new Date();
   
       console.log(sitesNum + " sites to be processed.");
 
+      // main loop
+      let counter = 0;
+      for (const i in sites) {
+        let url = sites[i];
+        const res = await testTask(url, i);
+        console.log(res);
+        counter++;
+      }
+
     }catch (error) {
         console.log("Main errored: ", error);
         console.log("Ended @ ", new Date());
         process.exit(1);
       }
-})(); 
+})();
+
