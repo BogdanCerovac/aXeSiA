@@ -1,4 +1,4 @@
-exports.testTask = function(url, index) {
+module.exports = function(url, index) {
     const ms = Math.floor(Math.random() * 100); //random timeout 
     return new Promise((resolve, reject) => {
         setTimeout(() => {

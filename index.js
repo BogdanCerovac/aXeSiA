@@ -16,11 +16,20 @@
  */
 
 const Sitemapper = require('sitemapper');
-const {testTask} = require('./urlTestTask');
+const puppeteer = require('puppeteer');
+
+const testTask = require('./tasks/urlTestTask');
+const acceptCookieConsent = require('./tasks/acceptCookieConsent');
 
 /****************/
 
-const mainUrlToSitemap = 'https://www.sitemaps.org/sitemap.xml';
+const mainCFG = {
+  mainURL: 'https://www.cookiebot.com/sitemap.xml',
+  cookieConsent: {
+    selector: '#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll',
+    waitForReload: false
+  }
+};
 
 /****************/
 
@@ -30,7 +39,7 @@ const started = new Date();
 (async () => {
     console.log("Started @ ", started);
     const SitemapURLs = new Sitemapper({
-      url: mainUrlToSitemap,
+      url: mainCFG.mainURL,
       timeout: 15000, // 15 seconds
     });
   
@@ -46,6 +55,18 @@ const started = new Date();
   
       console.log(sitesNum + " sites to be processed.");
 
+      // manage cookies with Puppeteer
+      const browserObj = await puppeteer.launch({
+        headless: false
+      });
+
+      // accept cookie consent
+      if(mainCFG.cookieConsent !== false){
+        const randUrl = sites[0];
+        console.log("acceptCookieConsent on URL: ", randUrl);
+        await acceptCookieConsent(browserObj, randUrl, mainCFG.cookieConsent);
+      }
+      
       // main loop
       let counter = 0;
       for (const i in sites) {
