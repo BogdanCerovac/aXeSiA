@@ -43,6 +43,7 @@ const {
 const testTask = require('./tasks/urlTestTask');
 const acceptCookieConsent = require('./tasks/acceptCookieConsent');
 const {getScreenShotsForAllDevices} = require('./tasks/urlTaskGetScreenshots');
+const { sleep } = require('./util/helpers');
 
 /******* CONFIG *********/
 
@@ -63,11 +64,11 @@ const devicesForScreenshots = [
   iPhone8,
   iPhone8_land,
   iPhoneX,
-  iPhoneX_land,*/
+  iPhoneX_land,
   iPad,
   iPad_land,
   /*iPadPro,
-  iPadPro_land,*/
+  iPadPro_land,
   MacBook_Pro,
   PC_WIN_10_chrome,
   /*PC_WIN_10_FF,
@@ -101,7 +102,8 @@ const started = new Date();
 
       // manage cookies with Puppeteer
       const browserObj = await puppeteer.launch({
-        headless: false
+        headless: false,
+        userDataDir: '/tmp/myChromeSession'
       });
 
       // accept cookie consent
