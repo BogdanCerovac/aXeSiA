@@ -18,6 +18,26 @@
 const Sitemapper = require('sitemapper');
 const puppeteer = require('puppeteer');
 
+const {
+  iPhone4,
+  iPhone4_land,
+  iPhone6,
+  iPhone6_land,
+  iPhone8,
+  iPhone8_land,
+  iPhoneX,
+  iPhoneX_land,
+  iPad,
+  iPad_land,
+  iPadPro,
+  iPadPro_land,
+  MacBook_Pro,
+  PC_WIN_10_chrome,
+  PC_WIN_10_FF,
+  PC_WIN_10_Opera,
+  PC_WIN_10_Brave
+} = require('./util/puppeteerDevices');
+
 const testTask = require('./tasks/urlTestTask');
 const acceptCookieConsent = require('./tasks/acceptCookieConsent');
 
