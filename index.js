@@ -38,20 +38,44 @@ const {
   PC_WIN_10_Brave
 } = require('./util/puppeteerDevices');
 
+/* TASKS */
+
 const testTask = require('./tasks/urlTestTask');
 const acceptCookieConsent = require('./tasks/acceptCookieConsent');
+const {getScreenShotsForAllDevices} = require('./tasks/urlTaskGetScreenshots');
 
-/****************/
+/******* CONFIG *********/
 
 const mainCFG = {
   mainURL: 'https://www.cookiebot.com/sitemap.xml',
   cookieConsent: {
     selector: '#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll',
     waitForReload: false
-  }
+  },
+  pathForScreenshots : './screens/test/'
 };
 
-/****************/
+const devicesForScreenshots = [
+  iPhone4,
+  iPhone4_land,
+  /*iPhone6,
+  iPhone6_land,
+  iPhone8,
+  iPhone8_land,
+  iPhoneX,
+  iPhoneX_land,*/
+  iPad,
+  iPad_land,
+  /*iPadPro,
+  iPadPro_land,*/
+  MacBook_Pro,
+  PC_WIN_10_chrome,
+  /*PC_WIN_10_FF,
+  PC_WIN_10_Opera,
+  PC_WIN_10_Brave*/
+];
+
+/******* /CONFIG *********/
 
 
 const started = new Date();
@@ -93,6 +117,7 @@ const started = new Date();
         let url = sites[i];
         const res = await testTask(url, i);
         console.log(res);
+        const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots)
         counter++;
       }
 
