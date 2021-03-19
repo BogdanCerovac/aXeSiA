@@ -1,4 +1,4 @@
-const {sleep} = require('../utils');
+const {sleep} = require('../util/helpers');
 
 module.exports = function(browserObj, url, cookieConsentObj) {
 
