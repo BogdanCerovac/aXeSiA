@@ -20,6 +20,7 @@ async function getLighthouseReportForURL(browserObj, url){
         //console.log(lhr);
         let time = new Date().getTime() - t0;
         let catsTempRes = {
+          time: time,
           Performance : lhr.categories["performance"].score,
           BestPractices : lhr.categories["best-practices"].score,
           SEO: lhr.categories["seo"].score,

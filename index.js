@@ -122,14 +122,9 @@ const started = new Date();
         //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
         const aXeAudit = await getAXEreportForURL(browserObj, url);
         const lighthouseAudit = await getLighthouseReportForURL(browserObj, url);
-        
+      
         const dbRes = db.insert(url, JSON.stringify({aXeAudit , lighthouseAudit}));
-        console.log(dbRes);
-
-        if(counter === 4){
-          process.exit(1);
-        }
-
+        // console.log(dbRes);
         counter++;
       }
 

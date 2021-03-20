@@ -60,7 +60,7 @@ async function getAXEreportForURL(browserObj, url){
         inapplicable: results.inapplicable && results.inapplicable.length >= 0 ? results.inapplicable.length : "NA",
         total: total
       }
-      console.log(summary);
+      //console.log(summary);
       await page.close();
       resolve(summary);
   });
