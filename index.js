@@ -12,7 +12,6 @@
  
  https://github.com/BogdanCerovac/aXeSiA 
  
-
  */
 
 const Sitemapper = require('sitemapper');
@@ -39,7 +38,6 @@ const {
 } = require('./util/puppeteerDevices');
 
 /* TASKS */
-
 const acceptCookieConsent = require('./tasks/acceptCookieConsent');
 const {getScreenShotsForAllDevices} = require('./tasks/urlTaskGetScreenshots');
 const { sleep } = require('./util/helpers');
@@ -77,14 +75,13 @@ const devicesForScreenshots = [
 
 /******* /CONFIG *********/
 
-
 const started = new Date();
 
 (async () => {
     console.log("Started @ ", started);
     const SitemapURLs = new Sitemapper({
       url: mainCFG.mainURL,
-      timeout: 15000, // 15 seconds
+      timeout: 15000, //miliseconds
     });
   
     try {
@@ -120,11 +117,9 @@ const started = new Date();
       }
 
       await browserObj.close();
-
     }catch (error) {
         console.log("Main errored: ", error);
         console.log("Ended @ ", new Date());
         process.exit(1);
       }
 })();
-

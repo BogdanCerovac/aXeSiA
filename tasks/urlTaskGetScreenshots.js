@@ -1,6 +1,5 @@
 const {sleep, createFolderIfNotFound, cleanURL, todaysDate} = require('../util/helpers');
 
-
 async function getScreenShotWithDevice(browserObj, device, url, pathForScreenshots){
     // console.log(device)
     console.log('-- Trying to getScreenShot as ' + device.name + ' for ' + url);
@@ -21,8 +20,7 @@ async function getScreenShotWithDevice(browserObj, device, url, pathForScreensho
         reject(err)
       }
     });
-  }
-
+}
 
 async function getScreenShotsForAllDevices(browserObj, devices, url, pathForScreenshots){
     console.log('-- Trying to getScreenShotsForAllDevices for ' + url);
@@ -32,6 +30,6 @@ async function getScreenShotsForAllDevices(browserObj, devices, url, pathForScre
     }
     return await Promise.all(promises);
   
-  }
+}
 
 module.exports.getScreenShotsForAllDevices = getScreenShotsForAllDevices;
