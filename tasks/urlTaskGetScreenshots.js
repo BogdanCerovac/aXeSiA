@@ -14,7 +14,7 @@ async function getScreenShotWithDevice(browserObj, device, url, pathForScreensho
         const todaysFolder = pathForScreenshots + "/" + todaysDate();
         createFolderIfNotFound(todaysFolder);
         const screenshot = await page.screenshot({path: todaysFolder + '/'+ cleanURL(url) + '__' + device.name + '_' + new Date().getTime() + '.png', fullPage: true });
-        await sleep(25000000);
+        await sleep(250);
         await page.close();
         resolve(screenshot);
       }catch(err){

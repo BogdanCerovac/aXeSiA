@@ -48,9 +48,9 @@ const { sleep } = require('./util/helpers');
 /******* CONFIG *********/
 
 const mainCFG = {
-  mainURL: 'https://www.cookiebot.com/sitemap.xml',
+  mainURL: 'https://www.itumx.no/sitemap.xml',
   cookieConsent: {
-    selector: '#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll',
+    selector: '#onetrust-accept-btn-handler',
     waitForReload: false
   },
   pathForScreenshots : './screens/test/'
@@ -102,8 +102,7 @@ const started = new Date();
 
       // manage cookies with Puppeteer
       const browserObj = await puppeteer.launch({
-        headless: false,
-        userDataDir: '/tmp/myChromeSession'
+        headless: false
       });
 
       // accept cookie consent
@@ -122,6 +121,8 @@ const started = new Date();
         const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots)
         counter++;
       }
+
+      await browserObj.close();
 
     }catch (error) {
         console.log("Main errored: ", error);

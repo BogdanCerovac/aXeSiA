@@ -15,7 +15,7 @@ module.exports = function(browserObj, url, cookieConsentObj) {
         const waitForReload = cookieConsentObj.waitForReload;
         
 
-        page.waitForSelector(CSSselector, {visible: true, timeout: 3000}).then( async () => {
+        page.waitForSelector(CSSselector, {visible: true, timeout: 5000}).then( async () => {
           console.log("acceptCookieConsent - waitForSelector");
           
           let done = false;
