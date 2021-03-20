@@ -16,6 +16,7 @@
 
 const Sitemapper = require('sitemapper');
 const puppeteer = require('puppeteer');
+let db = require('./util/DB');
 
 const {
   iPhone4,
@@ -107,19 +108,23 @@ const started = new Date();
         console.log("acceptCookieConsent on URL: ", randUrl);
         await acceptCookieConsent(browserObj, randUrl, mainCFG.cookieConsent);
       }
-      
+
       // main loop
       let counter = 0;
       for (const i in sites) {
         let url = sites[i];
-        const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
+        //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
+        const dbRes = db.increase(url, counter);
+        console.log(dbRes);
         counter++;
       }
+
+      console.log(db.get("*"))
 
       await browserObj.close();
     }catch (error) {
         console.log("Main errored: ", error);
         console.log("Ended @ ", new Date());
         process.exit(1);
-      }
+    }
 })();
