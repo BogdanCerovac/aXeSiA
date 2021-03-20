@@ -24,10 +24,13 @@ License: Mozilla Public License 2.0
 
 
 ## Minimum viable product - command line tool based on Puppeteer - axe-hackaton basics
-- parse sitemap.xml and save all urls to a list,
-- disable cookie consent overlays so that they are not in way,
-- loop through the list and process different tasks, for example:
+- ~~parse sitemap.xml and save all urls to a list~~,
+- ~~disable cookie consent overlays so that they are not in way - difficult to cover different providers, simple click on accept all implemented~~,
+- loop through the list and process different tasks:
     - per page - ~~save screenshots of a page with different resolutions and landscapes~~ - for visual regression testing and for accessibility,
     - per page - ~~generate and save aXe core accessibility report~~,
     - per page - generate and save Lighthouse report (accessibility and also others, like performance),
     - per page - generate and save Siteimprove alfa report
+- simple UI with overview of:
+    - overall accessibility for whole page,
+    - possibility to monitor changes in time
