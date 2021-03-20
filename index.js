@@ -52,7 +52,7 @@ const mainCFG = {
     selector: '#onetrust-accept-btn-handler',
     waitForReload: false
   },
-  pathForScreenshots : './screens/test/'
+  pathForScreenshots : './out/screens/test/'
 };
 
 const devicesForScreenshots = [
