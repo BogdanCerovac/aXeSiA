@@ -40,7 +40,7 @@ const get = url => {
 };
 
 const insertAudit = db.prepare(
-  'INSERT INTO audits (url, audit) VALUES ($url, $audit)',
+  'INSERT INTO audits (url, audit) VALUES ($url, json($audit))',
 );
 const insert = (url, audit) => {
   insertAudit.run({ url: url, audit: audit });

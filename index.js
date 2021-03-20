@@ -44,6 +44,7 @@ const {
 const acceptCookieConsent = require('./tasks/acceptCookieConsent');
 const {getScreenShotsForAllDevices} = require('./tasks/urlTaskGetScreenshots');
 const {getAXEreportForURL} = require('./tasks/urlTaskGetAxeAudit');
+const {getLighthouseReportForURL} = require('./tasks/urlTaskGetLighthouse');
 
 /******* CONFIG *********/
 
@@ -120,11 +121,13 @@ const started = new Date();
         let url = sites[i];
         //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
         const aXeAudit = await getAXEreportForURL(browserObj, url);
-        const dbRes = db.insert(url, JSON.stringify({aXeAudit: aXeAudit}));
+        const lighthouseAudit = await getLighthouseReportForURL(browserObj, url);
+      
+        const dbRes = db.insert(url, JSON.stringify({aXeAudit , lighthouseAudit}));
         // console.log(dbRes);
+        
         counter++;
       }
-
 
       // check overall status
       if(sitesNum === counter){
