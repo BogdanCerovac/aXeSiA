@@ -40,7 +40,6 @@ const {
 
 /* TASKS */
 
-const testTask = require('./tasks/urlTestTask');
 const acceptCookieConsent = require('./tasks/acceptCookieConsent');
 const {getScreenShotsForAllDevices} = require('./tasks/urlTaskGetScreenshots');
 const { sleep } = require('./util/helpers');
