@@ -120,11 +120,11 @@ const started = new Date();
       for (const i in sites) {
         let url = sites[i];
         //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
-        //const aXeAudit = await getAXEreportForURL(browserObj, url);
-        //const dbRes = db.insert(url, JSON.stringify({aXeAudit: aXeAudit}));
-
+        const aXeAudit = await getAXEreportForURL(browserObj, url);
         const lighthouseAudit = await getLighthouseReportForURL(browserObj, url);
-        console.log(lighthouseAudit);
+        
+        const dbRes = db.insert(url, JSON.stringify({aXeAudit , lighthouseAudit}));
+        console.log(dbRes);
 
         if(counter === 4){
           process.exit(1);
