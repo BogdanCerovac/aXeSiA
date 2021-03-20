@@ -1,4 +1,4 @@
-const {sleep} = require('../utils');
+const {sleep} = require('../util/helpers');
 
 module.exports = function(browserObj, url, cookieConsentObj) {
 
@@ -14,8 +14,7 @@ module.exports = function(browserObj, url, cookieConsentObj) {
         const CSSselector = cookieConsentObj.selector;
         const waitForReload = cookieConsentObj.waitForReload;
         
-
-        page.waitForSelector(CSSselector, {visible: true, timeout: 3000}).then( async () => {
+        page.waitForSelector(CSSselector, {visible: true, timeout: 5000}).then( async () => {
           console.log("acceptCookieConsent - waitForSelector");
           
           let done = false;
@@ -65,8 +64,7 @@ module.exports = function(browserObj, url, cookieConsentObj) {
             reject(true);
           });
 
-
         });
-      
+
   });
 }
