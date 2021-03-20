@@ -125,9 +125,9 @@ const started = new Date();
       
         const dbRes = db.insert(url, JSON.stringify({aXeAudit , lighthouseAudit}));
         // console.log(dbRes);
+        
         counter++;
       }
-
 
       // check overall status
       if(sitesNum === counter){

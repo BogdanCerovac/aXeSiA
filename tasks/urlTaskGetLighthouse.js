@@ -17,7 +17,6 @@ async function getLighthouseReportForURL(browserObj, url){
           logLevel: 'error',
         });
         
-        //console.log(lhr);
         let time = new Date().getTime() - t0;
         let catsTempRes = {
           time: time,
@@ -26,7 +25,6 @@ async function getLighthouseReportForURL(browserObj, url){
           SEO: lhr.categories["seo"].score,
           A11y : lhr.categories["accessibility"].score
         };
-        //console.log('Lighthouse scores:', catsTempRes);
   
         await sleep(250);
         await page.close();
@@ -35,4 +33,4 @@ async function getLighthouseReportForURL(browserObj, url){
     });
 }
 
-module.exports.getLighthouseReportForURL = getLighthouseReportForURL; 
+module.exports.getLighthouseReportForURL = getLighthouseReportForURL;
