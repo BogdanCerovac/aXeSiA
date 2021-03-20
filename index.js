@@ -109,17 +109,29 @@ const started = new Date();
         await acceptCookieConsent(browserObj, randUrl, mainCFG.cookieConsent);
       }
 
+      //db stats before
+      console.log(db.stats());
+
       // main loop
       let counter = 0;
       for (const i in sites) {
         let url = sites[i];
         //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
-        const dbRes = db.increase(url, counter);
-        console.log(dbRes);
+        const dbRes = db.insert(url, JSON.stringify({counter: counter}));
+        // console.log(dbRes);
         counter++;
       }
 
-      console.log(db.get("*"))
+
+      // check overall status
+      if(sitesNum === counter){
+        console.log("All " + counter + " urls processed OK");
+      }else{
+        console.warn("Only " + counter + " of " + sitesNum + " urls processed");
+      }
+      
+      // db stats after
+      console.log(db.stats());
 
       await browserObj.close();
     }catch (error) {

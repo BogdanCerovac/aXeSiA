@@ -15,12 +15,14 @@ if (row === undefined) {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             ts DEFAULT CURRENT_TIMESTAMP,
             url TEXT,
-            audit_axe TEXT
+            audit JSON
         );
         `;
   db.exec(sqlInit);
+}else{
+  console.log("audits database exists");
 }
-console.log("audits database exists now, if it didn't already.");
+
 
 const readAudits = db.prepare(
   'SELECT * FROM audits WHERE url IS $url',
@@ -38,11 +40,28 @@ const get = url => {
 };
 
 const insertAudit = db.prepare(
-  'INSERT INTO audits (url, audit_axe) VALUES ($url, $audit_axe)',
+  'INSERT INTO audits (url, audit) VALUES ($url, $audit)',
 );
-const increase = (url, audit_axe) => {
-  insertAudit.run({ url: url, audit_axe: audit_axe });
+const insert = (url, audit) => {
+  insertAudit.run({ url: url, audit: audit });
   return get(url);
 };
 
-module.exports = { get, increase };
+
+const stats = () => {
+
+  const readAuditsDistinct = db.prepare(
+    `SELECT COUNT ( DISTINCT url ) AS "Distinct"  FROM audits`,
+  );
+  let distinct = readAuditsDistinct.get();
+
+  const readAuditsAll = db.prepare(
+    `SELECT COUNT ( id ) AS "All"  FROM audits`,
+  );
+  let all = readAuditsAll.get();
+
+  return `DB stats: ${all["All"]} all urls,  ${distinct["Distinct"]} distinct`;
+
+}
+
+module.exports = { get, insert, stats };
