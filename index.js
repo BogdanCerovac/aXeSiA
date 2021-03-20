@@ -18,6 +18,8 @@ const Sitemapper = require('sitemapper');
 const puppeteer = require('puppeteer');
 let db = require('./util/DB');
 
+const { sleep } = require('./util/helpers');
+
 const {
   iPhone4,
   iPhone4_land,
@@ -41,7 +43,7 @@ const {
 /* TASKS */
 const acceptCookieConsent = require('./tasks/acceptCookieConsent');
 const {getScreenShotsForAllDevices} = require('./tasks/urlTaskGetScreenshots');
-const { sleep } = require('./util/helpers');
+const {getAXEreportForURL} = require('./tasks/urlTaskGetAxeAudit');
 
 /******* CONFIG *********/
 
@@ -117,7 +119,8 @@ const started = new Date();
       for (const i in sites) {
         let url = sites[i];
         //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
-        const dbRes = db.insert(url, JSON.stringify({counter: counter}));
+        const aXeAudit = await getAXEreportForURL(browserObj, url);
+        const dbRes = db.insert(url, JSON.stringify({aXeAudit: aXeAudit}));
         // console.log(dbRes);
         counter++;
       }
