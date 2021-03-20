@@ -115,9 +115,7 @@ const started = new Date();
       let counter = 0;
       for (const i in sites) {
         let url = sites[i];
-        const res = await testTask(url, i);
-        console.log(res);
-        const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots)
+        const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
         counter++;
       }
 
