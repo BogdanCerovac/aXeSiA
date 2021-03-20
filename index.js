@@ -16,6 +16,9 @@
 
 const Sitemapper = require('sitemapper');
 const puppeteer = require('puppeteer');
+let db = require('./util/DB');
+
+const { sleep } = require('./util/helpers');
 
 const {
   iPhone4,
@@ -40,7 +43,7 @@ const {
 /* TASKS */
 const acceptCookieConsent = require('./tasks/acceptCookieConsent');
 const {getScreenShotsForAllDevices} = require('./tasks/urlTaskGetScreenshots');
-const { sleep } = require('./util/helpers');
+const {getAXEreportForURL} = require('./tasks/urlTaskGetAxeAudit');
 
 /******* CONFIG *********/
 
@@ -107,19 +110,36 @@ const started = new Date();
         console.log("acceptCookieConsent on URL: ", randUrl);
         await acceptCookieConsent(browserObj, randUrl, mainCFG.cookieConsent);
       }
-      
+
+      //db stats before
+      console.log(db.stats());
+
       // main loop
       let counter = 0;
       for (const i in sites) {
         let url = sites[i];
-        const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
+        //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
+        const aXeAudit = await getAXEreportForURL(browserObj, url);
+        const dbRes = db.insert(url, JSON.stringify({aXeAudit: aXeAudit}));
+        // console.log(dbRes);
         counter++;
       }
+
+
+      // check overall status
+      if(sitesNum === counter){
+        console.log("All " + counter + " urls processed OK");
+      }else{
+        console.warn("Only " + counter + " of " + sitesNum + " urls processed");
+      }
+      
+      // db stats after
+      console.log(db.stats());
 
       await browserObj.close();
     }catch (error) {
         console.log("Main errored: ", error);
         console.log("Ended @ ", new Date());
         process.exit(1);
-      }
+    }
 })();
