@@ -91,19 +91,15 @@ const started = new Date();
   
     try {
       const { sites } = await SitemapURLs.fetch();
-
       let sitesUnique = [...new Set(sites)];
-      // console.log(sitesUnique);
       const sitesNum = sitesUnique.length;
-  
       if(sitesNum === 0){
         console.error("No sites to process. Please check if sitemap.xml is working etc.")
         process.exit(1);
       }
-  
       console.log(sitesNum + " unique sites to be processed.");
 
-      // manage cookies with Puppeteer
+      // Puppeteer browser object
       const browserObj = await puppeteer.launch({
         headless: false
       });
@@ -111,19 +107,18 @@ const started = new Date();
       // accept cookie consent
       if(mainCFG.cookieConsent !== false){
         const randUrl = sitesUnique[0];
-        console.log("acceptCookieConsent on URL: ", randUrl);
         await acceptCookieConsent(browserObj, randUrl, mainCFG.cookieConsent);
       }
 
-      //db stats before
+      //db stats before loop
       console.log(db.stats());
 
       // main loop
       let counter = 0;
       for (const i in sitesUnique) {
         let url = sitesUnique[i];
-        console.log(url)
-        console.log("URL " + (counter + 1) + " of " + sitesNum + " - startet audits");
+        //console.log(url)
+        console.log("Running tasks for url " + (counter + 1) + " of " + sitesNum);
         // const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
         const aXeAudit = await getAXEreportForURL(browserObj, url);
         const lighthouseAudit = await getLighthouseReportForURL(browserObj, url);
@@ -142,6 +137,9 @@ const started = new Date();
       
       // db stats after
       console.log(db.stats());
+
+      console.log("Main ended");
+      console.log("Ended @ ", new Date());
 
       await browserObj.close();
     }catch (error) {
