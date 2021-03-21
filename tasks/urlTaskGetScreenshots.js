@@ -2,7 +2,7 @@ const {sleep, createFolderIfNotFound, cleanURL, todaysDate} = require('../util/h
 
 async function getScreenShotWithDevice(browserObj, device, url, pathForScreenshots){
     // console.log(device)
-    console.log('-- Trying to getScreenShot as ' + device.name + ' for ' + url);
+    console.log('-- getScreenShot as ' + device.name + ' for ' + url);
     return new Promise(async function(resolve, reject) {
       try{
         const page = await browserObj.newPage();

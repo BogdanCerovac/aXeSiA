@@ -2,7 +2,7 @@ const lighthouse = require('lighthouse');
 const {sleep} = require('../util/helpers');
 
 async function getLighthouseReportForURL(browserObj, url){
-    console.log('-- Trying to getLighthouseReportForURL for ' + url);
+    console.log('-- getLighthouseReportForURL for ' + url);
     return new Promise(async function(resolve, reject) {
         const t0 = new Date().getTime();
         const page = await browserObj.newPage();

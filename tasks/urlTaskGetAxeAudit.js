@@ -2,7 +2,7 @@ const { AxePuppeteer } = require('@axe-core/puppeteer');
 const {sleep} = require('../util/helpers');
 
 async function getAXEreportForURL(browserObj, url){
-  console.log('-- Trying to getAXEreportForURL for ' + url);
+  console.log('-- getAXEreportForURL for ' + url);
   return new Promise(async function(resolve, reject) {
       const t0 = new Date().getTime();
       const page = await browserObj.newPage();

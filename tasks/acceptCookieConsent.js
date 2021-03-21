@@ -4,7 +4,7 @@ module.exports = function(browserObj, url, cookieConsentObj) {
 
   return new Promise(async function(resolve, reject) {
 
-        console.log("acceptCookieConsent - proceeding ");
+        console.log("acceptCookieConsent on " + url);
         const page = await browserObj.newPage();
         // await page.setUserAgent("Custom User agent?");
         await page.setBypassCSP(true);

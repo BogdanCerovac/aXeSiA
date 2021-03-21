@@ -45,6 +45,7 @@ const acceptCookieConsent = require('./tasks/acceptCookieConsent');
 const {getScreenShotsForAllDevices} = require('./tasks/urlTaskGetScreenshots');
 const {getAXEreportForURL} = require('./tasks/urlTaskGetAxeAudit');
 const {getLighthouseReportForURL} = require('./tasks/urlTaskGetLighthouse');
+const {getSiteimproveAlphaReportForURL} = require('./tasks/urlTaskGetSiteimproveAudit');
 
 /******* CONFIG *********/
 
@@ -90,42 +91,40 @@ const started = new Date();
   
     try {
       const { sites } = await SitemapURLs.fetch();
-      // console.log(sites);
-      const sitesNum = sites.length;
-  
+      let sitesUnique = [...new Set(sites)];
+      const sitesNum = sitesUnique.length;
       if(sitesNum === 0){
         console.error("No sites to process. Please check if sitemap.xml is working etc.")
         process.exit(1);
       }
-  
-      console.log(sitesNum + " sites to be processed.");
+      console.log(sitesNum + " unique sites to be processed.");
 
-      // manage cookies with Puppeteer
+      // Puppeteer browser object
       const browserObj = await puppeteer.launch({
         headless: false
       });
 
       // accept cookie consent
       if(mainCFG.cookieConsent !== false){
-        const randUrl = sites[0];
-        console.log("acceptCookieConsent on URL: ", randUrl);
+        const randUrl = sitesUnique[0];
         await acceptCookieConsent(browserObj, randUrl, mainCFG.cookieConsent);
       }
 
-      //db stats before
+      //db stats before loop
       console.log(db.stats());
 
       // main loop
       let counter = 0;
-      for (const i in sites) {
-        let url = sites[i];
-        //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
+      for (const i in sitesUnique) {
+        let url = sitesUnique[i];
+        //console.log(url)
+        console.log("Running tasks for url " + (counter + 1) + " of " + sitesNum);
+        // const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
         const aXeAudit = await getAXEreportForURL(browserObj, url);
         const lighthouseAudit = await getLighthouseReportForURL(browserObj, url);
-      
-        const dbRes = db.insert(url, JSON.stringify({aXeAudit , lighthouseAudit}));
-        // console.log(dbRes);
-        
+        const siteimproveAudit = await getSiteimproveAlphaReportForURL(browserObj, url);
+        const dbRes = db.insert(url, JSON.stringify({aXeAudit , lighthouseAudit, siteimproveAudit}));
+        //console.log(dbRes);
         counter++;
       }
 
@@ -138,6 +137,9 @@ const started = new Date();
       
       // db stats after
       console.log(db.stats());
+
+      console.log("Main ended");
+      console.log("Ended @ ", new Date());
 
       await browserObj.close();
     }catch (error) {
