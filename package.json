@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "serve": "node ./srv/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,8 +31,12 @@
     "@siteimprove/alfa-puppeteer": "^0.15.2",
     "@siteimprove/alfa-rules": "^0.15.2",
     "better-sqlite3": "^7.1.2",
+    "express": "^4.17.1",
     "lighthouse": "^7.3.0",
     "puppeteer": "^8.0.0",
     "sitemapper": "^3.1.12"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
