@@ -1,0 +1,9 @@
+<article class="home">
+<p>{{foo}}</p>
+<p>{{bar}}</p>
+</article>
+<script>
+const dataStr = '{{data}}';
+const dataCleaned = JSON.parse(dataStr.replaceAll("&quot;", '"'));
+console.log(dataCleaned);
+</script>
