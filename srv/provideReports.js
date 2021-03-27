@@ -3,6 +3,7 @@ const db = new Database('./out/audits.db', /*{ verbose: console.log }*/);
 
 function getAverageOfProp(arr, prop){
     const average = arr.reduce((total, next) => total + next[prop], 0) / arr.length;
+    return average;
 }
 
 
