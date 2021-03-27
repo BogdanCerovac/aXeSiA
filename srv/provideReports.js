@@ -147,7 +147,7 @@ function generateSummaries(summaryByUrl){
     lighthouseStats.avgBestPrac = getAverageOfProp(latestFlattened, "lhBestPrac");
     lighthouseStats.avgTime = getAverageOfProp(latestFlattened, "lhTime");
 
-    
+    console.log(lighthouseStats.avgA11y)
 
     return {
         axeSummary: axeStats,
@@ -183,13 +183,11 @@ exports.getAllReports = function(){
         return groups;
       }, {});
 
+    const summaries = generateSummaries(summaryByUrl);
 
-    let axeSummary = generateSummaries(summaryByUrl).axeSummary;  
-    let lighthouseSummary = generateSummaries(summaryByUrl).lighthouseSummary;
-    
     return {
-        axeSummary,
-        lighthouseSummary,
+        axeSummary : summaries.axeSummary,
+        lighthouseSummary : summaries.lighthouseSummary,
         summaryByUrl
     };
     
