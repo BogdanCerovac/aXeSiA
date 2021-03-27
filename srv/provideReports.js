@@ -29,7 +29,15 @@ exports.getAllReports = function(){
         groups[item.url] = group;
         return groups;
       }, {});
-     
-    return summaryByUrl;
+
+
+    let axeSummary = "axeSummary";  
+    let lighthouseSummary = "lighthouseSummary";
+    
+    return {
+        axeSummary,
+        lighthouseSummary,
+        summaryByUrl
+    };
     
 }

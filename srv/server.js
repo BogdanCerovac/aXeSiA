@@ -28,14 +28,14 @@ app.get('/', (req, res, next) => {
 
     console.log(new Date().toISOString() + ' Request URL:', req.originalUrl);
 
+    const dataFromDB = getAllReports();
+
     res.render('home', {
         titleEnd: "home",
-        helpers: {
-            foo: () => { return 'foo.'; },
-            bar: () => { return 'bar.'; }
-        },
+        axeSummary : dataFromDB.axeSummary,
+        lighthouseSummary: dataFromDB.lighthouseSummary,
         data: function(){
-            return JSON.stringify(getAllReports())
+            return JSON.stringify(dataFromDB.summaryByUrl)
         }
     });
 });
