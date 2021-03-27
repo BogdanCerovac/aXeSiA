@@ -3,7 +3,7 @@ const handlebars = require('express-handlebars');
 const app = express();
 const path = require('path');
 
-const {aXeReports} = require('./provideReports');
+const {getAllReports} = require('./provideReports');
 
 
 const PORT = process.env.PORT || 80;
@@ -35,7 +35,7 @@ app.get('/', (req, res, next) => {
             bar: () => { return 'bar.'; }
         },
         data: function(){
-            return JSON.stringify(aXeReports())
+            return JSON.stringify(getAllReports())
         }
     });
 });
