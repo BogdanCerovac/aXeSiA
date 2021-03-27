@@ -18,7 +18,7 @@ Due to limited time of the hackaton we will focus on the aXeSiA framework basis 
 
 Team number can vary but in the first part we will focus on the command line interface. User Interface & Experience design and development, statistic data analysis / machine learning / database / additional plugins / DevOps / project management can also be started in parallel so it is a matter of discussion.
 
-Git: https://github.com/BogdanCerovac/aXeSiA (for now)
+Git repository: https://github.com/BogdanCerovac/aXeSiA
 
 License: Mozilla Public License 2.0
 
