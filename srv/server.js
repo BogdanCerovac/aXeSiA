@@ -32,11 +32,9 @@ app.get('/', (req, res, next) => {
 
     res.render('home', {
         titleEnd: "home",
-        axeSummary : dataFromDB.axeSummary,
-        lighthouseSummary: dataFromDB.lighthouseSummary,
-        data: function(){
-            return JSON.stringify(dataFromDB.summaryByUrl)
-        }
+        axeSummary : JSON.stringify(dataFromDB.axeSummary),
+        lighthouseSummary: JSON.stringify(dataFromDB.lighthouseSummary),
+        data: JSON.stringify(dataFromDB.summaryByUrl)
     });
 });
 
