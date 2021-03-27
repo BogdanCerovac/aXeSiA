@@ -3,7 +3,7 @@ const handlebars = require('express-handlebars');
 const app = express();
 const path = require('path');
 
-const {aXeReports} = require('./provideReports');
+const {getAllReports} = require('./provideReports');
 
 
 const PORT = process.env.PORT || 80;
@@ -28,15 +28,13 @@ app.get('/', (req, res, next) => {
 
     console.log(new Date().toISOString() + ' Request URL:', req.originalUrl);
 
+    const dataFromDB = getAllReports();
+
     res.render('home', {
         titleEnd: "home",
-        helpers: {
-            foo: () => { return 'foo.'; },
-            bar: () => { return 'bar.'; }
-        },
-        data: function(){
-            return JSON.stringify(aXeReports())
-        }
+        axeSummary : JSON.stringify(dataFromDB.axeSummary),
+        lighthouseSummary: JSON.stringify(dataFromDB.lighthouseSummary),
+        data: JSON.stringify(dataFromDB.summaryByUrl)
     });
 });
 
