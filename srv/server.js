@@ -1,7 +1,9 @@
-var express = require('express');
+const express = require('express');
 const handlebars = require('express-handlebars');
-var app = express();
-var path = require('path');
+const app = express();
+const path = require('path');
+
+
 
 const PORT = process.env.PORT || 80;
 
@@ -21,15 +23,15 @@ app.set('views', path.join(__dirname,'/handlebars'));
 
 
 
-app.get('/', function (req, res, next) {
+app.get('/', (req, res, next) => {
 
     console.log(new Date().toISOString() + ' Request URL:', req.originalUrl);
 
     res.render('home', {
         titleEnd: "home",
         helpers: {
-            foo: function () { return 'foo.'; },
-            bar: function () { return 'bar.'; }
+            foo: () => { return 'foo.'; },
+            bar: () => { return 'bar.'; }
         },
         data: function(){
             return JSON.stringify([
