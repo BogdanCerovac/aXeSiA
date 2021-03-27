@@ -29,8 +29,8 @@ License: Mozilla Public License 2.0
 - loop through the list and process different tasks:
     - per page - ~~save screenshots of a page with different resolutions and landscapes~~ - for visual regression testing and for accessibility,
     - per page - ~~generate and save aXe core accessibility report~~,
-    - per page - generate and save Lighthouse report (accessibility and also others, like performance),
-    - per page - generate and save Siteimprove alfa report
+    - per page - ~~generate and save Lighthouse report (accessibility and also others, like performance)~~,
+    - per page - ~~generate and save Siteimprove alfa report~~
 - simple UI with overview of:
     - overall accessibility for whole page,
     - possibility to monitor changes in time
