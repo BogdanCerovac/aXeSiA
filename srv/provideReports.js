@@ -65,9 +65,21 @@ function generateSummaries(summaryByUrl){
             });
 
            
+            if(!axeStats.allViolations){
+                axeStats.allViolations = 0;
+            }
             axeStats.allViolations += axe.violations;
+
+            if(!axeStats.allPasses){
+                axeStats.allPasses = 0;
+            }
             axeStats.allPasses += axe.passes;
+
+            if(!axeStats.allIncompletes){
+                axeStats.allIncompletes = 0;
+            }
             axeStats.allIncompletes += axe.incomplete;
+
 
         }
 
