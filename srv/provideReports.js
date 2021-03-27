@@ -21,41 +21,10 @@ function generateSummaries(summaryByUrl){
     let distinctUrlsCount = 0;
     let latestFlattened = [];
     let latestViolations = new Set();
-    let overallAxeImpact = [];
+    let overallAxeImpacts = [];
 
-    let axeStats = {
-        mostViolations : [],
-        mostPasses : [],
-        mostTime: [],
-        leastViolations : [],
-        leastPasses : [],
-        leastTime : [],
-        allViolations: 0,
-        allPasses: 0,
-        allIncompletes: 0,
-        avgViolations: 0,
-        avgPasses: 0,
-        avgIncompletes : 0,
-        avgTime : 0
-    }
-
-    let lighthouseStats = {
-        bestA11y: [],
-        bestSEO : [],
-        bestPerf : [],
-        bestBestPrac: [],
-        bestTime : [],
-        worstA11y: [],
-        worstSEO : [],
-        worstPerf : [],
-        worstBestPrac: [],
-        worstTime : [],
-        avgA11y : 0,
-        avgSEO : 0,
-        avgPerf: 0,
-        avgBestPrac: 0,
-        avgTime : 0,
-    }
+    let axeStats = {};
+    let lighthouseStats = {};
 
     for(const url in summaryByUrl){
         
@@ -87,11 +56,13 @@ function generateSummaries(summaryByUrl){
                 lhA11y: lh.A11y
             });
 
-            if(axe.violationsImpacts.length > 0){
-                overallAxeImpact = [... axe.violationsImpacts];
-            }
-            
-            axe.violationsTags.map( tag => latestViolations.add(tag));
+            axe.violationsImpacts.map( impact => {
+                overallAxeImpacts.push(impact)
+            });
+
+            axe.violationsTags.map( tag => {
+                latestViolations.add(tag)
+            });
 
            
             axeStats.allViolations += axe.violations;
@@ -107,7 +78,7 @@ function generateSummaries(summaryByUrl){
 
     const numberOfItemsForStats = 3;
 
-    
+    // axe
     axeStats.mostViolations = sortByProp(latestFlattened, "aXeViolations", true).slice(0, numberOfItemsForStats);
     axeStats.leastViolations = sortByProp(latestFlattened, "aXeViolations", false).slice(0, numberOfItemsForStats);
 
@@ -122,7 +93,10 @@ function generateSummaries(summaryByUrl){
     axeStats.avgIncompletes = getAverageOfProp(latestFlattened, "aXeIncomplete");
     axeStats.avgTime = getAverageOfProp(latestFlattened, "aXeTime");
 
-    
+    axeStats.latestViolations = [... latestViolations];
+    axeStats.overallAxeImpacts = overallAxeImpacts;
+
+    // lighthouse
     lighthouseStats.bestA11y = sortByProp(latestFlattened, "lhA11y", true).slice(0, numberOfItemsForStats);
     lighthouseStats.worstA11y = sortByProp(latestFlattened, "lhA11y", false).slice(0, numberOfItemsForStats);
 
@@ -138,16 +112,11 @@ function generateSummaries(summaryByUrl){
     lighthouseStats.bestTime = sortByProp(latestFlattened, "lhTime", true).slice(0, numberOfItemsForStats);
     lighthouseStats.worstTime = sortByProp(latestFlattened, "lhTime", false).slice(0, numberOfItemsForStats);   
     
-    
-    
-    
     lighthouseStats.avgA11y = getAverageOfProp(latestFlattened, "lhA11y");
     lighthouseStats.avgSEO = getAverageOfProp(latestFlattened, "lhSEO");
     lighthouseStats.avgPerf = getAverageOfProp(latestFlattened, "lhPerf");
     lighthouseStats.avgBestPrac = getAverageOfProp(latestFlattened, "lhBestPrac");
     lighthouseStats.avgTime = getAverageOfProp(latestFlattened, "lhTime");
-
-    console.log(lighthouseStats.avgA11y)
 
     return {
         axeSummary: axeStats,
