@@ -6,7 +6,6 @@ function getAverageOfProp(arr, prop){
     return average;
 }
 
-
 function sortByProp(arr, prop, desc = true){
     if(desc){
         return arr.sort((a, b) => (a[prop] < b[prop]) ? 1 : -1);
@@ -14,7 +13,6 @@ function sortByProp(arr, prop, desc = true){
         return arr.sort((a, b) => (a[prop] > b[prop]) ? 1 : -1);
     }
 }
-
 
 function generateSummaries(summaryByUrl){
 
@@ -35,7 +33,6 @@ function generateSummaries(summaryByUrl){
             distinctUrlsCount++;
 
             const latest = auditsPerURL[(auditsPerURL_len - 1)];
-            //console.log(latest)
 
             const axe = latest.axe;
             const lh = latest.lh;
@@ -79,16 +76,11 @@ function generateSummaries(summaryByUrl){
                 axeStats.allIncompletes = 0;
             }
             axeStats.allIncompletes += axe.incomplete;
-
-
         }
-
     }
 
-    //console.log("latestFlattened")
-    //console.log(latestFlattened)
-
-    const numberOfItemsForStats = 3;
+    // how much items shall we show for most/least best/worst
+    const numberOfItemsForStats = 5; 
 
     // axe
     axeStats.mostViolations = sortByProp(latestFlattened, "aXeViolations", true).slice(0, numberOfItemsForStats);
