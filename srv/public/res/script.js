@@ -144,7 +144,7 @@ function generateDetails(type, data){
         })
          
         out += `
-        <details class="details-main-trigger" id="${cleanUrl(url)}">
+        <details class="details-main-trigger" id="${type}---${cleanUrl(url)}">
             <summary>${url}</summary>
             <div class="details-main">${details}</div>
         </details>
