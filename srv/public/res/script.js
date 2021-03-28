@@ -27,7 +27,7 @@ function cleanUrl(url){
 
 
 // can be used for all accessibility reports, as long as they respect same data structure and naming
-function renderDetailsForA11y(details){
+function renderDetailsForA11y(details, type){
     let violationsHTML = `<p>Violations: ${details.violations}</p>`;
     if(details.violationsImpacts.length > 0){
         violationsHTML += `<p>Violation impacts:</p><ul>`;
@@ -46,7 +46,7 @@ function renderDetailsForA11y(details){
     const total = [details.passes, details.incomplete, details.inapplicable, details.violations].map( num => !isNaN(num) && num >= 0 ? num : 0  ).reduce(function(a, b) { return a + b; }, 0);
 
     return `
-    <div class="details axe-details">
+    <div class="details ${type}-details">
         <p>Time: ${details.time} ms</p>
         <p>Passes: ${details.passes}</p>
         ${violationsHTML}
@@ -63,11 +63,11 @@ function renderDetails(details, type){
     // TODO
     switch (type) {
         case 'axe': 
-            return renderDetailsForA11y(details);
+            return renderDetailsForA11y(details, type);
         case 'lh':
 
         case 'si':
-            return renderDetailsForA11y(details);
+            return renderDetailsForA11y(details, type);
         default:
           console.warn(`Sorry, ${type} not supported yet.`);
           return `<p style="color:red">Sorry, ${type} not supported yet.</p>`;
