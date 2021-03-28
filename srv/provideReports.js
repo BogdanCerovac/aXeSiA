@@ -194,8 +194,6 @@ function generateSummaries(summaryByUrl){
     siteimproveStats.latestSiViolations = [... latestSiViolations];
     siteimproveStats.overallSiImpacts = overallSiImpacts;
 
-    console.log(siteimproveStats)
-
     return {
         axeSummary: axeStats,
         lighthouseSummary: lighthouseStats,
