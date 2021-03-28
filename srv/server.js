@@ -32,6 +32,7 @@ app.get('/', (req, res, next) => {
 
     res.render('home', {
         titleEnd: "home",
+        distinctUrls: dataFromDB.distinctUrls,
         axeSummary : dataFromDB.axeSummary,
         lighthouseSummary: dataFromDB.lighthouseSummary,
         siteimproveSummary: dataFromDB.siteimproveSummary,

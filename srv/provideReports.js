@@ -210,6 +210,7 @@ function generateSummaries(summaryByUrl){
     siteimproveStats.overallSiImpacts = overallSiImpacts;
 
     return {
+        distinctUrls: distinctUrlsCount,
         axeSummary: axeStats,
         lighthouseSummary: lighthouseStats,
         siteimproveSummary: siteimproveStats
@@ -247,7 +248,7 @@ exports.getAllReports = function(){
     const summaries = generateSummaries(summaryByUrl);
 
     return {
-        distinctUrls: summaryByUrl.length,
+        distinctUrls: summaries.distinctUrls,
         axeSummary : summaries.axeSummary,
         lighthouseSummary : summaries.lighthouseSummary,
         siteimproveSummary : summaries.siteimproveSummary,
