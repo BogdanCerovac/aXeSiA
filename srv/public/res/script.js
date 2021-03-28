@@ -26,75 +26,51 @@ function cleanUrl(url){
 }
 
 
+// can be used for all accessibility reports, as long as they respect same data structure and naming
+function renderDetailsForA11y(details){
+    let violationsHTML = `<p>Violations: ${details.violations}</p>`;
+    if(details.violationsImpacts.length > 0){
+        violationsHTML += `<p>Violation impacts:</p><ul>`;
+        let violationImpacts = '';
+        details.violationsImpacts.map(impact => violationImpacts += `<li>${impact}</li>`);
+        violationsHTML += `${violationImpacts}</ul>`;
+    }
+
+    if(details.violationsTags.length > 0){
+        violationsHTML += `<p>Violation tags:</p><ul>`;
+        let violationTags = '';
+        details.violationsTags.map(tag => violationTags += `<li>${tag}</li>`);
+        violationsHTML += `${violationTags}</ul>`;
+    }
+
+    const total = [details.passes, details.incomplete, details.inapplicable, details.violations].map( num => !isNaN(num) && num >= 0 ? num : 0  ).reduce(function(a, b) { return a + b; }, 0);
+
+    return `
+    <div class="details axe-details">
+        <p>Time: ${details.time} ms</p>
+        <p>Passes: ${details.passes}</p>
+        ${violationsHTML}
+        <p>Incomplete: ${details.incomplete}</p>
+        <p>Inapplicable: ${details.inapplicable}</p>
+        <p>Total: ${total}</p>
+    </div>
+  `;
+}
+
 //render details based on type
 function renderDetails(details, type){
  
     // TODO
     switch (type) {
-        case 'axe': {
-            let violationsHTML = `<p>Violations: ${details.violations}</p>`;
-            if(details.violationsImpacts.length > 0){
-                violationsHTML += `<p>Violation impacts:</p><ul>`;
-                let violationImpacts = '';
-                details.violationsImpacts.map(impact => violationImpacts += `<li>${impact}</li>`);
-                violationsHTML += `${violationImpacts}</ul>`;
-            }
-
-            if(details.violationsTags.length > 0){
-                violationsHTML += `<p>Violation tags:</p><ul>`;
-                let violationTags = '';
-                details.violationsTags.map(tag => violationTags += `<li>${tag}</li>`);
-                violationsHTML += `${violationTags}</ul>`;
-            }
-
-            const total = [details.passes, details.incomplete, details.inapplicable, details.violations].map( num => !isNaN(num) && num >= 0 ? num : 0  ).reduce(function(a, b) { return a + b; }, 0);
-
-            return `
-            <div class="details axe-details">
-                <p>Time: ${details.time} ms</p>
-                <p>Passes: ${details.passes}</p>
-                ${violationsHTML}
-                <p>Incomplete: ${details.incomplete}</p>
-                <p>Inapplicable: ${details.inapplicable}</p>
-                <p>Total: ${total}</p>
-            </div>
-          `;
-        } break;
-           
-            
+        case 'axe': 
+            return renderDetailsForA11y(details);
         case 'lh':
-        case 'si':{
-            let violationsHTML = `<p>Violations: ${details.violations}</p>`;
-            if(details.violationsImpacts.length > 0){
-                violationsHTML += `<p>Violation impacts:</p><ul>`;
-                let violationImpacts = '';
-                details.violationsImpacts.map(impact => violationImpacts += `<li>${impact}</li>`);
-                violationsHTML += `${violationImpacts}</ul>`;
-            }
 
-            if(details.violationsTags.length > 0){
-                violationsHTML += `<p>Violation tags:</p><ul>`;
-                let violationTags = '';
-                details.violationsTags.map(tag => violationTags += `<li>${tag}</li>`);
-                violationsHTML += `${violationTags}</ul>`;
-            }
-
-            const total = [details.passes, details.incomplete, details.inapplicable, details.violations].map( num => !isNaN(num) && num >= 0 ? num : 0  ).reduce(function(a, b) { return a + b; }, 0);
-
-
-            return `
-            <div class="details axe-details">
-                <p>Time: ${details.time} ms</p>
-                <p>Passes: ${details.passes}</p>
-                ${violationsHTML}
-                <p>Incomplete: ${details.incomplete}</p>
-                <p>Inapplicable: ${details.inapplicable}</p>
-                <p>Total: ${total}</p>
-            </div>
-          `;
-        } break;
+        case 'si':
+            return renderDetailsForA11y(details);
         default:
-          console.log(`Sorry, ${type} not supported yet.`);
+          console.warn(`Sorry, ${type} not supported yet.`);
+          return `<p style="color:red">Sorry, ${type} not supported yet.</p>`;
       }
 }
 
@@ -138,6 +114,5 @@ function generateDetails(type, data){
 
 document.querySelectorAll('.js_generate_details').forEach( details => {
     const type = details.id.split("_")[1];
-    console.log(type);
     details.innerHTML = generateDetails(type, dataCleaned);
 })
