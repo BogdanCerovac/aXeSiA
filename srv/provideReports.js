@@ -18,11 +18,14 @@ function generateSummaries(summaryByUrl){
 
     let distinctUrlsCount = 0;
     let latestFlattened = [];
-    let latestViolations = new Set();
+    let latestAxeViolations = new Set();
     let overallAxeImpacts = [];
+    let latestSiViolations = new Set();
+    let overallSiImpacts = [];
 
     let axeStats = {};
     let lighthouseStats = {};
+    let siteimproveStats = {};
 
     for(const url in summaryByUrl){
         
@@ -36,13 +39,15 @@ function generateSummaries(summaryByUrl){
 
             const axe = latest.axe;
             const lh = latest.lh;
+            const si = latest.si;
+
             latestFlattened.push({
                 id: latest.id,
                 ts: latest.ts,
                 url: url,
                 aXeTime: axe.time,
                 aXeViolations: axe.violations,
-                aXeViolationImpacts: axe.violationsImpacts,
+                aXeViolationsImpacts: axe.violationsImpacts,
                 aXeViolationsTags: axe.violationsTags,
                 aXePasses: axe.passes,
                 aXeIncomplete: axe.incomplete,
@@ -50,15 +55,23 @@ function generateSummaries(summaryByUrl){
                 lhPerf : lh.Performance,
                 lhBestPrac: lh.BestPractices,
                 lhSEO: lh.SEO,
-                lhA11y: lh.A11y
+                lhA11y: lh.A11y,
+                siTime: si.time,
+                siViolations : si.violations === "NA" || isNaN(si.violations) ? 0 : si.violations,
+                siViolationsImpacts: si.violationsImpacts,
+                siViolationsTags: si.violationsTags,
+                siPasses : si.passes === "NA" || isNaN(si.passes) ? 0 : si.passes,
+                siIncomplete : si.incomplete === "NA" || isNaN(si.incomplete) ? 0 : si.incomplete,
             });
+
+            // axe
 
             axe.violationsImpacts.map( impact => {
                 overallAxeImpacts.push(impact)
             });
 
             axe.violationsTags.map( tag => {
-                latestViolations.add(tag)
+                latestAxeViolations.add(tag)
             });
 
            
@@ -76,6 +89,46 @@ function generateSummaries(summaryByUrl){
                 axeStats.allIncompletes = 0;
             }
             axeStats.allIncompletes += axe.incomplete;
+
+            // si
+            si.violationsImpacts.map( impact => {
+                overallSiImpacts.push(impact)
+            });
+
+            si.violationsTags.map( tag => {
+                latestSiViolations.add(tag)
+            });
+
+           
+            if(!siteimproveStats.allViolations){
+                siteimproveStats.allViolations = 0;
+            }
+
+            let siViolations_tmp = 0;
+            if(si.violations !== "NA"){
+                siViolations_tmp = si.violations;
+            }
+            siteimproveStats.allViolations += siViolations_tmp;
+
+            if(!siteimproveStats.allPasses){
+                siteimproveStats.allPasses = 0;
+            }
+
+            let siPasses_tmp = 0;
+            if(si.passes !== "NA"){
+                siPasses_tmp = si.passes;
+            }
+            siteimproveStats.allPasses += siPasses_tmp;
+
+            if(!siteimproveStats.allIncompletes){
+                siteimproveStats.allIncompletes = 0;
+            }
+
+            let siIncomplete_tmp = 0;
+            if(si.incomplete !== "NA"){
+                siIncomplete_tmp = si.incomplete;
+            }
+            siteimproveStats.allIncompletes += siIncomplete_tmp;
         }
     }
 
@@ -97,7 +150,7 @@ function generateSummaries(summaryByUrl){
     axeStats.avgIncompletes = getAverageOfProp(latestFlattened, "aXeIncomplete");
     axeStats.avgTime = getAverageOfProp(latestFlattened, "aXeTime");
 
-    axeStats.latestViolations = [... latestViolations];
+    axeStats.latestAxeViolations = [... latestAxeViolations];
     axeStats.overallAxeImpacts = overallAxeImpacts;
 
     // lighthouse
@@ -122,9 +175,31 @@ function generateSummaries(summaryByUrl){
     lighthouseStats.avgBestPrac = getAverageOfProp(latestFlattened, "lhBestPrac");
     lighthouseStats.avgTime = getAverageOfProp(latestFlattened, "lhTime");
 
+    //siteimprove
+
+    siteimproveStats.mostViolations = sortByProp(latestFlattened, "siViolations", true).slice(0, numberOfItemsForStats);
+    siteimproveStats.leastViolations = sortByProp(latestFlattened, "siViolations", false).slice(0, numberOfItemsForStats);
+
+    siteimproveStats.mostPasses = sortByProp(latestFlattened, "siPasses", true).slice(0, numberOfItemsForStats);
+    siteimproveStats.leastPasses = sortByProp(latestFlattened, "siPasses", false).slice(0, numberOfItemsForStats);
+
+    siteimproveStats.mostTime = sortByProp(latestFlattened, "siTime", true).slice(0, numberOfItemsForStats);
+    siteimproveStats.leastTime = sortByProp(latestFlattened, "siTime", false).slice(0, numberOfItemsForStats);
+
+    siteimproveStats.avgViolations = getAverageOfProp(latestFlattened, "siViolations");
+    siteimproveStats.avgPasses = getAverageOfProp(latestFlattened, "siPasses");
+    siteimproveStats.avgIncompletes = getAverageOfProp(latestFlattened, "siIncomplete");
+    siteimproveStats.avgTime = getAverageOfProp(latestFlattened, "siTime");
+
+    siteimproveStats.latestSiViolations = [... latestSiViolations];
+    siteimproveStats.overallSiImpacts = overallSiImpacts;
+
+    console.log(siteimproveStats)
+
     return {
         axeSummary: axeStats,
-        lighthouseSummary: lighthouseStats
+        lighthouseSummary: lighthouseStats,
+        siteimproveSummary: siteimproveStats
     }
 }
 
