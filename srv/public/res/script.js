@@ -64,10 +64,19 @@ function renderDetails(details, type){
     switch (type) {
         case 'axe': 
             return renderDetailsForA11y(details, type);
-        case 'lh':
-
         case 'si':
             return renderDetailsForA11y(details, type);
+        case 'lh':
+            return `
+            <div class="details ${type}-details">
+                <p>Time: ${details.time} ms</p>
+                <p>Accessibility: ${details.A11y}</p>
+                <p>SEO: ${details.SEO}</p>
+                <p>Performance: ${details.Performance}</p>
+                <p>BestPractices: ${details.BestPractices}</p>
+            </div>
+          `;
+       
         default:
           console.warn(`Sorry, ${type} not supported yet.`);
           return `<p style="color:red">Sorry, ${type} not supported yet.</p>`;
