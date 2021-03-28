@@ -31,8 +31,7 @@ function renderDetails(details, type){
  
     // TODO
     switch (type) {
-        case 'axe':
-           
+        case 'axe': {
             let violationsHTML = `<p>Violations: ${details.violations}</p>`;
             if(details.violationsImpacts.length > 0){
                 violationsHTML += `<p>Violation impacts:</p><ul>`;
@@ -48,6 +47,8 @@ function renderDetails(details, type){
                 violationsHTML += `${violationTags}</ul>`;
             }
 
+            const total = [details.passes, details.incomplete, details.inapplicable, details.violations].map( num => !isNaN(num) && num >= 0 ? num : 0  ).reduce(function(a, b) { return a + b; }, 0);
+
             return `
             <div class="details axe-details">
                 <p>Time: ${details.time} ms</p>
@@ -55,13 +56,43 @@ function renderDetails(details, type){
                 ${violationsHTML}
                 <p>Incomplete: ${details.incomplete}</p>
                 <p>Inapplicable: ${details.inapplicable}</p>
-                <p>Total: ${details.total}</p>
+                <p>Total: ${total}</p>
             </div>
           `;
+        } break;
+           
+            
         case 'lh':
-        case 'si':
-          
-          break;
+        case 'si':{
+            let violationsHTML = `<p>Violations: ${details.violations}</p>`;
+            if(details.violationsImpacts.length > 0){
+                violationsHTML += `<p>Violation impacts:</p><ul>`;
+                let violationImpacts = '';
+                details.violationsImpacts.map(impact => violationImpacts += `<li>${impact}</li>`);
+                violationsHTML += `${violationImpacts}</ul>`;
+            }
+
+            if(details.violationsTags.length > 0){
+                violationsHTML += `<p>Violation tags:</p><ul>`;
+                let violationTags = '';
+                details.violationsTags.map(tag => violationTags += `<li>${tag}</li>`);
+                violationsHTML += `${violationTags}</ul>`;
+            }
+
+            const total = [details.passes, details.incomplete, details.inapplicable, details.violations].map( num => !isNaN(num) && num >= 0 ? num : 0  ).reduce(function(a, b) { return a + b; }, 0);
+
+
+            return `
+            <div class="details axe-details">
+                <p>Time: ${details.time} ms</p>
+                <p>Passes: ${details.passes}</p>
+                ${violationsHTML}
+                <p>Incomplete: ${details.incomplete}</p>
+                <p>Inapplicable: ${details.inapplicable}</p>
+                <p>Total: ${total}</p>
+            </div>
+          `;
+        } break;
         default:
           console.log(`Sorry, ${type} not supported yet.`);
       }
