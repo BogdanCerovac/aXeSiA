@@ -247,8 +247,10 @@ exports.getAllReports = function(){
     const summaries = generateSummaries(summaryByUrl);
 
     return {
+        distinctUrls: summaryByUrl.length,
         axeSummary : summaries.axeSummary,
         lighthouseSummary : summaries.lighthouseSummary,
+        siteimproveSummary : summaries.siteimproveSummary,
         summaryByUrl
     };
     

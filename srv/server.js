@@ -32,8 +32,9 @@ app.get('/', (req, res, next) => {
 
     res.render('home', {
         titleEnd: "home",
-        axeSummary : JSON.stringify(dataFromDB.axeSummary),
-        lighthouseSummary: JSON.stringify(dataFromDB.lighthouseSummary),
+        axeSummary : dataFromDB.axeSummary,
+        lighthouseSummary: dataFromDB.lighthouseSummary,
+        siteimproveSummary: dataFromDB.siteimproveSummary,
         data: JSON.stringify(dataFromDB.summaryByUrl)
     });
 });
