@@ -34,8 +34,8 @@ app.get('/', (req, res, next) => {
         titleEnd: "home",
         distinctUrls: dataFromDB.distinctUrls,
         axeSummary : dataFromDB.axeSummary,
-        lighthouseSummary: dataFromDB.lighthouseSummary,
         siteimproveSummary: dataFromDB.siteimproveSummary,
+        lighthouseSummary: dataFromDB.lighthouseSummary,
         data: JSON.stringify(dataFromDB.summaryByUrl)
     });
 });

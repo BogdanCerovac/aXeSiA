@@ -57,8 +57,43 @@ function renderDetailsForA11y(details, type){
   `;
 }
 
-//render details based on type
-function renderDetails(details, type){
+
+function typeToTitleString(type){
+    switch (type) {
+        case 'axe':
+            return 'aXe';
+        case 'si':
+            return 'Siteimprove';
+        case 'lh':
+            return 'Lighthouse';
+        default:
+            console.error(`typeToTitleString ${type} not supported yet`);
+            return  `${type} not supported yet`; 
+    }
+}
+
+//render details for all types together
+function renderDetailsForAllTypes(details){
+
+    const keys = Object.keys(details).filter( item => item !== "id" && item !== "ts");
+
+    let toRender = '';
+    keys.map( key => {
+        if(details.hasOwnProperty(key)){
+            toRender += `<h4>${typeToTitleString(key)}</h4>`;
+            toRender += renderDetailsPerType(details[key], key);
+        }else{
+            console.error(key + " not found in ", details)
+        }
+        return;
+    });
+
+    return toRender;
+
+}
+
+//render details based on one type
+function renderDetailsPerType(details, type){
  
     // TODO
     switch (type) {
@@ -86,8 +121,6 @@ function renderDetails(details, type){
 
 // generate details based on class and id
 function generateDetails(type, data){
-    /*console.log(data)
-    */
     let out = '';
     for(const url in data){
         const meta = data[url];
@@ -95,11 +128,16 @@ function generateDetails(type, data){
         let details = '';
         const metaSorted = meta.sort((a, b) => (new Date(a.ts).getTime() < new Date(b.ts).getTime()) ? 1 : -1)
         metaSorted.map( detail => {
-            const subDetails = renderDetails(detail[type], type);
+            let subDetails = '';
+            if(type === "all"){
+                subDetails = renderDetailsForAllTypes(detail, type);
+            }else{
+                subDetails = renderDetailsPerType(detail[type], type);
+            }
             details += `<details class="details-sub-trigger">
             <summary>${detail.ts}</summary>
                 <div class="details-sub">
-                <pre style="white-space: break-spaces;">${JSON.stringify(detail[type])}</pre>
+                <pre style="white-space: break-spaces;">${JSON.stringify(detail)}</pre>
                 ${subDetails}
                 </div>
             </details>`;
@@ -114,10 +152,6 @@ function generateDetails(type, data){
         
     }
     return out;
-/*
-    const template = `
-        <button type="button" id="${id}">${name}</button>
-    `;*/
 }
 
 

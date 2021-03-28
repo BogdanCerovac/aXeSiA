@@ -57,17 +57,17 @@ function generateSummaries(summaryByUrl){
                 aXeViolationsTags: axe.violationsTags,
                 aXePasses: axe.passes,
                 aXeIncomplete: axe.incomplete,
-                lhTime: lh.time,
-                lhPerf : lh.Performance,
-                lhBestPrac: lh.BestPractices,
-                lhSEO: lh.SEO,
-                lhA11y: lh.A11y,
                 siTime: si.time,
                 siViolations : si.violations,
                 siViolationsImpacts: si.violationsImpacts,
                 siViolationsTags: si.violationsTags,
                 siPasses : si.passes,
                 siIncomplete : si.incomplete,
+                lhTime: lh.time,
+                lhPerf : lh.Performance,
+                lhBestPrac: lh.BestPractices,
+                lhSEO: lh.SEO,
+                lhA11y: lh.A11y,
             });
 
             // axe
@@ -212,8 +212,8 @@ function generateSummaries(summaryByUrl){
     return {
         distinctUrls: distinctUrlsCount,
         axeSummary: axeStats,
-        lighthouseSummary: lighthouseStats,
-        siteimproveSummary: siteimproveStats
+        siteimproveSummary: siteimproveStats,
+        lighthouseSummary: lighthouseStats
     }
 }
 
@@ -237,8 +237,8 @@ exports.getAllReports = function(){
             id: item.id,
             ts: item.ts,
             axe: JSON.parse(item.aXeAudit),
-            lh: JSON.parse(item.lighthouseAudit),
             si: JSON.parse(item.siteimproveAudit),
+            lh: JSON.parse(item.lighthouseAudit),
         };
         group.push(itemTmp);
         groups[item.url] = group;
@@ -250,8 +250,8 @@ exports.getAllReports = function(){
     return {
         distinctUrls: summaries.distinctUrls,
         axeSummary : summaries.axeSummary,
-        lighthouseSummary : summaries.lighthouseSummary,
         siteimproveSummary : summaries.siteimproveSummary,
+        lighthouseSummary : summaries.lighthouseSummary,
         summaryByUrl
     };
     
