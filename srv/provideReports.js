@@ -2,15 +2,21 @@ const Database = require('better-sqlite3');
 const db = new Database('./out/audits.db', /*{ verbose: console.log }*/);
 
 function getAverageOfProp(arr, prop){
-    const average = arr.reduce((total, next) => total + next[prop], 0) / arr.length;
+    //some may have NA as a result, so we must take them away to get the correct average
+    let filtered = arr.filter( item => item[prop] !== "NA");
+    let countAll = filtered.length;
+
+    const average = filtered.reduce((total, next) => total + next[prop], 0) / countAll;
     return average;
 }
 
 function sortByProp(arr, prop, desc = true){
+    //some may have NA as a result, so we must take them away to get the correct average
+    let filtered = arr.filter( item => item[prop] !== "NA");
     if(desc){
-        return arr.sort((a, b) => (a[prop] < b[prop]) ? 1 : -1);
+        return filtered.sort((a, b) => (a[prop] < b[prop]) ? 1 : -1);
     }else{
-        return arr.sort((a, b) => (a[prop] > b[prop]) ? 1 : -1);
+        return filtered.sort((a, b) => (a[prop] > b[prop]) ? 1 : -1);
     }
 }
 
@@ -57,15 +63,14 @@ function generateSummaries(summaryByUrl){
                 lhSEO: lh.SEO,
                 lhA11y: lh.A11y,
                 siTime: si.time,
-                siViolations : si.violations === "NA" || isNaN(si.violations) ? 0 : si.violations,
+                siViolations : si.violations,
                 siViolationsImpacts: si.violationsImpacts,
                 siViolationsTags: si.violationsTags,
-                siPasses : si.passes === "NA" || isNaN(si.passes) ? 0 : si.passes,
-                siIncomplete : si.incomplete === "NA" || isNaN(si.incomplete) ? 0 : si.incomplete,
+                siPasses : si.passes,
+                siIncomplete : si.incomplete,
             });
 
             // axe
-
             axe.violationsImpacts.map( impact => {
                 overallAxeImpacts.push(impact)
             });
@@ -74,7 +79,6 @@ function generateSummaries(summaryByUrl){
                 latestAxeViolations.add(tag)
             });
 
-           
             if(!axeStats.allViolations){
                 axeStats.allViolations = 0;
             }
@@ -99,7 +103,6 @@ function generateSummaries(summaryByUrl){
                 latestSiViolations.add(tag)
             });
 
-           
             if(!siteimproveStats.allViolations){
                 siteimproveStats.allViolations = 0;
             }
@@ -138,9 +141,15 @@ function generateSummaries(summaryByUrl){
     // axe
     axeStats.mostViolations = sortByProp(latestFlattened, "aXeViolations", true).slice(0, numberOfItemsForStats);
     axeStats.leastViolations = sortByProp(latestFlattened, "aXeViolations", false).slice(0, numberOfItemsForStats);
+    axeStats.unclearViolations = latestFlattened.filter( all => all.aXeViolations === "NA");
 
     axeStats.mostPasses = sortByProp(latestFlattened, "aXePasses", true).slice(0, numberOfItemsForStats);
     axeStats.leastPasses = sortByProp(latestFlattened, "aXePasses", false).slice(0, numberOfItemsForStats);
+    axeStats.unclearPasses = latestFlattened.filter( all => all.aXePasses === "NA");
+
+    axeStats.mostIncompletes = sortByProp(latestFlattened, "aXeIncomplete", true).slice(0, numberOfItemsForStats);
+    axeStats.leastIncompletes = sortByProp(latestFlattened, "aXeIncomplete", false).slice(0, numberOfItemsForStats);
+    axeStats.unclearIncompletes = latestFlattened.filter( all => all.aXeIncomplete === "NA");
 
     axeStats.mostTime = sortByProp(latestFlattened, "aXeTime", true).slice(0, numberOfItemsForStats);
     axeStats.leastTime = sortByProp(latestFlattened, "aXeTime", false).slice(0, numberOfItemsForStats);
@@ -179,9 +188,15 @@ function generateSummaries(summaryByUrl){
 
     siteimproveStats.mostViolations = sortByProp(latestFlattened, "siViolations", true).slice(0, numberOfItemsForStats);
     siteimproveStats.leastViolations = sortByProp(latestFlattened, "siViolations", false).slice(0, numberOfItemsForStats);
+    siteimproveStats.unclearViolations = latestFlattened.filter( all => all.siViolations === "NA");
 
     siteimproveStats.mostPasses = sortByProp(latestFlattened, "siPasses", true).slice(0, numberOfItemsForStats);
     siteimproveStats.leastPasses = sortByProp(latestFlattened, "siPasses", false).slice(0, numberOfItemsForStats);
+    siteimproveStats.unclearPasses = latestFlattened.filter( all => all.siPasses === "NA");
+
+    siteimproveStats.mostIncompletes = sortByProp(latestFlattened, "siIncomplete", true).slice(0, numberOfItemsForStats);
+    siteimproveStats.leastIncompletes = sortByProp(latestFlattened, "siIncomplete", false).slice(0, numberOfItemsForStats);
+    siteimproveStats.unclearIncompletes = latestFlattened.filter( all => all.siIncomplete === "NA");
 
     siteimproveStats.mostTime = sortByProp(latestFlattened, "siTime", true).slice(0, numberOfItemsForStats);
     siteimproveStats.leastTime = sortByProp(latestFlattened, "siTime", false).slice(0, numberOfItemsForStats);
@@ -193,6 +208,8 @@ function generateSummaries(summaryByUrl){
 
     siteimproveStats.latestSiViolations = [... latestSiViolations];
     siteimproveStats.overallSiImpacts = overallSiImpacts;
+
+    console.log(siteimproveStats)
 
     return {
         axeSummary: axeStats,
