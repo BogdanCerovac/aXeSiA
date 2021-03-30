@@ -136,7 +136,7 @@ function generateDetails(type, data){
             }
             details += `<details class="details-sub-trigger">
             <summary>${detail.ts}</summary>
-                <div class="details-sub">
+                <div class="details-content details-sub">
                 <pre style="white-space: break-spaces;">${JSON.stringify(detail)}</pre>
                 ${subDetails}
                 </div>
@@ -146,7 +146,7 @@ function generateDetails(type, data){
         out += `
         <details class="details-main-trigger" id="${type}---${cleanUrl(url)}">
             <summary>${url}</summary>
-            <div class="details-main">${details}</div>
+            <div class="details-content">${details}</div>
         </details>
         `;
         

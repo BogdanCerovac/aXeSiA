@@ -24,4 +24,33 @@ a[target="_blank"]::after {
     margin-left: 0.2em;
     width: 1em;
     height: 1em;
+}
+
+
+/* style details */
+details{
+    box-shadow:0 0 5px lightgrey;
+    border-radius:40px;
+    margin:2rem 0;
+    border: 1px solid lightgrey;
+  }
+  
+  details:hover,
+  details:focus{
+    box-shadow:0 0 7px black;
+  }
+  
+  summary{
+    padding:20px;
+    font-size:2rem;
+    border-radius:60px;
+    border-bottom: 1px solid lightgrey;
+    line-height: 1;
+    cursor:pointer;
+  }
+  
+  .details-content{
+    padding: 20px;
+    font-size:1.2rem;
+    line-height:1.5;
   }
