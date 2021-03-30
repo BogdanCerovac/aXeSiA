@@ -1,8 +1,11 @@
 const Database = require('better-sqlite3');
 const db = new Database('./out/audits.db', /*{ verbose: console.log }*/);
 
-function getTld(url){
-    return psl.parse(url).domain;
+function getSumOfProp(arr, prop){
+    //some may have NA as a result, so we must take them away to get the correct average
+    let filtered = arr.filter( item => item[prop] !== "NA");
+    const sum = filtered.reduce((total, next) => total + next[prop], 0)
+    return sum;
 }
 
 function getAverageOfProp(arr, prop){
@@ -36,6 +39,15 @@ function generateSummaries(summaryByUrl){
     let axeStats = {};
     let lighthouseStats = {};
     let siteimproveStats = {};
+
+    let totalStats = {
+        a11y :{
+            passes : 0,
+            failures: 0,
+            incomplete: 0,
+        },
+        SEO: 0
+    };
 
     for(const url in summaryByUrl){
         
@@ -214,11 +226,19 @@ function generateSummaries(summaryByUrl){
     siteimproveStats.latestSiViolations = [... latestSiViolations];
     siteimproveStats.overallSiImpacts = overallSiImpacts;
 
+    totalStats.a11y.passes = (getSumOfProp(latestFlattened, "siPasses") + getSumOfProp(latestFlattened, "aXePasses"));
+    totalStats.a11y.failures = (getSumOfProp(latestFlattened, "siViolations") + getSumOfProp(latestFlattened, "aXeViolations"));
+    totalStats.a11y.incomplete = (getSumOfProp(latestFlattened, "siIncomplete") + getSumOfProp(latestFlattened, "aXeIncomplete"));
+    totalStats.SEO = (getSumOfProp(latestFlattened, "lhSEO")) / distinctUrlsCount;
+
+
+
     return {
-        distinctUrls: distinctUrlsCount,
+        distinctUrlsCount: distinctUrlsCount,
         axeSummary: axeStats,
         siteimproveSummary: siteimproveStats,
-        lighthouseSummary: lighthouseStats
+        lighthouseSummary: lighthouseStats,
+        totalStats: totalStats
     }
 }
 
@@ -269,20 +289,13 @@ exports.getAllReports = function(){
 
         returned.push({
             domain: domain,
-            distinctUrlsCount: 5,
-            distinctUrls : summaries.distinctUrls,
+            distinctUrlsCount: summaries.distinctUrlsCount,
             axeSummary : summaries.axeSummary,
             siteimproveSummary : summaries.siteimproveSummary,
             lighthouseSummary : summaries.lighthouseSummary,
-            summaryByDomain: summaryByDomain,
-            domainSummary : {
-                a11y :{
-                    passes : 150,
-                    failures: 10,
-                    incomplete: 5,
-                },
-                SEO: 90
-            }
+            totalStats : summaries.totalStats,
+            summaryByDomain: summaryByDomain
+            
         })
     }
     

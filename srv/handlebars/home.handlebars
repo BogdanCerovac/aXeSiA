@@ -30,7 +30,8 @@
         <ul>
             {{#each domains}}
             <li>
-                <a href="?details={{this.domain}}"><strong>{{this.domain}}</strong> ({{this.distinctUrlsCount}} urls, {{this.domainSummary.a11y.passes}} passes, {{this.domainSummary.a11y.failures}} failures, {{this.domainSummary.a11y.incompletes}} incompletes, SEO: {{this.domainSummary.SEO}})</a>
+               
+                <a href="?details={{this.domain}}"><strong>{{this.domain}}</strong> ({{this.distinctUrlsCount}} urls, {{this.totalStats.a11y.passes}} passes, {{this.totalStats.a11y.failures}} failures, {{this.totalStats.a11y.incompletes}} incompletes, SEO: {{this.totalStats.SEO}})</a>
             </li>
             {{/each}}
         </ul>
