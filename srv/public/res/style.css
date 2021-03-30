@@ -6,7 +6,7 @@ html{
     font-family: sans-serif;
 }
 
-p{
+p,a{
     line-height: 1.6;
 }
 
@@ -53,4 +53,11 @@ details{
     padding: 20px;
     font-size:1.2rem;
     line-height:1.5;
+  }
+
+  /**/
+
+  main{
+    max-width: 1000px;
+    margin: 0 auto;
   }

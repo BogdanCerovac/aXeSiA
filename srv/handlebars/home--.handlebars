@@ -1,0 +1,173 @@
+<div class="home">
+
+    <article aria-labelledby="overallSummary">
+        <h2 id="overallSummary">Overall Summary</h2>
+
+        <p>distinctUrls: {{distinctUrls}}</p>
+
+        <h3>Accessibility</h3>
+
+        <p>Todo: join axe and si and show them together, for all of the site</p>
+
+        <h3>SEO</h3>
+
+        <p>Todo: join lh and show them together, for all of the site</p>
+
+        <h3>Performance</h3>
+
+        <p>Todo: join lh and show them together, for all of the site</p>
+
+        <h3>Best practices</h3>
+
+        <p>Todo: join lh and show them together, for all of the site</p>
+
+        <h3>Overview all URLs</h3>
+
+        <div id="js_all" class="js_generate_details"></div>
+
+
+    </article>
+
+
+    <article aria-labelledby="axeSummary">
+
+        <h2 id="axeSummary">axeSummary of latest audit</h2>
+
+        <h3>axe stats</h3>
+
+        <h4>all & avg</h4>
+        <ul>
+            <li>allViolations {{axeSummary.allViolations}}</li>
+            <li>allPasses {{axeSummary.allPasses}}</li>
+            <li>allIncompletes {{axeSummary.allIncompletes}}</li>
+        </ul>
+
+        <ul>
+            <li>avgViolations {{axeSummary.avgViolations}}</li>
+            <li>avgPasses {{axeSummary.avgPasses}}</li>
+            <li>avgIncompletes {{axeSummary.avgIncompletes}}</li>
+        </ul>
+
+        <p>avgTime {{axeSummary.avgTime}}</p>
+
+        <h4>tags & severity</h4>
+        <p>latestAxeViolations:</p>
+        <ul>
+             {{#each axeSummary.latestAxeViolations}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+
+        <p>overallAxeImpacts:</p>
+        <ul>
+             {{#each axeSummary.overallAxeImpacts}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+
+        <h4>mostViolations</h4>
+        <ol class="url-list">
+            {{#each axeSummary.mostViolations}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeViolations}} violations)</li>
+            {{/each}}
+        </ol>
+
+        <h4>unclearViolations</h4>
+        <ol class="url-list">
+            {{#each axeSummary.unclearViolations}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeViolations}} violations)</li>
+            {{/each}}
+        </ol>
+
+        <h4>leastViolations</h4>
+        <ol class="url-list">
+            {{#each axeSummary.leastViolations}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeViolations}} violations)</li>
+            {{/each}}
+        </ol>
+
+        <h4>mostPasses</h4>
+        <ol class="url-list">
+            {{#each axeSummary.mostPasses}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXePasses}} passes)</li>
+            {{/each}}
+        </ol>
+
+        <h4>leastPasses</h4>
+        <ol class="url-list">
+            {{#each axeSummary.leastPasses}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXePasses}} passes)</li>
+            {{/each}}
+        </ol>
+
+        <h4>unclearPasses</h4>
+        <ol class="url-list">
+            {{#each axeSummary.unclearPasses}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXePasses}} passes)</li>
+            {{/each}}
+        </ol>
+
+        <h4>mostIncompletes</h4>
+        <ol class="url-list">
+            {{#each axeSummary.mostIncompletes}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeIncomplete}} incomplete)</li>
+            {{/each}}
+        </ol>
+
+        <h4>leastIncompletes</h4>
+        <ol class="url-list">
+            {{#each axeSummary.leastIncompletes}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeIncomplete}} incomplete)</li>
+            {{/each}}
+        </ol>
+
+        <h4>unclearIncompletes</h4>
+        <ol class="url-list">
+            {{#each axeSummary.unclearIncompletes}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeIncomplete}} incomplete)</li>
+            {{/each}}
+        </ol>
+
+        <h4>mostTime</h4>
+        <ol class="url-list">
+            {{#each axeSummary.mostTime}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeTime}} ms)</li>
+            {{/each}}
+        </ol>
+
+        <h4>leastTime</h4>
+        <ol class="url-list">
+            {{#each axeSummary.leastTime}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeTime}} ms)</li>
+            {{/each}}
+        </ol>
+
+
+        <h3>axe details</h3>
+
+        <div id="js_axe" class="js_generate_details"></div>
+
+    </article>
+
+    <article aria-labelledby="siteimproveSummary">
+        <h2 id="siteimproveSummary">siteimproveSummary</h2>
+
+        <h3>siteimprove details</h3>
+        <div id="js_si" class="js_generate_details"></div>
+
+    </article>
+
+    <article aria-labelledby="lighthouseSummary">
+        <h2 id="lighthouseSummary">lighthouseSummary</h2>
+
+        <h3>lighthouse details</h3>
+        <div id="js_lh" class="js_generate_details"></div>
+
+    </article>
+
+</div>
+<script>
+const dataStr = '{{data}}';
+const dataCleaned = JSON.parse(dataStr.replaceAll("&quot;", '"'));
+console.log(dataCleaned);
+</script>

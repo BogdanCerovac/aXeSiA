@@ -1,6 +1,10 @@
 const Database = require('better-sqlite3');
 const db = new Database('./out/audits.db', /*{ verbose: console.log }*/);
 
+function getTld(url){
+    return psl.parse(url).domain;
+}
+
 function getAverageOfProp(arr, prop){
     //some may have NA as a result, so we must take them away to get the correct average
     let filtered = arr.filter( item => item[prop] !== "NA");
@@ -37,6 +41,7 @@ function generateSummaries(summaryByUrl){
         
         const auditsPerURL = summaryByUrl[url];
         const auditsPerURL_len = auditsPerURL.length;
+       
 
         if(auditsPerURL_len > 0){
             distinctUrlsCount++;
@@ -223,16 +228,16 @@ exports.getAllReports = function(){
     try {
         const selectAll = db.prepare(
             `SELECT 
-                id, ts, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
+                id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
             FROM audits`,
         );
         selectedAll = selectAll.all();
     } catch (error) {
         console.error("Failed to run getAllReports: ", error);
     }
-    
-    const summaryByUrl = selectedAll.reduce((groups, item) => {
-        const group = (groups[item.url] || []);
+
+    const summaryByDomain = selectedAll.reduce((groups, item) => {
+        const group = (groups[item.domain] || {});
         const itemTmp = {
             id: item.id,
             ts: item.ts,
@@ -240,19 +245,47 @@ exports.getAllReports = function(){
             si: JSON.parse(item.siteimproveAudit),
             lh: JSON.parse(item.lighthouseAudit),
         };
-        group.push(itemTmp);
-        groups[item.url] = group;
+        
+        if(!group[item.url]){
+            group[item.url] = [];
+        }
+        group[item.url].push(itemTmp);
+
+        groups[item.domain] = group;
         return groups;
       }, {});
+     
+    //console.log("summaryByDomain"); 
+    //console.log(summaryByDomain);
 
-    const summaries = generateSummaries(summaryByUrl);
+    let returned = [];
 
-    return {
-        distinctUrls: summaries.distinctUrls,
-        axeSummary : summaries.axeSummary,
-        siteimproveSummary : summaries.siteimproveSummary,
-        lighthouseSummary : summaries.lighthouseSummary,
-        summaryByUrl
-    };
+    for(const domain in summaryByDomain){
+        console.log("Getting summaries for " + domain)
+        //console.log(summaryByDomain[domain]);
+        const summaries = generateSummaries(summaryByDomain[domain]);
+        console.log("summaries")
+        console.log(summaries)
+
+        returned.push({
+            domain: domain,
+            distinctUrlsCount: 5,
+            distinctUrls : summaries.distinctUrls,
+            axeSummary : summaries.axeSummary,
+            siteimproveSummary : summaries.siteimproveSummary,
+            lighthouseSummary : summaries.lighthouseSummary,
+            summaryByDomain: summaryByDomain,
+            domainSummary : {
+                a11y :{
+                    passes : 150,
+                    failures: 10,
+                    incomplete: 5,
+                },
+                SEO: 90
+            }
+        })
+    }
+    
+    return returned;
     
 }

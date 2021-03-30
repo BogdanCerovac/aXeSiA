@@ -58,6 +58,13 @@ const mainCFG = {
   pathForScreenshots : './out/screens/test/'
 };
 
+/*
+const mainCFG = {
+  mainURL: 'https://cerovac.com/a11y/sitemap.xml',
+  cookieConsent: false,
+  pathForScreenshots : './out/screens/test/'
+};
+*/
 const devicesForScreenshots = [
   iPhone4,
   iPhone4_land,
@@ -88,8 +95,9 @@ const started = new Date();
       url: mainCFG.mainURL,
       timeout: 15000, //miliseconds
     });
-  
+
     try {
+      const domain = mainCFG.mainURL.split('https://')[1].split('/sitemap.xml')[0];
       const { sites } = await SitemapURLs.fetch();
       let sitesUnique = [...new Set(sites)];
       const sitesNum = sitesUnique.length;
@@ -123,7 +131,7 @@ const started = new Date();
         const aXeAudit = await getAXEreportForURL(browserObj, url);
         const lighthouseAudit = await getLighthouseReportForURL(browserObj, url);
         const siteimproveAudit = await getSiteimproveAlphaReportForURL(browserObj, url);
-        const dbRes = db.insert(url, JSON.stringify({aXeAudit , lighthouseAudit, siteimproveAudit}));
+        const dbRes = db.insert(domain, url, JSON.stringify({aXeAudit , lighthouseAudit, siteimproveAudit}));
         //console.log(dbRes);
         counter++;
       }
