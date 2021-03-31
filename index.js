@@ -47,9 +47,16 @@ const {getAXEreportForURL} = require('./tasks/urlTaskGetAxeAudit');
 const {getLighthouseReportForURL} = require('./tasks/urlTaskGetLighthouse');
 const {getSiteimproveAlphaReportForURL} = require('./tasks/urlTaskGetSiteimproveAudit');
 
-/******* CONFIG *********/
+/******************* CONFIG *********************/
 
-const mainCFG = {
+let mainCFG = {
+  mainURL: 'https://cerovac.com/a11y/sitemap.xml',
+  cookieConsent: false,
+  pathForScreenshots : './out/screens/test/'
+};
+
+/*
+mainCFG = {
   mainURL: 'https://www.itumx.no/sitemap.xml',
   cookieConsent: {
     selector: '#onetrust-accept-btn-handler',
@@ -57,14 +64,33 @@ const mainCFG = {
   },
   pathForScreenshots : './out/screens/test/'
 };
-
-/*
-const mainCFG = {
-  mainURL: 'https://cerovac.com/a11y/sitemap.xml',
-  cookieConsent: false,
-  pathForScreenshots : './out/screens/test/'
-};
 */
+
+/***********************************************/
+
+if(process.argv && process.argv.slice(2)){
+  const cliArguments = process.argv.slice(2);
+  console.log('Received arguments from command line: ', cliArguments);
+
+  cliArguments.forEach( (arg) => {
+      const splitted = arg.split("=");
+      if(splitted[0] === "mainURL"){
+        mainCFG.mainURL = splitted[1];
+      }
+      if(splitted[0] === "cookieConsent"){
+        mainCFG.cookieConsent = splitted[1];
+      }
+      if(splitted[0] === "pathForScreenshots"){
+        mainCFG.pathForScreenshots = splitted[1];
+      }
+
+  })
+
+  console.log('mainCFG set via command line to: ', mainCFG);
+}
+
+/***********************************************/
+
 const devicesForScreenshots = [
   iPhone4,
   iPhone4_land,
