@@ -10,6 +10,7 @@ p,a{
     line-height: 1.6;
 }
 
+.sr-only,
 .screen-reader-only {
     position: absolute;
     width: 1px;
@@ -48,6 +49,12 @@ details{
     line-height: 1;
     cursor:pointer;
   }
+
+  summary span{
+    display: inline-block;
+    max-width: calc(100% - 50px);
+    vertical-align: middle;
+  }
   
   .details-content{
     padding: 20px;
@@ -61,3 +68,5 @@ details{
     max-width: 1000px;
     margin: 0 auto;
   }
+
+  /**/

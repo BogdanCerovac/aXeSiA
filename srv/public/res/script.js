@@ -135,9 +135,10 @@ function generateDetails(type, data){
                 subDetails = renderDetailsPerType(detail[type], type);
             }
             details += `<details class="details-sub-trigger">
-            <summary>${detail.ts}</summary>
+            <summary><span>${detail.ts}</span></summary>
                 <div class="details-content details-sub">
                 <pre style="white-space: break-spaces;">${JSON.stringify(detail)}</pre>
+                <a href="${url}" target="_blank">${url}</a>
                 ${subDetails}
                 </div>
             </details>`;
@@ -145,7 +146,7 @@ function generateDetails(type, data){
          
         out += `
         <details class="details-main-trigger" id="${type}---${cleanUrl(url)}">
-            <summary>${url}</summary>
+            <summary><span>${url}</span></summary>
             <div class="details-content">${details}</div>
         </details>
         `;

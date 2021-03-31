@@ -14,12 +14,33 @@
     font-size: 1.5rem;
     display: block;
     margin: 0.5rem -1rem;
-
+    outline: none;
+    color:blue;
 }
 
 .domain-nav a:focus, 
 .domain-nav a:hover{
-        box-shadow: 0 0 2px black;
+    box-shadow: 1px 1px 16px 0px black;
+    border-radius: 4px;
+    color:black;
+}
+
+.domain-nav article{
+    border-top: 2px solid black;
+    margin:2rem 0;
+    font-size:1.1rem;
+    line-height: 1.6;
+}
+
+.domain-nav article h3{
+    font-size:1.8rem;
+    margin:0.5rem 0;
+}
+
+
+.domain-nav article h4{
+    font-size:1.6rem;
+    margin:0.25rem 0;
 }
 
 </style>
@@ -30,8 +51,17 @@
         <ul>
             {{#each domains}}
             <li>
-               
-                <a href="?details={{this.domain}}"><strong>{{this.domain}}</strong> ({{this.distinctUrlsCount}} urls, {{this.totalStats.a11y.passes}} passes, {{this.totalStats.a11y.failures}} failures, {{this.totalStats.a11y.incompletes}} incompletes, SEO: {{this.totalStats.SEO}})</a>
+                <article>
+                    <h3><a href="?details={{this.domain}}" aria-describedby="{{this.uid}}">{{this.domain}} - {{this.distinctUrlsCount}} unique urls</a></h3>
+                    <div id="{{this.uid}}">
+                        <h4>Overall scores:</h4>
+                        <p>
+                            <span aria-hidden="true">A11y</span><span class="sr-only">Accessibility</span>: {{this.totalStats.a11y.passes}} passes, {{this.totalStats.a11y.failures}} failures, {{this.totalStats.a11y.incompletes}} incompletes<br>
+                            {{this.totalStats.a11y.passesVsFailures}} pass vs. fail<br />
+                            <span aria-hidden="true">SEO</span><span class="sr-only">Search engine optimization</span>: {{this.totalStats.SEO}}, performance: {{this.totalStats.Performance}}
+                        </p>
+                    </div>
+                </article>
             </li>
             {{/each}}
         </ul>

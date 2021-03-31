@@ -27,10 +27,10 @@ app.set('views', path.join(__dirname,'/handlebars'));
 app.get('/', (req, res, next) => {
 
     console.log(new Date().toISOString() + ' Request URL:', req.originalUrl);
-    console.log("req.query.details: ", req.query.details)
+    console.log("req.query.details: ", req.query.details ? req.query.details : "not provided!")
 
     const dataFromDB = getAllReports();
-    console.log(dataFromDB)
+    //console.log(dataFromDB)
 
     if(req.query && req.query.details){
 

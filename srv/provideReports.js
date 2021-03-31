@@ -1,5 +1,6 @@
 const Database = require('better-sqlite3');
 const db = new Database('./out/audits.db', /*{ verbose: console.log }*/);
+const { cleanURL } = require('../util/helpers');
 
 function getSumOfProp(arr, prop){
     //some may have NA as a result, so we must take them away to get the correct average
@@ -228,10 +229,22 @@ function generateSummaries(summaryByUrl){
 
     totalStats.a11y.passes = (getSumOfProp(latestFlattened, "siPasses") + getSumOfProp(latestFlattened, "aXePasses"));
     totalStats.a11y.failures = (getSumOfProp(latestFlattened, "siViolations") + getSumOfProp(latestFlattened, "aXeViolations"));
-    totalStats.a11y.incomplete = (getSumOfProp(latestFlattened, "siIncomplete") + getSumOfProp(latestFlattened, "aXeIncomplete"));
-    totalStats.SEO = (getSumOfProp(latestFlattened, "lhSEO")) / distinctUrlsCount;
+    totalStats.a11y.passesVsFailures = (totalStats.a11y.passes / totalStats.a11y.failures).toFixed(5);
+    totalStats.a11y.incompletes = (getSumOfProp(latestFlattened, "siIncomplete") + getSumOfProp(latestFlattened, "aXeIncomplete"));
+    totalStats.SEO = ((getSumOfProp(latestFlattened, "lhSEO")) / distinctUrlsCount).toFixed(5);
+    totalStats.Performance = ((getSumOfProp(latestFlattened, "lhPerf")) / distinctUrlsCount).toFixed(5);
 
 
+    console.log("latestFlattened.length")
+    console.log(latestFlattened.length)
+    let test = 0
+    latestFlattened.forEach(singl => {
+        //console.log(singl)
+        test += singl.aXePasses;
+        test += singl.siPasses;
+    })
+    console.log("test")
+    console.log(test)
 
     return {
         distinctUrlsCount: distinctUrlsCount,
@@ -274,20 +287,14 @@ exports.getAllReports = function(){
         groups[item.domain] = group;
         return groups;
       }, {});
-     
-    //console.log("summaryByDomain"); 
-    //console.log(summaryByDomain);
 
     let returned = [];
 
     for(const domain in summaryByDomain){
-        console.log("Getting summaries for " + domain)
-        //console.log(summaryByDomain[domain]);
         const summaries = generateSummaries(summaryByDomain[domain]);
-        console.log("summaries")
-        console.log(summaries)
 
         returned.push({
+            uid: cleanURL(domain),
             domain: domain,
             distinctUrlsCount: summaries.distinctUrlsCount,
             axeSummary : summaries.axeSummary,
