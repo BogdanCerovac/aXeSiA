@@ -70,3 +70,22 @@ details{
   }
 
   /**/
+
+  table.audit-details-table{
+    margin: 1rem 0;
+  }
+
+  table.audit-details-table th{
+    padding: 0.5rem;
+    border: 1px solid;
+    text-align: left;
+  }
+
+  table.audit-details-table td{
+    padding: 0.5rem;
+    border: 1px solid;
+    text-align: left;
+  }
+  table.audit-details-table caption{
+    text-align: left;
+  }

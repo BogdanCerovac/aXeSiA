@@ -28,16 +28,16 @@ function cleanUrl(url){
 
 // can be used for all accessibility reports, as long as they respect same data structure and naming
 function renderDetailsForA11y(details, type){
-    let violationsHTML = `<p>Violations: ${details.violations}</p>`;
+    let violationsHTML = ``;
     if(details.violationsImpacts.length > 0){
-        violationsHTML += `<p>Violation impacts:</p><ul>`;
+        violationsHTML += `<p>Violation impacts:</p><ul aria-label="Violation impacts list">`;
         let violationImpacts = '';
         details.violationsImpacts.map(impact => violationImpacts += `<li>${impact}</li>`);
         violationsHTML += `${violationImpacts}</ul>`;
     }
 
     if(details.violationsTags.length > 0){
-        violationsHTML += `<p>Violation tags:</p><ul>`;
+        violationsHTML += `<p>Violation tags:</p><ul aria-label="Violation tags list">`;
         let violationTags = '';
         details.violationsTags.map(tag => violationTags += `<li>${tag}</li>`);
         violationsHTML += `${violationTags}</ul>`;
@@ -45,7 +45,7 @@ function renderDetailsForA11y(details, type){
 
     const total = [details.passes, details.incomplete, details.inapplicable, details.violations].map( num => !isNaN(num) && num >= 0 ? num : 0  ).reduce(function(a, b) { return a + b; }, 0);
 
-    return `
+    /*return `
     <div class="details ${type}-details">
         <p>Time: ${details.time} ms</p>
         <p>Passes: ${details.passes}</p>
@@ -54,18 +54,41 @@ function renderDetailsForA11y(details, type){
         <p>Inapplicable: ${details.inapplicable}</p>
         <p>Total: ${total}</p>
     </div>
-  `;
+  `;*/
+  return `<table class="audit-details-table ${type}-details-table">
+    <caption>${typeToTitleString(type)} audit details </caption>
+    <tr>
+        <th scope="col">Time</th>
+        <th scope="col">Passes</th>
+        <th scope="col">Violations</th>
+        <th scope="col">Incompletes</th>
+        <th scope="col">Inapplicable</th>
+        <th scope="col">Total</th>
+    </tr>
+    <tr>
+        <td>${details.time} ms</td>
+        <td>${details.passes}</td>
+        <td>${details.violations}</td>
+        <td>${details.incomplete}</td>
+        <td>${details.inapplicable}</td>
+        <td>${total}</td>
+    </tr>
+  </table>
+
+  <div class="violations-summary">${violationsHTML}</div>
+`;
+
 }
 
 
 function typeToTitleString(type){
     switch (type) {
         case 'axe':
-            return 'aXe';
+            return 'aXe summary';
         case 'si':
-            return 'Siteimprove';
+            return 'Siteimprove summary';
         case 'lh':
-            return 'Lighthouse';
+            return 'Lighthouse summary';
         default:
             console.error(`typeToTitleString ${type} not supported yet`);
             return  `${type} not supported yet`; 
@@ -137,7 +160,7 @@ function generateDetails(type, data){
             details += `<details class="details-sub-trigger">
             <summary><span>${detail.ts}</span></summary>
                 <div class="details-content details-sub">
-                <pre style="white-space: break-spaces;">${JSON.stringify(detail)}</pre>
+                <!--<pre style="white-space: break-spaces;">${JSON.stringify(detail)}</pre>-->
                 <a href="${url}" target="_blank">${url}</a>
                 ${subDetails}
                 </div>
