@@ -34,7 +34,7 @@
 .domain-nav article p{
    
     font-size:1.1rem;
-    margin:0;
+    margin:0 0 0.5rem 0;
 }
 
 .domain-nav article h3{
@@ -52,7 +52,11 @@
 <article class="main-domain-nav-holder">
     <h2 id="title-nav">Audits per domain</h2>
 
+    <p>This is a summary of summaries all audits that were made.</p>
+    <p>Please click on the domain links for details;</p>
+
     <nav aria-labelledby="title-nav" class="domain-nav">
+        {{#if domains}}
         <ul>
             {{#each domains}}
             <li>
@@ -61,13 +65,18 @@
                     <div id="{{this.uid}}">
                         <h4>Overall scores for {{this.domain}}:</h4>
                         <p><span aria-hidden="true">A11y</span><span class="sr-only">Accessibility</span>: {{this.totalStats.a11y.passes}} passes, {{this.totalStats.a11y.failures}} failures, {{this.totalStats.a11y.incompletes}} incompletes</p>
-                        <p>{{this.totalStats.a11y.passesVsFailures}} pass vs. fail</p>
+                        <p>pass versus fail ratio: {{this.totalStats.a11y.passesVsFailures}}</p>
                         <p><span aria-hidden="true">SEO</span><span class="sr-only">Search engine optimization</span>: {{this.totalStats.SEO}}, performance: {{this.totalStats.Performance}}</p>
                     </div>
                 </article>
             </li>
             {{/each}}
         </ul>
+        {{else}}
+            <p role="alert">
+                No audits available. Please check server logs and database!
+            </p>
+        {{/if}}
     </nav>
 
 </article>
