@@ -234,18 +234,6 @@ function generateSummaries(summaryByUrl){
     totalStats.SEO = ((getSumOfProp(latestFlattened, "lhSEO")) / distinctUrlsCount).toFixed(5);
     totalStats.Performance = ((getSumOfProp(latestFlattened, "lhPerf")) / distinctUrlsCount).toFixed(5);
 
-
-    console.log("latestFlattened.length")
-    console.log(latestFlattened.length)
-    let test = 0
-    latestFlattened.forEach(singl => {
-        //console.log(singl)
-        test += singl.aXePasses;
-        test += singl.siPasses;
-    })
-    console.log("test")
-    console.log(test)
-
     return {
         distinctUrlsCount: distinctUrlsCount,
         axeSummary: axeStats,
