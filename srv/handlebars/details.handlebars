@@ -30,7 +30,6 @@
 
     </article>
 
-
     <article aria-labelledby="axeSummary">
 
         <h2 id="axeSummary">axeSummary of latest audit</h2>
@@ -54,97 +53,158 @@
 
         <h4>tags & severity</h4>
         <p>latestAxeViolations:</p>
+        {{#if axeSummary.latestAxeViolations}}
         <ul>
-             {{#each axeSummary.latestAxeViolations}}
+            {{#each axeSummary.latestAxeViolations}}
                 <li>{{this}}</li>
             {{/each}}
         </ul>
+        {{else}}
+            <p>No latestAxeViolations</p>
+        {{/if}}
 
         <p>overallAxeImpacts:</p>
+        {{#if axeSummary.overallAxeImpacts}}
         <ul>
-             {{#each axeSummary.overallAxeImpacts}}
+            {{#each axeSummary.overallAxeImpacts}}
                 <li>{{this}}</li>
             {{/each}}
         </ul>
+        {{else}}
+            <p>No overallAxeImpacts</p>
+        {{/if}}
 
+       
         <h4>mostViolations</h4>
+        {{#if axeSummary.mostViolations}}
         <ol class="url-list">
             {{#each axeSummary.mostViolations}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeViolations}} violations)</li>
             {{/each}}
         </ol>
+        {{else}}
+            <p>No mostViolations</p>
+        {{/if}}
+        
 
         <h4>unclearViolations</h4>
+        {{#if axeSummary.unclearViolations}}
         <ol class="url-list">
             {{#each axeSummary.unclearViolations}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeViolations}} violations)</li>
             {{/each}}
         </ol>
+        {{else}}
+            <p>No unclearViolations</p>
+        {{/if}}
 
         <h4>leastViolations</h4>
+        {{#if axeSummary.leastViolations}}
         <ol class="url-list">
             {{#each axeSummary.leastViolations}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeViolations}} violations)</li>
             {{/each}}
         </ol>
+        {{else}}
+            <p>No leastViolations</p>
+        {{/if}}
+      
 
         <h4>mostPasses</h4>
+        {{#if axeSummary.mostPasses}}
         <ol class="url-list">
             {{#each axeSummary.mostPasses}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXePasses}} passes)</li>
             {{/each}}
         </ol>
+        {{else}}
+            <p>No mostPasses</p>
+        {{/if}}
+        
 
         <h4>leastPasses</h4>
+        {{#if axeSummary.leastPasses}}
         <ol class="url-list">
             {{#each axeSummary.leastPasses}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXePasses}} passes)</li>
             {{/each}}
         </ol>
+        {{else}}
+            <p>No leastPasses</p>
+        {{/if}}
+       
 
         <h4>unclearPasses</h4>
+        {{#if axeSummary.unclearPasses}}
         <ol class="url-list">
             {{#each axeSummary.unclearPasses}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXePasses}} passes)</li>
             {{/each}}
         </ol>
+        {{else}}
+            <p>No unclearPasses</p>
+        {{/if}}
+       
 
         <h4>mostIncompletes</h4>
+        {{#if axeSummary.mostIncompletes}}
         <ol class="url-list">
             {{#each axeSummary.mostIncompletes}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeIncomplete}} incomplete)</li>
             {{/each}}
         </ol>
+        {{else}}
+            <p>No mostIncompletes</p>
+        {{/if}}
+       
 
         <h4>leastIncompletes</h4>
+        {{#if axeSummary.leastIncompletes}}
         <ol class="url-list">
             {{#each axeSummary.leastIncompletes}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeIncomplete}} incomplete)</li>
             {{/each}}
         </ol>
+        {{else}}
+            <p>No leastIncompletes</p>
+        {{/if}}
+        
 
         <h4>unclearIncompletes</h4>
+        {{#if axeSummary.unclearIncompletes}}
         <ol class="url-list">
             {{#each axeSummary.unclearIncompletes}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeIncomplete}} incomplete)</li>
             {{/each}}
         </ol>
+        {{else}}
+            <p>No unclearIncompletes</p>
+        {{/if}}
+       
 
         <h4>mostTime</h4>
+        {{#if axeSummary.mostTime}}
         <ol class="url-list">
             {{#each axeSummary.mostTime}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeTime}} ms)</li>
             {{/each}}
         </ol>
+        {{else}}
+            <p>No mostTime</p>
+        {{/if}}
+        
 
         <h4>leastTime</h4>
+        {{#if axeSummary.leastTime}}
         <ol class="url-list">
             {{#each axeSummary.leastTime}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeTime}} ms)</li>
             {{/each}}
         </ol>
-
-
+        {{else}}
+            <p>No leastTime</p>
+        {{/if}}
+       
         <h3>axe details</h3>
 
         <div id="js_axe" class="js_generate_details"></div>

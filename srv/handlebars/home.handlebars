@@ -28,8 +28,13 @@
 .domain-nav article{
     border-top: 2px solid black;
     margin:2rem 0;
-    font-size:1.1rem;
     line-height: 1.6;
+}
+
+.domain-nav article p{
+   
+    font-size:1.1rem;
+    margin:0;
 }
 
 .domain-nav article h3{
@@ -54,12 +59,10 @@
                 <article>
                     <h3><a href="?details={{this.domain}}" aria-describedby="{{this.uid}}">{{this.domain}} - {{this.distinctUrlsCount}} unique urls</a></h3>
                     <div id="{{this.uid}}">
-                        <h4>Overall scores:</h4>
-                        <p>
-                            <span aria-hidden="true">A11y</span><span class="sr-only">Accessibility</span>: {{this.totalStats.a11y.passes}} passes, {{this.totalStats.a11y.failures}} failures, {{this.totalStats.a11y.incompletes}} incompletes<br>
-                            {{this.totalStats.a11y.passesVsFailures}} pass vs. fail<br />
-                            <span aria-hidden="true">SEO</span><span class="sr-only">Search engine optimization</span>: {{this.totalStats.SEO}}, performance: {{this.totalStats.Performance}}
-                        </p>
+                        <h4>Overall scores for {{this.domain}}:</h4>
+                        <p><span aria-hidden="true">A11y</span><span class="sr-only">Accessibility</span>: {{this.totalStats.a11y.passes}} passes, {{this.totalStats.a11y.failures}} failures, {{this.totalStats.a11y.incompletes}} incompletes</p>
+                        <p>{{this.totalStats.a11y.passesVsFailures}} pass vs. fail</p>
+                        <p><span aria-hidden="true">SEO</span><span class="sr-only">Search engine optimization</span>: {{this.totalStats.SEO}}, performance: {{this.totalStats.Performance}}</p>
                     </div>
                 </article>
             </li>
