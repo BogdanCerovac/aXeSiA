@@ -1,6 +1,11 @@
-<a href="/">Back to main page</a>
-
 <div class="home">
+
+    <nav id="top-navigation" aria-label="Top navigation" tabindex="-1">
+        <ul>
+            <li><a href="/">Back to main page</a></li>
+            <li><a href="#nav">Skip to quick navigation</a></li>
+        </ul>
+    </nav>
 
     <article aria-labelledby="overallSummary">
         <h2 id="overallSummary">Overall Summary</h2>
@@ -27,12 +32,35 @@
 
         <div id="js_all" class="js_generate_details"></div>
 
-
     </article>
+
+    <nav id="nav" aria-labelledby="nav-label">
+        <h2 id="nav-label">Jump to summaries - quick navigation</h2>
+        <ul>
+            <li>
+                <a href="#axeSummary">axeSummary</a>
+            </li>
+            <li>
+                <a href="#axeDetails">axe details</a>
+            </li>
+            <li>
+                <a href="#siteimproveSummary">siteimproveSummary</a>
+            </li>
+            <li>
+                <a href="#siteimproveDetails">siteimprove details</a>
+            </li>
+            <li>
+                <a href="#lighthouseSummary">lighthouseSummary</a>
+            </li>
+            <li>
+                <a href="#lighthouseDetails">lighthouse details</a>
+            </li>
+        </ul>
+    </nav>
 
     <article aria-labelledby="axeSummary">
 
-        <h2 id="axeSummary">axeSummary of latest audit</h2>
+        <h2 id="axeSummary" tabindex="-1">axeSummary of latest audit</h2>
 
         <h3>axe stats</h3>
 
@@ -205,27 +233,44 @@
             <p>No leastTime</p>
         {{/if}}
        
-        <h3>axe details</h3>
-
+        <h3 id="axeDetails" tabindex="-1">axe details</h3>
         <div id="js_axe" class="js_generate_details"></div>
 
     </article>
 
     <article aria-labelledby="siteimproveSummary">
-        <h2 id="siteimproveSummary">siteimproveSummary</h2>
+        <h2 id="siteimproveSummary" tabindex="-1">siteimproveSummary</h2>
 
-        <h3>siteimprove details</h3>
+        <p>TODO</p>
+
+        <h3 id="siteimproveDetails" tabindex="-1">siteimprove details</h3>
         <div id="js_si" class="js_generate_details"></div>
 
     </article>
 
     <article aria-labelledby="lighthouseSummary">
-        <h2 id="lighthouseSummary">lighthouseSummary</h2>
+        <h2 id="lighthouseSummary" tabindex="-1">lighthouseSummary</h2>
 
-        <h3>lighthouse details</h3>
+        <p>TODO</p>
+
+        <h3 id="lighthouseDetails" tabindex="-1">lighthouse details</h3>
         <div id="js_lh" class="js_generate_details"></div>
 
     </article>
+
+    <nav aria-label="Bottom navigation">
+        <ul>
+            <li>
+                <a href="#top">Back to top of page</a>
+            </li>
+            <li>
+                <a href="#top-navigation">Back to navigation</a>
+            </li>
+            <li>
+                <a href="/">Back to main page</a>
+            </li>
+        </ul>
+    </nav>
 
 </div>
 <script>
@@ -234,4 +279,3 @@ const dataCleaned = JSON.parse(dataStr.replaceAll("&quot;", '"'));
 console.log(dataCleaned);
 </script>
 
-<a href="/">Back to main page</a>

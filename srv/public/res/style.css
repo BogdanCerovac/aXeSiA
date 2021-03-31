@@ -43,7 +43,7 @@ details{
   
   summary{
     padding:20px;
-    font-size:2rem;
+    font-size:1.3rem;
     border-radius:60px;
     border-bottom: 1px solid lightgrey;
     line-height: 1;
@@ -54,6 +54,7 @@ details{
     display: inline-block;
     max-width: calc(100% - 50px);
     vertical-align: middle;
+    word-break: break-all;
   }
   
   .details-content{
