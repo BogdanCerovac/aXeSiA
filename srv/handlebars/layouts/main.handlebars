@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>aXeSiA - analytics - {{titleEnd}}</title>
+    <title>aXeSiA {{titleEnd}}</title>
     <meta name="description" content="aXeSiA - analytics - {{titleEnd}} - simple visualization and presentation of all the audits that are in the database" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="res/style.css">
@@ -12,9 +12,34 @@
     <a href="/" class="logo-link">
       <img src="res/aXeSiA-logo.png" alt="aXeSiA home" >
     </a>
-    <h1>aXeSiA - analytics - {{titleEnd}}</h1>
+    <h1>{{titleEnd}}</h1>
+
+<svg viewBox="0 0 0 0" width="0" height="0" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+ 
+  <defs>
+
+    <pattern id="pattern_red" patternUnits="userSpaceOnUse" x="0" y="0" width="20" height="20" viewBox="0 0 400 400" >
+      <polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:red;stroke:red;stroke-width:50;fill-rule:nonzero;" />
+   </pattern> 
+
+   <pattern id="pattern_green" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" viewBox="56 -254 112 190">
+     <g id="hexagon">
+       <path fill="green" stroke="black" stroke-width="8" d="M112-222.5c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2l-53.4,30.5 c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5 C111-222.4,111.5-222.5,112-222.5L112-222.5z"></path>
+     </g>
+    </pattern>
+ 
+ <pattern id="pattern_blue" x="0" y="126" patternUnits="userSpaceOnUse" width="20" height="20" viewBox="0 0 10 16"> 
+    <g id="cube">
+      <path fill="blue" class="left-shade" d="M0 0l5 3v5l-5 -3z"></path>
+      <path fill="blue" class="right-shade" d="M10 0l-5 3v5l5 -3"></path>
+    </g>
+  </pattern>
+
+  </defs>
+</svg>
+
     {{{body}}}    
   </main>
-  <script src="res/script.js"></script>
+  <script src="res/script.js?{{timestamp}}"></script>
 </body>
 </html>

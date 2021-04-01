@@ -112,16 +112,26 @@ function donutChart() {
                // add text labels
                const label = svg.select('.labelName').selectAll('text')
                    .data(pie(data))
-                 .enter().append('text')
-                   .attr('dy', '.35em')
-                   .html(updateLabelText)
-                   .attr('transform', labelTransform)
-                   .attr('class', 'textLabel')
-                   .attr('id',function(d) { return 'label_' + uid + '_' +  d.data["category"]})
-                   .style('text-anchor', function(d) {
-                       // if slice centre is on the left, anchor text to start, otherwise anchor to end
-                       return (midAngle(d)) < Math.PI ? 'start' : 'end';
-                   });
+                 .enter()
+                    .append('g')
+                    .append('text')
+                        .attr('dy', '.35em')
+                        .html(updateLabelText)
+                        .attr('transform', labelTransform)
+                        .attr('class', 'textLabel')
+                        .attr('id',function(d) { return 'label_' + uid + '_' +  d.data["category"]})
+                        .style('text-anchor', function(d) {
+                            // if slice centre is on the left, anchor text to start, otherwise anchor to end
+                            return (midAngle(d)) < Math.PI ? 'start' : 'end';
+                        })
+                       
+                        .insert('rect')
+                        .attr('transform', labelTransform)
+                        .attr('width', 20)
+                        .attr('height', 20)
+                        .attr('fill', function(d) { return 'url(#pattern_' +  d.data["color"] + ")"} )
+                        
+                    
                // ===========================================================================================
    
                // ===========================================================================================
@@ -204,7 +214,7 @@ function donutChart() {
                function calculatePoints(d) {
                    // see label transform function for explanations of these three lines.
                    const pos = outerArc.centroid(d);
-                   pos[0] = radius * 0.45 * (midAngle(d) < Math.PI ? 1 : -1);
+                   pos[0] = radius * 0.25 * (midAngle(d) < Math.PI ? 1 : -1);
                    return [arc.centroid(d), outerArc.centroid(d), pos]
                }
    
@@ -214,7 +224,7 @@ function donutChart() {
                    const pos = outerArc.centroid(d);
    
                    // changes the point to be on left or right depending on where label is.
-                   pos[0] = radius * 0.45 * (midAngle(d) < Math.PI ? 1 : -1);
+                   pos[0] = radius * 0.25 * (midAngle(d) < Math.PI ? 1 : -1);
                    return 'translate(' + pos + ')';
                }
    

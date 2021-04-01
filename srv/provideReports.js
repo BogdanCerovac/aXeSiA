@@ -15,7 +15,7 @@ function groupCountArrayItems(array){
     });
     for(let key in arrCount){
         const count = arrCount[key];
-        returned.push(key + "=" + count)
+        returned.push(key + " : " + count)
     }
     return returned;
 
@@ -256,11 +256,12 @@ function generateSummaries(summaryByUrl){
 
     totalStats.SEO = ((getSumOfProp(latestFlattened, "lhSEO")) / distinctUrlsCount).toFixed(5);
     totalStats.Performance = ((getSumOfProp(latestFlattened, "lhPerf")) / distinctUrlsCount).toFixed(5);
-
+    totalStats.BestPractices = ((getSumOfProp(latestFlattened, "lhBestPrac")) / distinctUrlsCount).toFixed(5);
+    
     const sumAllAudits = totalStats.a11y.passes + totalStats.a11y.failures + totalStats.a11y.incompletes;
     totalStats.a11y.passesProc = totalStats.a11y.passes / sumAllAudits;
     totalStats.a11y.failuresProc = totalStats.a11y.failures / sumAllAudits;
-    totalStats.a11y.incompletesProc =  totalStats.a11y.incomplete / sumAllAudits;
+    totalStats.a11y.incompletesProc =  totalStats.a11y.incompletes / sumAllAudits;
 
 
     //console.log(siteimproveStats)

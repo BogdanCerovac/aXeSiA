@@ -33,27 +33,40 @@
     <hr class="main-hr">
 
     <article aria-labelledby="overallSummary">
-        <h2 id="overallSummary" tabindex="-1">Overall Summary</h2>
+        <h2 id="overallSummary" tabindex="-1">Overall Summary - latest audit</h2>
 
         <p>distinctUrls: {{distinctUrlsCount}}</p>
 
-        <h3>Accessibility</h3>
+        <h3 id="label_a11y">Overall automatic accessibility testing score</h3>
 
-        <p>Todo: join axe and si and show them together, for all of the site</p>
+        <div id="graph_data_a11y____details" style="display: none;">
+                            [{"category": "Failures", "score" : {{this.totalStats.a11y.failuresProc}}, "color":"red"},{"category": "Passes", "score" : {{this.totalStats.a11y.passesProc}}, "color":"green"},{"category": "Incompletes", "score" : {{this.totalStats.a11y.incompletesProc}}, "color":"blue"}]
+        </div>
+        <div id="graph_a11y____details" class="a11y-graph-holder js_generate_donut" aria-hidden="true"></div>
 
-        <h3>SEO</h3>
+        <script src="res/d3.v4.13.0.min.js"></script>
+        <script src="res/d3.donuts.js?{{timestamp}}"></script>
 
-        <p>Todo: join lh and show them together, for all of the site</p>
+        <ul aria-labelledby="label_a11y">
+                                    <li>Failures: {{decimalToPercent this.totalStats.a11y.failuresProc}}%, Passes: {{decimalToPercent this.totalStats.a11y.passesProc}}%, Incompletes:  {{decimalToPercent this.totalStats.a11y.incompletesProc}}%</li>
+                                    <li>#Failures: {{this.totalStats.a11y.failures}}, #Passes: {{this.totalStats.a11y.passes}}, #Incompletes: {{this.totalStats.a11y.incompletes}}</li>
+                                    <li>Pass versus fail ratio: {{this.totalStats.a11y.passesVsFailures}}</li>
+        </ul>
+       
+        <h3>Overall Search engine optimization score: {{ decimalToPercent this.totalStats.SEO}}%</h3>
 
-        <h3>Performance</h3>
+        <p>Average score that is calculated based on Lighthouse SEO scores of every page</p>
 
-        <p>Todo: join lh and show them together, for all of the site</p>
+        <h3>Overall performance score {{decimalToPercent this.totalStats.Performance}}%</h3>
 
-        <h3>Best practices</h3>
+        <p>Average score that is calculated based on Lighthouse performance scores of every page</p>
 
-        <p>Todo: join lh and show them together, for all of the site</p>
+        <h3>Overall best practices score:  {{decimalToPercent this.totalStats.BestPractices}}%</h3>
 
-        <h3>Overview all URLs</h3>
+        <p>Average score that is calculated based on Lighthouse best practice scores of every page</p>
+
+        <h3>Overview of all URLs in the audit</h3>
+        <p>You can expand them and observe details of audits per page</p>
 
         <div id="js_all" class="js_generate_details"></div>
 

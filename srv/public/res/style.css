@@ -302,3 +302,18 @@ font-weight:bold;
     align-self: center;
   }
 }
+
+
+/**/
+
+.home article h2{
+  font-size: 2.1rem;
+}
+
+.home article h3{
+  font-size: 1.8rem;
+}
+
+.home article h4{
+  font-size: 1.6rem; 
+}
