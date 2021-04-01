@@ -232,6 +232,7 @@ function generateSummaries(summaryByUrl){
     totalStats.a11y.passes = (getSumOfProp(latestFlattened, "siPasses") + getSumOfProp(latestFlattened, "aXePasses"));
     totalStats.a11y.failures = (getSumOfProp(latestFlattened, "siViolations") + getSumOfProp(latestFlattened, "aXeViolations"));
     totalStats.a11y.passesVsFailures = (totalStats.a11y.passes / totalStats.a11y.failures).toFixed(5);
+    totalStats.a11y.passesAndFailures = ((totalStats.a11y.passes / (totalStats.a11y.passes + totalStats.a11y.failures)) * 100).toFixed(2) ;
     totalStats.a11y.incompletes = (getSumOfProp(latestFlattened, "siIncomplete") + getSumOfProp(latestFlattened, "aXeIncomplete"));
     totalStats.SEO = ((getSumOfProp(latestFlattened, "lhSEO")) / distinctUrlsCount).toFixed(5);
     totalStats.Performance = ((getSumOfProp(latestFlattened, "lhPerf")) / distinctUrlsCount).toFixed(5);

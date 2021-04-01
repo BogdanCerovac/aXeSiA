@@ -6,16 +6,23 @@
 
     <nav aria-labelledby="title-nav" class="domain-nav">
         {{#if domains}}
-        <ul>
+        <ul class="navi-list">
             {{#each domains}}
             <li>
                 <article>
                     <h3><a href="?details={{this.domain}}" aria-describedby="{{this.uid}}">{{this.domain}} - {{this.distinctUrlsCount}} unique urls</a></h3>
                     <div id="{{this.uid}}">
                         <h4>Overall scores for {{this.domain}}:</h4>
-                        <p><span aria-hidden="true">A11y</span><span class="sr-only">Accessibility</span>: {{this.totalStats.a11y.passes}} passes, {{this.totalStats.a11y.failures}} failures, {{this.totalStats.a11y.incompletes}} incompletes</p>
-                        <p>pass versus fail ratio: {{this.totalStats.a11y.passesVsFailures}}</p>
-                        <p><span aria-hidden="true">SEO</span><span class="sr-only">Search engine optimization</span>: {{this.totalStats.SEO}}, performance: {{this.totalStats.Performance}}</p>
+
+                        <p><span aria-hidden="true"><strong>A11y</strong></span><span class="sr-only" id="{{this.domain}}">Accessibility</span>:</p>
+                        <ul aria-labelledby="{{this.domain}}">
+                            <li>passesAndFailures: {{this.totalStats.a11y.passesAndFailures}}</li>
+                            <li>pass versus fail ratio: {{this.totalStats.a11y.passesVsFailures}}</li>
+                            <li>{{this.totalStats.a11y.passes}} passes, {{this.totalStats.a11y.failures}} failures, {{this.totalStats.a11y.incompletes}} incompletes</li>
+                        </ul>
+                        
+                        <p><span aria-hidden="true"><strong>SEO</strong></span><span class="sr-only">Search engine optimization</span>: {{this.totalStats.SEO}}</p>
+                        <p><strong>Performance</strong>: {{this.totalStats.Performance}}</p>
                     </div>
                 </article>
             </li>

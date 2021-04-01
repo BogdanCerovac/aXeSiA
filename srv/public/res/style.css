@@ -32,13 +32,19 @@ a[target="_blank"]::after {
 details{
     box-shadow:0 0 5px lightgrey;
     border-radius:40px;
-    margin:2rem 0;
+    margin: 1.1rem 0.5rem;
     border: 1px solid lightgrey;
+    outline: none;
+  }
+
+  details[open]{
+    border-radius:30px;
   }
   
   details:hover,
-  details:focus{
-    box-shadow:0 0 7px black;
+  details:focus,
+  details:focus-within{
+    box-shadow: 0 0 5px 4px #372828;
   }
   
   summary{
@@ -48,7 +54,9 @@ details{
     border-bottom: 1px solid lightgrey;
     line-height: 1;
     cursor:pointer;
+    outline:0;
   }
+
 
   summary span{
     display: inline-block;
@@ -96,6 +104,10 @@ details{
     margin: 2rem 0;
   }
 
+  article:focus{
+    outline:0;
+  }
+
   hr.main-hr{
     border: 4px dashed grey;
     margin-block-start: 3em;
@@ -107,7 +119,7 @@ details{
     padding:1rem;
 }
 
-.domain-nav ul{
+.domain-nav ul.navi-list{
     list-style: none;
     margin: 0;
     padding: 0;
@@ -122,23 +134,71 @@ details{
     color:blue;
 }
 
+/*
 .domain-nav a:focus, 
 .domain-nav a:hover{
     box-shadow: 1px 1px 16px 0px black;
     border-radius: 4px;
     color:black;
 }
+*/
+
+.domain-nav a:focus::after, 
+.domain-nav a:hover::after{
+    content: " >>>"
+}
+
+.logo-link{
+  display: inline-block;
+  border-radius: 20px;
+}
+
+.logo-link:focus,
+.logo-link:hover{
+  outline: 0;
+  box-shadow: 2px 2px 4px 2px grey;
+}
+
+.jump-to-navi-list a{
+  display: inline-block;
+  font-size:1.2rem;
+  padding: 0.5rem;
+  margin-bottom:10px;
+  border-radius: 20px;
+  color: black;
+}
+
+.jump-to-navi-list a:focus,
+.jump-to-navi-list a:hover{
+  outline: 0;
+  box-shadow: 2px 2px 4px 2px grey;
+}
 
 .domain-nav article{
-    border-top: 2px solid black;
-    margin:2rem 0;
-    line-height: 1.6;
+  border: 2px solid #9e9e9e;
+  margin: 2rem 0;
+  line-height: 1.6;
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+.domain-nav article:focus,
+.domain-nav article:focus-within,
+.domain-nav article:hover{
+  outline: none;
+  box-shadow: 0 0 10px 4px grey;
 }
 
 .domain-nav article p{
    
     font-size:1.1rem;
-    margin:0 0 0.5rem 0;
+    margin:0;
+}
+
+.domain-nav article li{
+   
+  font-size:1.1rem;
+  margin:0;
 }
 
 .domain-nav article h3{
