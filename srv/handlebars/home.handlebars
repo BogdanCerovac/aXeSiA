@@ -1,7 +1,33 @@
+<svg viewBox="0 0 0 0" width="0" height="0" xmlns="http://www.w3.org/2000/svg" style="position: absolute;">
+ 
+  <defs>
+
+    <pattern id="pattern_red" patternUnits="userSpaceOnUse" x="0" y="0" width="20" height="20" viewBox="0 0 400 400" >
+      <polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:red;stroke:red;stroke-width:50;fill-rule:nonzero;" />
+   </pattern> 
+
+   <pattern id="pattern_green" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" viewBox="56 -254 112 190">
+     <g id="hexagon">
+       <path fill="green" stroke="blue" stroke-width="8" d="M112-222.5c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2l-53.4,30.5 c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5 C111-222.4,111.5-222.5,112-222.5L112-222.5z"></path>
+     </g>
+    </pattern>
+ 
+ <pattern id="pattern_blue" x="0" y="126" patternUnits="userSpaceOnUse" width="20" height="20" viewBox="0 0 10 16"> 
+    <g id="cube">
+      <path fill="blue" class="left-shade" d="M0 0l5 3v5l-5 -3z"></path>
+      <path fill="lightblue" class="right-shade" d="M10 0l-5 3v5l5 -3"></path>
+    </g>
+  </pattern>
+
+  </defs>
+</svg>
+
+
 <article class="main-domain-nav-holder">
     <h2 id="title-nav">Audits per domain</h2>
 
-    <p>This is a summary of summaries all audits that were made.</p>
+    <p>This is a summary of summaries of all audits that were made.</p>
+    <p><strong>Please note that automatic accessibility testing covers only between 20% - 30% of all WCAG success criteria!</strong></p>
     <p>Please click on the domain links for details;</p>
 
     <nav aria-labelledby="title-nav" class="domain-nav">
@@ -14,15 +40,25 @@
                     <div id="{{this.uid}}">
                         <h4>Overall scores for {{this.domain}}:</h4>
 
-                        <p><span aria-hidden="true"><strong>A11y</strong></span><span class="sr-only" id="{{this.domain}}">Accessibility</span>:</p>
-                        <ul aria-labelledby="{{this.domain}}">
-                            <li>passesAndFailures: {{this.totalStats.a11y.passesAndFailures}}</li>
-                            <li>pass versus fail ratio: {{this.totalStats.a11y.passesVsFailures}}</li>
-                            <li>{{this.totalStats.a11y.passes}} passes, {{this.totalStats.a11y.failures}} failures, {{this.totalStats.a11y.incompletes}} incompletes</li>
-                        </ul>
+                        <div id="graph_data_a11y____{{this.uid}}" style="display: none;">
+                            [{"category": "Failures", "score" : {{this.totalStats.a11y.failuresProc}}, "color":"red"},{"category": "Passes", "score" : {{this.totalStats.a11y.passesProc}}, "color":"green"},{"category": "Incompletes", "score" : {{this.totalStats.a11y.incompletesProc}}, "color":"blue"}]
+                        </div>
+                        <div class="a11y-holder">
+                            <div class="a11y-text-holder">
+                                <p><span aria-hidden="true"><strong>A11y</strong></span><span class="sr-only" id="{{this.domain}}">Accessibility</span>:</p>
+                                <ul aria-labelledby="{{this.domain}}">
+                                    <li>Failures: {{decimalToPercent this.totalStats.a11y.failuresProc}}%, Passes: {{decimalToPercent this.totalStats.a11y.passesProc}}%, Incompletes:  {{decimalToPercent this.totalStats.a11y.incompletesProc}}%</li>
+                                    <li>#Failures: {{this.totalStats.a11y.failures}}, #Passes: {{this.totalStats.a11y.passes}}, #Incompletes: {{this.totalStats.a11y.incompletes}}</li>
+                                    <li>Pass versus fail ratio: {{this.totalStats.a11y.passesVsFailures}}</li>
+                                    
+                                </ul>
+                            </div>
+                            <div id="graph_a11y____{{this.uid}}" class="a11y-graph-holder js_generate_donut" aria-hidden="true"></div>
+                        </div>
                         
-                        <p><span aria-hidden="true"><strong>SEO</strong></span><span class="sr-only">Search engine optimization</span>: {{this.totalStats.SEO}}</p>
-                        <p><strong>Performance</strong>: {{this.totalStats.Performance}}</p>
+                        
+                        <p><span aria-hidden="true"><strong>SEO</strong></span><span class="sr-only">Search engine optimization</span>: {{ decimalToPercent this.totalStats.SEO}}%</p>
+                        <p><strong>Performance</strong>: {{decimalToPercent this.totalStats.Performance}}%</p>
                     </div>
                 </article>
             </li>
@@ -34,5 +70,8 @@
             </p>
         {{/if}}
     </nav>
+
+    <script src="res/d3.v4.13.0.min.js"></script>
+    <script src="res/d3.donuts.js"></script>
 
 </article>

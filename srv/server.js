@@ -2,11 +2,14 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const app = express();
 const path = require('path');
+const { truncateDecimals } = require('../util/helpers')
 
 const {getAllReports} = require('./provideReports');
 
 
 const PORT = process.env.PORT || 80;
+
+
 
 // Simple log
 /*app.use(function (req, res, next) {
@@ -59,7 +62,10 @@ app.get('/', (req, res, next) => {
     }else{
         res.render('home', {
             titleEnd: "main overview",
-            domains: dataFromDB
+            domains: dataFromDB,
+            helpers: {
+                decimalToPercent: function (decimal) { return truncateDecimals(decimal * 100, 4); }
+            }
         })
     }
 

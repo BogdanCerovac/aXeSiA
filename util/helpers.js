@@ -1,5 +1,10 @@
 const fs = require('fs');
 
+exports.truncateDecimals = function (num, fixed = 2) {
+    var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
+    return num.toString().match(re)[0];
+}
+
 exports.makeUid = function(length) {
     let result           = '';
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

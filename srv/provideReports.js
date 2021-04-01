@@ -2,6 +2,25 @@ const Database = require('better-sqlite3');
 const db = new Database('./out/audits.db', /*{ verbose: console.log }*/);
 const { cleanURL } = require('../util/helpers');
 
+function groupCountArrayItems(array){
+    let arrCount = {};
+    let returned = [];
+    array.map( item => {
+        if(arrCount.hasOwnProperty(item)){
+            arrCount[item]++
+        }else{
+            arrCount[item] = 1;
+        }
+        return;
+    });
+    for(let key in arrCount){
+        const count = arrCount[key];
+        returned.push(key + "=" + count)
+    }
+    return returned;
+
+}
+
 function getSumOfProp(arr, prop){
     //some may have NA as a result, so we must take them away to get the correct average
     let filtered = arr.filter( item => item[prop] !== "NA");
@@ -179,7 +198,7 @@ function generateSummaries(summaryByUrl){
     axeStats.avgTime = getAverageOfProp(latestFlattened, "aXeTime");
 
     axeStats.latestViolations = [... latestAxeViolations];
-    axeStats.overallImpacts = overallAxeImpacts;
+    axeStats.overallImpacts = groupCountArrayItems(overallAxeImpacts);
 
     // lighthouse
     lighthouseStats.name = "Lighthouse";
@@ -227,15 +246,22 @@ function generateSummaries(summaryByUrl){
     siteimproveStats.avgTime = getAverageOfProp(latestFlattened, "siTime");
 
     siteimproveStats.latestViolations = [... latestSiViolations];
-    siteimproveStats.overallImpacts = overallSiImpacts;
+    siteimproveStats.overallImpacts = groupCountArrayItems(overallSiImpacts);
 
     totalStats.a11y.passes = (getSumOfProp(latestFlattened, "siPasses") + getSumOfProp(latestFlattened, "aXePasses"));
     totalStats.a11y.failures = (getSumOfProp(latestFlattened, "siViolations") + getSumOfProp(latestFlattened, "aXeViolations"));
     totalStats.a11y.passesVsFailures = (totalStats.a11y.passes / totalStats.a11y.failures).toFixed(5);
-    totalStats.a11y.passesAndFailures = ((totalStats.a11y.passes / (totalStats.a11y.passes + totalStats.a11y.failures)) * 100).toFixed(2) ;
+    totalStats.a11y.passesAndFailures = ((totalStats.a11y.passes / (totalStats.a11y.passes + totalStats.a11y.failures)) * 100).toFixed(5) ;
     totalStats.a11y.incompletes = (getSumOfProp(latestFlattened, "siIncomplete") + getSumOfProp(latestFlattened, "aXeIncomplete"));
+
     totalStats.SEO = ((getSumOfProp(latestFlattened, "lhSEO")) / distinctUrlsCount).toFixed(5);
     totalStats.Performance = ((getSumOfProp(latestFlattened, "lhPerf")) / distinctUrlsCount).toFixed(5);
+
+    const sumAllAudits = totalStats.a11y.passes + totalStats.a11y.failures + totalStats.a11y.incompletes;
+    totalStats.a11y.passesProc = totalStats.a11y.passes / sumAllAudits;
+    totalStats.a11y.failuresProc = totalStats.a11y.failures / sumAllAudits;
+    totalStats.a11y.incompletesProc =  totalStats.a11y.incomplete / sumAllAudits;
+
 
     //console.log(siteimproveStats)
 
