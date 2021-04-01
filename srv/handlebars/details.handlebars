@@ -1,13 +1,38 @@
 <div class="home">
 
-    <nav id="top-navigation" aria-label="Top navigation" tabindex="-1">
+    <div id="top" tabindex="-1"></div>
+
+    <nav id="top-navigation" aria-labelledby="nav-label" tabindex="-1">
+        <h2 id="nav-label">Jump to summaries - quick navigation</h2>
         <ul>
             <li><a href="/">Back to main page</a></li>
-            <li><a href="#nav">Skip to quick navigation</a></li>
+            <li>
+                <a href="#overallSummary">overallSummary</a>
+            </li>
+            <li>
+                <a href="#axeSummary">axeSummary</a>
+            </li>
+            <li>
+                <a href="#axeDetails">axe details</a>
+            </li>
+            <li>
+                <a href="#siteimproveSummary">siteimproveSummary</a>
+            </li>
+            <li>
+                <a href="#siteimproveDetails">siteimprove details</a>
+            </li>
+            <li>
+                <a href="#lighthouseSummary">lighthouseSummary</a>
+            </li>
+            <li>
+                <a href="#lighthouseDetails">lighthouse details</a>
+            </li>
         </ul>
     </nav>
 
-    <article aria-labelledby="overallSummary">
+    <hr class="main-hr">
+
+    <article aria-labelledby="overallSummary" tabindex="-1">
         <h2 id="overallSummary">Overall Summary</h2>
 
         <p>distinctUrls: {{distinctUrlsCount}}</p>
@@ -34,219 +59,32 @@
 
     </article>
 
-    <nav id="nav" aria-labelledby="nav-label">
-        <h2 id="nav-label">Jump to summaries - quick navigation</h2>
-        <ul>
-            <li>
-                <a href="#axeSummary">axeSummary</a>
-            </li>
-            <li>
-                <a href="#axeDetails">axe details</a>
-            </li>
-            <li>
-                <a href="#siteimproveSummary">siteimproveSummary</a>
-            </li>
-            <li>
-                <a href="#siteimproveDetails">siteimprove details</a>
-            </li>
-            <li>
-                <a href="#lighthouseSummary">lighthouseSummary</a>
-            </li>
-            <li>
-                <a href="#lighthouseDetails">lighthouse details</a>
-            </li>
-        </ul>
-    </nav>
+    <hr class="main-hr">
 
     <article aria-labelledby="axeSummary">
 
         <h2 id="axeSummary" tabindex="-1">axeSummary of latest audit</h2>
 
-        <h3>axe stats</h3>
-
-        <h4>all & avg</h4>
-        <ul>
-            <li>allViolations {{axeSummary.allViolations}}</li>
-            <li>allPasses {{axeSummary.allPasses}}</li>
-            <li>allIncompletes {{axeSummary.allIncompletes}}</li>
-        </ul>
-
-        <ul>
-            <li>avgViolations {{axeSummary.avgViolations}}</li>
-            <li>avgPasses {{axeSummary.avgPasses}}</li>
-            <li>avgIncompletes {{axeSummary.avgIncompletes}}</li>
-        </ul>
-
-        <p>avgTime {{axeSummary.avgTime}}</p>
-
-        <h4>tags & severity</h4>
-        <p>latestAxeViolations:</p>
-        {{#if axeSummary.latestAxeViolations}}
-        <ul>
-            {{#each axeSummary.latestAxeViolations}}
-                <li>{{this}}</li>
-            {{/each}}
-        </ul>
-        {{else}}
-            <p>No latestAxeViolations</p>
-        {{/if}}
-
-        <p>overallAxeImpacts:</p>
-        {{#if axeSummary.overallAxeImpacts}}
-        <ul>
-            {{#each axeSummary.overallAxeImpacts}}
-                <li>{{this}}</li>
-            {{/each}}
-        </ul>
-        {{else}}
-            <p>No overallAxeImpacts</p>
-        {{/if}}
-
-       
-        <h4>mostViolations</h4>
-        {{#if axeSummary.mostViolations}}
-        <ol class="url-list">
-            {{#each axeSummary.mostViolations}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeViolations}} violations)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No mostViolations</p>
-        {{/if}}
-        
-
-        <h4>unclearViolations</h4>
-        {{#if axeSummary.unclearViolations}}
-        <ol class="url-list">
-            {{#each axeSummary.unclearViolations}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeViolations}} violations)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No unclearViolations</p>
-        {{/if}}
-
-        <h4>leastViolations</h4>
-        {{#if axeSummary.leastViolations}}
-        <ol class="url-list">
-            {{#each axeSummary.leastViolations}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeViolations}} violations)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No leastViolations</p>
-        {{/if}}
-      
-
-        <h4>mostPasses</h4>
-        {{#if axeSummary.mostPasses}}
-        <ol class="url-list">
-            {{#each axeSummary.mostPasses}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXePasses}} passes)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No mostPasses</p>
-        {{/if}}
-        
-
-        <h4>leastPasses</h4>
-        {{#if axeSummary.leastPasses}}
-        <ol class="url-list">
-            {{#each axeSummary.leastPasses}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXePasses}} passes)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No leastPasses</p>
-        {{/if}}
-       
-
-        <h4>unclearPasses</h4>
-        {{#if axeSummary.unclearPasses}}
-        <ol class="url-list">
-            {{#each axeSummary.unclearPasses}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXePasses}} passes)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No unclearPasses</p>
-        {{/if}}
-       
-
-        <h4>mostIncompletes</h4>
-        {{#if axeSummary.mostIncompletes}}
-        <ol class="url-list">
-            {{#each axeSummary.mostIncompletes}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeIncomplete}} incomplete)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No mostIncompletes</p>
-        {{/if}}
-       
-
-        <h4>leastIncompletes</h4>
-        {{#if axeSummary.leastIncompletes}}
-        <ol class="url-list">
-            {{#each axeSummary.leastIncompletes}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeIncomplete}} incomplete)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No leastIncompletes</p>
-        {{/if}}
-        
-
-        <h4>unclearIncompletes</h4>
-        {{#if axeSummary.unclearIncompletes}}
-        <ol class="url-list">
-            {{#each axeSummary.unclearIncompletes}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeIncomplete}} incomplete)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No unclearIncompletes</p>
-        {{/if}}
-       
-
-        <h4>mostTime</h4>
-        {{#if axeSummary.mostTime}}
-        <ol class="url-list">
-            {{#each axeSummary.mostTime}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeTime}} ms)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No mostTime</p>
-        {{/if}}
-        
-
-        <h4>leastTime</h4>
-        {{#if axeSummary.leastTime}}
-        <ol class="url-list">
-            {{#each axeSummary.leastTime}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.aXeTime}} ms)</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No leastTime</p>
-        {{/if}}
+        {{> audit_details axeSummary}}
        
         <h3 id="axeDetails" tabindex="-1">axe details</h3>
         <div id="js_axe" class="js_generate_details"></div>
 
     </article>
 
+    <hr class="main-hr">
+
     <article aria-labelledby="siteimproveSummary">
         <h2 id="siteimproveSummary" tabindex="-1">siteimproveSummary</h2>
 
-        <p>TODO</p>
+        {{> audit_details siSummary}}
 
         <h3 id="siteimproveDetails" tabindex="-1">siteimprove details</h3>
         <div id="js_si" class="js_generate_details"></div>
 
     </article>
+
+    <hr class="main-hr">
 
     <article aria-labelledby="lighthouseSummary">
         <h2 id="lighthouseSummary" tabindex="-1">lighthouseSummary</h2>
@@ -257,6 +95,8 @@
         <div id="js_lh" class="js_generate_details"></div>
 
     </article>
+
+    <hr class="main-hr">
 
     <nav aria-label="Bottom navigation">
         <ul>

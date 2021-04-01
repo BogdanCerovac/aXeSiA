@@ -25,19 +25,30 @@ function cleanUrl(url){
     return url.replace(/[^a-zA-Z]/g, '_');
 }
 
-
+function makeUid(length = 5) {
+    let result           = '';
+    const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+ 
 // can be used for all accessibility reports, as long as they respect same data structure and naming
 function renderDetailsForA11y(details, type){
     let violationsHTML = ``;
     if(details.violationsImpacts.length > 0){
-        violationsHTML += `<p>Violation impacts:</p><ul aria-label="Violation impacts list">`;
+        const uid = makeUid();
+        violationsHTML += `<p id="${uid}">${typeToTitleString(type)} - violation impacts:</p><ul aria-labelledby="${uid}">`;
         let violationImpacts = '';
         details.violationsImpacts.map(impact => violationImpacts += `<li>${impact}</li>`);
         violationsHTML += `${violationImpacts}</ul>`;
     }
 
     if(details.violationsTags.length > 0){
-        violationsHTML += `<p>Violation tags:</p><ul aria-label="Violation tags list">`;
+        const uid = makeUid();
+        violationsHTML += `<p id="${uid}">${typeToTitleString(type)} - violation tags:</p><ul aria-labelledby="${uid}">`;
         let violationTags = '';
         details.violationsTags.map(tag => violationTags += `<li>${tag}</li>`);
         violationsHTML += `${violationTags}</ul>`;

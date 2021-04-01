@@ -90,3 +90,65 @@ details{
   table.audit-details-table caption{
     text-align: left;
   }
+
+  /***/
+  article{
+    margin: 2rem 0;
+  }
+
+  hr.main-hr{
+    border: 4px dashed grey;
+    margin-block-start: 3em;
+    margin-block-end: 3em;
+  }
+
+  /* main */
+  .main-domain-nav-holder{
+    padding:1rem;
+}
+
+.domain-nav ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.domain-nav a{
+    padding:1rem;
+    font-size: 1.5rem;
+    display: block;
+    margin: 0.5rem -1rem;
+    outline: none;
+    color:blue;
+}
+
+.domain-nav a:focus, 
+.domain-nav a:hover{
+    box-shadow: 1px 1px 16px 0px black;
+    border-radius: 4px;
+    color:black;
+}
+
+.domain-nav article{
+    border-top: 2px solid black;
+    margin:2rem 0;
+    line-height: 1.6;
+}
+
+.domain-nav article p{
+   
+    font-size:1.1rem;
+    margin:0 0 0.5rem 0;
+}
+
+.domain-nav article h3{
+    font-size:1.8rem;
+    margin:0.5rem 0;
+}
+
+
+.domain-nav article h4{
+    font-size:1.6rem;
+    margin:0.25rem 0;
+}
+/**/

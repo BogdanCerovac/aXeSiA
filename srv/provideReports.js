@@ -157,6 +157,7 @@ function generateSummaries(summaryByUrl){
     const numberOfItemsForStats = 5; 
 
     // axe
+    axeStats.name = "aXe";
     axeStats.mostViolations = sortByProp(latestFlattened, "aXeViolations", true).slice(0, numberOfItemsForStats);
     axeStats.leastViolations = sortByProp(latestFlattened, "aXeViolations", false).slice(0, numberOfItemsForStats);
     axeStats.unclearViolations = latestFlattened.filter( all => all.aXeViolations === "NA");
@@ -177,10 +178,11 @@ function generateSummaries(summaryByUrl){
     axeStats.avgIncompletes = getAverageOfProp(latestFlattened, "aXeIncomplete");
     axeStats.avgTime = getAverageOfProp(latestFlattened, "aXeTime");
 
-    axeStats.latestAxeViolations = [... latestAxeViolations];
-    axeStats.overallAxeImpacts = overallAxeImpacts;
+    axeStats.latestViolations = [... latestAxeViolations];
+    axeStats.overallImpacts = overallAxeImpacts;
 
     // lighthouse
+    lighthouseStats.name = "Lighthouse";
     lighthouseStats.bestA11y = sortByProp(latestFlattened, "lhA11y", true).slice(0, numberOfItemsForStats);
     lighthouseStats.worstA11y = sortByProp(latestFlattened, "lhA11y", false).slice(0, numberOfItemsForStats);
 
@@ -203,7 +205,7 @@ function generateSummaries(summaryByUrl){
     lighthouseStats.avgTime = getAverageOfProp(latestFlattened, "lhTime");
 
     //siteimprove
-
+    siteimproveStats.name = "Siteimprove";
     siteimproveStats.mostViolations = sortByProp(latestFlattened, "siViolations", true).slice(0, numberOfItemsForStats);
     siteimproveStats.leastViolations = sortByProp(latestFlattened, "siViolations", false).slice(0, numberOfItemsForStats);
     siteimproveStats.unclearViolations = latestFlattened.filter( all => all.siViolations === "NA");
@@ -224,8 +226,8 @@ function generateSummaries(summaryByUrl){
     siteimproveStats.avgIncompletes = getAverageOfProp(latestFlattened, "siIncomplete");
     siteimproveStats.avgTime = getAverageOfProp(latestFlattened, "siTime");
 
-    siteimproveStats.latestSiViolations = [... latestSiViolations];
-    siteimproveStats.overallSiImpacts = overallSiImpacts;
+    siteimproveStats.latestViolations = [... latestSiViolations];
+    siteimproveStats.overallImpacts = overallSiImpacts;
 
     totalStats.a11y.passes = (getSumOfProp(latestFlattened, "siPasses") + getSumOfProp(latestFlattened, "aXePasses"));
     totalStats.a11y.failures = (getSumOfProp(latestFlattened, "siViolations") + getSumOfProp(latestFlattened, "aXeViolations"));
@@ -234,9 +236,12 @@ function generateSummaries(summaryByUrl){
     totalStats.SEO = ((getSumOfProp(latestFlattened, "lhSEO")) / distinctUrlsCount).toFixed(5);
     totalStats.Performance = ((getSumOfProp(latestFlattened, "lhPerf")) / distinctUrlsCount).toFixed(5);
 
+    //console.log(siteimproveStats)
+
     return {
         distinctUrlsCount: distinctUrlsCount,
         axeSummary: axeStats,
+        siSummary: siteimproveStats,
         siteimproveSummary: siteimproveStats,
         lighthouseSummary: lighthouseStats,
         totalStats: totalStats
@@ -286,7 +291,7 @@ exports.getAllReports = function(){
             domain: domain,
             distinctUrlsCount: summaries.distinctUrlsCount,
             axeSummary : summaries.axeSummary,
-            siteimproveSummary : summaries.siteimproveSummary,
+            siSummary : summaries.siSummary,
             lighthouseSummary : summaries.lighthouseSummary,
             totalStats : summaries.totalStats,
             summaryByDomain: summaryByDomain
