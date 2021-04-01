@@ -214,8 +214,8 @@ function generateSummaries(summaryByUrl){
     lighthouseStats.bestBestPrac = sortByProp(latestFlattened, "lhBestPrac", true).slice(0, numberOfItemsForStats);
     lighthouseStats.worstBestPrac = sortByProp(latestFlattened, "lhBestPrac", false).slice(0, numberOfItemsForStats);
 
-    lighthouseStats.bestTime = sortByProp(latestFlattened, "lhTime", true).slice(0, numberOfItemsForStats);
-    lighthouseStats.worstTime = sortByProp(latestFlattened, "lhTime", false).slice(0, numberOfItemsForStats);   
+    lighthouseStats.bestTime = sortByProp(latestFlattened, "lhTime", false).slice(0, numberOfItemsForStats);
+    lighthouseStats.worstTime = sortByProp(latestFlattened, "lhTime", true).slice(0, numberOfItemsForStats);   
     
     lighthouseStats.avgA11y = getAverageOfProp(latestFlattened, "lhA11y");
     lighthouseStats.avgSEO = getAverageOfProp(latestFlattened, "lhSEO");
@@ -269,6 +269,7 @@ function generateSummaries(summaryByUrl){
         distinctUrlsCount: distinctUrlsCount,
         axeSummary: axeStats,
         siSummary: siteimproveStats,
+        lhSummary: lighthouseStats,
         siteimproveSummary: siteimproveStats,
         lighthouseSummary: lighthouseStats,
         totalStats: totalStats
@@ -319,7 +320,7 @@ exports.getAllReports = function(){
             distinctUrlsCount: summaries.distinctUrlsCount,
             axeSummary : summaries.axeSummary,
             siSummary : summaries.siSummary,
-            lighthouseSummary : summaries.lighthouseSummary,
+            lhSummary : summaries.lhSummary,
             totalStats : summaries.totalStats,
             summaryByDomain: summaryByDomain
             

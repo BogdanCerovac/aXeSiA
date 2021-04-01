@@ -38,7 +38,7 @@ app.get('/', (req, res, next) => {
     if(req.query && req.query.details){
 
         const domainData = dataFromDB.filter( data => data.domain === req.query.details)[0];
-        //console.log(domainData.siSummary)
+        //console.log(domainData.lhSummary)
 
         if(domainData && domainData.domain){
             res.render('details', {
@@ -47,6 +47,7 @@ app.get('/', (req, res, next) => {
                 distinctUrlsCount: domainData.distinctUrlsCount,
                 axeSummary : domainData.axeSummary,
                 siSummary: domainData.siSummary,
+                lhSummary: domainData.lhSummary,
                 domainDataAsString : JSON.stringify(domainData.summaryByDomain[req.query.details])
             })
         }else{
