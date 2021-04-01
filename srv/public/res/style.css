@@ -159,7 +159,7 @@ details{
   box-shadow: 2px 2px 4px 2px grey;
 }
 
-.jump-to-navi-list a{
+.strong-navi-list a{
   display: inline-block;
   font-size:1.2rem;
   padding: 0.5rem;
@@ -168,8 +168,8 @@ details{
   color: black;
 }
 
-.jump-to-navi-list a:focus,
-.jump-to-navi-list a:hover{
+.strong-navi-list a:focus,
+.strong-navi-list a:hover{
   outline: 0;
   box-shadow: 2px 2px 4px 2px grey;
 }
