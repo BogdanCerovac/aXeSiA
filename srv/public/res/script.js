@@ -172,7 +172,7 @@ function generateDetails(type, data){
             <summary><span>${detail.ts}</span></summary>
                 <div class="details-content details-sub">
                 <!--<pre style="white-space: break-spaces;">${JSON.stringify(detail)}</pre>-->
-                <a href="${url}" target="_blank">${url}</a>
+                <a href="${url}" target="_blank" rel="noopener noopener">${url} <span class="screen-reader-only">(opens in a new tab)</span></a>
                 ${subDetails}
                 </div>
             </details>`;
