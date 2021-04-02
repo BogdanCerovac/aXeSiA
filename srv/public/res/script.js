@@ -69,12 +69,12 @@ function renderDetailsForA11y(details, type){
   return `<table class="audit-details-table ${type}-details-table">
     <caption>${typeToTitleString(type)} audit details </caption>
     <tr>
-        <th scope="col">Time</th>
-        <th scope="col">Passes</th>
-        <th scope="col">Violations</th>
-        <th scope="col">Incompletes</th>
-        <th scope="col">Inapplicable</th>
-        <th scope="col">Total</th>
+        <th scope="col">Time <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+        <th scope="col">Passes  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+        <th scope="col">Violations  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+        <th scope="col">Incompletes  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+        <th scope="col">Inapplicable  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+        <th scope="col">Total  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
     </tr>
     <tr>
         <td>${details.time} ms</td>
