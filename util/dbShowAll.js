@@ -30,5 +30,5 @@ const summaryByDomain = selectedAll.reduce((groups, item) => {
     return groups;
   }, {});
  
-console.log("summaryByDomain"); 
-console.log(summaryByDomain);
+//console.log("summaryByDomain"); 
+//console.log(summaryByDomain);

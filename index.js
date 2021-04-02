@@ -135,7 +135,7 @@ const started = new Date();
 
       // Puppeteer browser object
       const browserObj = await puppeteer.launch({
-        headless: false
+        headless: true
       });
 
       // accept cookie consent
