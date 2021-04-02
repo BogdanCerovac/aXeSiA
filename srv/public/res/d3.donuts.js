@@ -8,17 +8,10 @@ const donuts = document.getElementsByClassName("js_generate_donut");
 const donuts_len = donuts.length;
 for(let i = 0; i < donuts_len; i++){
     const singleDonutHolder = donuts[i];
-    
     const id = singleDonutHolder.id;
-    console.log(id)
-
     const dataId = "graph_data_a11y____" + id.split("____")[1];
-
     const dataRaw = document.getElementById(dataId).innerText.trim().replace(/\r?\n|\r\s/g, '');
-    console.log(dataRaw)
     const data = JSON.parse(dataRaw).filter( item => item.score !== 0.0);
-    console.log(data)
-    
     const donut = donutChart()
     .data(data)
     .uid(id)
@@ -28,7 +21,7 @@ for(let i = 0; i < donuts_len; i++){
     .padAngle(0.025) // effectively dictates the gap between slices
     .variable('score')
     .category('category');
-            
+
     d3.select('#'+id)
     .call(donut);
 }
@@ -57,7 +50,7 @@ function donutChart() {
    
                // creates a new pie generator
                const pie = d3.pie()
-                   .value(function(d) { if(d[variable] !== 0){ console.log(d[variable]); return floatFormat(d[variable]);} })
+                   .value(function(d) { if(d[variable] !== 0){ return floatFormat(d[variable]);} })
                    .sort(null);
    
                // contructs and arc generator. This will be used for the donut. The difference between outer and inner

@@ -45,6 +45,7 @@ app.get('/', (req, res, next) => {
                 titleEnd: "Latest audit details for " + req.query.details,
                 details: req.query.details,
                 distinctUrlsCount: domainData.distinctUrlsCount,
+                dateTimeLatest: domainData.dateTimeLatest,
                 axeSummary : domainData.axeSummary,
                 siSummary: domainData.siSummary,
                 lhSummary: domainData.lhSummary,
@@ -52,7 +53,8 @@ app.get('/', (req, res, next) => {
                 domainDataAsString : JSON.stringify(domainData.summaryByDomain[req.query.details]),
                 helpers: {
                     decimalToPercent: function (decimal) { return truncateDecimals(decimal * 100, 4); },
-                    timestamp: function() {return new Date().getTime();}
+                    timestamp: function() {return new Date().getTime();},
+                    heightPerUrl : function(items, heightPerItem) {return items * heightPerItem}
                 }
             })
         }else{

@@ -79,7 +79,6 @@ function generateSummaries(summaryByUrl){
             distinctUrlsCount++;
 
             const latest = auditsPerURL[(auditsPerURL_len - 1)];
-
             const axe = latest.axe;
             const lh = latest.lh;
             const si = latest.si;
@@ -263,10 +262,12 @@ function generateSummaries(summaryByUrl){
     totalStats.a11y.failuresProc = totalStats.a11y.failures / sumAllAudits;
     totalStats.a11y.incompletesProc =  totalStats.a11y.incompletes / sumAllAudits;
 
-
+    const dateTimeLatest = latestFlattened.sort( (a,b) => new Date(b.ts).getTime() - new Date(a.ts).getTime())[0].ts;
+    console.log(dateTimeLatest)
     //console.log(siteimproveStats)
 
     return {
+        dateTimeLatest : dateTimeLatest,
         distinctUrlsCount: distinctUrlsCount,
         axeSummary: axeStats,
         siSummary: siteimproveStats,
@@ -318,6 +319,7 @@ exports.getAllReports = function(){
         returned.push({
             uid: cleanURL(domain),
             domain: domain,
+            dateTimeLatest: summaries.dateTimeLatest,
             distinctUrlsCount: summaries.distinctUrlsCount,
             axeSummary : summaries.axeSummary,
             siSummary : summaries.siSummary,

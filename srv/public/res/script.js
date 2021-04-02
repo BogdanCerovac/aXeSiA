@@ -22,7 +22,7 @@ document.querySelectorAll('a[target="_blank"]').forEach(link => {
 
 //url as id has to be cleaned
 function cleanUrl(url){
-    return url.replace(/[^a-zA-Z]/g, '_');
+    return url.replace(/[^a-z\_\-A-Z0-9]/g, '_');
 }
 
 function makeUid(length = 5) {
@@ -67,7 +67,7 @@ function renderDetailsForA11y(details, type){
     </div>
   `;*/
   return `<table class="audit-details-table ${type}-details-table">
-    <caption>${typeToTitleString(type)} audit details </caption>
+    <caption>${typeToTitleString(type)} - audit details </caption>
     <tr>
         <th scope="col">Time <span class="sr-only">for ${typeToTitleString(type)}</span></th>
         <th scope="col">Passes  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
@@ -171,9 +171,8 @@ function generateDetails(type, data){
             details += `<details class="details-sub-trigger">
             <summary><span>${detail.ts}</span></summary>
                 <div class="details-content details-sub">
-                <!--<pre style="white-space: break-spaces;">${JSON.stringify(detail)}</pre>-->
-                <a href="${url}" target="_blank" rel="noopener noopener">${url} <span class="screen-reader-only">(opens in a new tab)</span></a>
-                ${subDetails}
+                    <p>Audited link: <a href="${url}" target="_blank" rel="noopener noopener">${url} <span class="sr-only">(opens in a new tab)</span></a></p>
+                    ${subDetails}
                 </div>
             </details>`;
         })

@@ -33,7 +33,7 @@
     <hr class="main-hr">
 
     <article aria-labelledby="overallSummary">
-        <h2 id="overallSummary" tabindex="-1">Overall Summary - latest audit</h2>
+        <h2 id="overallSummary" tabindex="-1">Overall Summary - latest audit ({{dateTimeLatest}})</h2>
 
         <p>distinctUrls: {{distinctUrlsCount}}</p>
 
@@ -68,7 +68,7 @@
         <h3>Overview of all URLs in the audit</h3>
         <p>You can expand them and observe details of audits per page</p>
 
-        <div id="js_all" class="js_generate_details"></div>
+        <div id="js_all" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}"></div>
 
     </article>
 
@@ -81,7 +81,7 @@
         {{> audit_details axeSummary}}
        
         <h3 id="axeDetails" tabindex="-1">axe details</h3>
-        <div id="js_axe" class="js_generate_details"></div>
+        <div id="js_axe" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}"></div>
 
     </article>
 
@@ -93,7 +93,7 @@
         {{> audit_details siSummary}}
 
         <h3 id="siteimproveDetails" tabindex="-1">siteimprove details</h3>
-        <div id="js_si" class="js_generate_details"></div>
+        <div id="js_si" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}"></div>
 
     </article>
 
@@ -105,7 +105,7 @@
         {{> lighthouse_details lhSummary}}
 
         <h3 id="lighthouseDetails" tabindex="-1">lighthouse details</h3>
-        <div id="js_lh" class="js_generate_details"></div>
+        <div id="js_lh" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}"></div>
 
     </article>
 
