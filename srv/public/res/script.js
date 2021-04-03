@@ -218,7 +218,7 @@ function histogramDataByType(type, flattened){
                     const setSize = urlControl[date].size;
                     returned.push({
                         date: date,
-                        numUrls: setSize
+                        urls: setSize
                     })
                 }
             }
@@ -254,9 +254,9 @@ function histogramDataByType(type, flattened){
                     const incompletesAvg = audits.incompletes.reduce((a, b) => a + b, 0) / incompletes_len;
                     returned.push({
                         date: date,
-                        passesAvg: passesAvg.toFixed(0),
-                        violationsAvg: violationsAvg.toFixed(0),
-                        incompletesAvg: incompletesAvg.toFixed(0),
+                        a11yPassesAvg: passesAvg.toFixed(0),
+                        a11yViolationsAvg: violationsAvg.toFixed(0),
+                        a11yIncompletesAvg: incompletesAvg.toFixed(0),
                     })
                 }
             }
@@ -312,12 +312,14 @@ function flattenHistogramData(dataAll){
 }
 
 document.querySelectorAll('.js_histogram').forEach( details => {
-    const type = details.id.split("_")[1];
+    const type = details.dataset.set.split("_")[1];
+    const dataProp = details.dataset.prop;
 
     const flattened = flattenHistogramData(historicalCleaned);
 
     const dataPerType = histogramDataByType(type, flattened);
     console.log("dataPerType ("+type+"): ", dataPerType)
 
-    //details.innerHTML = generateHistogram(type, data);
+    generateHistogram(details, dataProp, dataPerType);
+    
 })

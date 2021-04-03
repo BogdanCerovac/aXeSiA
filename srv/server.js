@@ -50,6 +50,7 @@ app.get('/', (req, res, next) => {
                 siSummary: domainData.siSummary,
                 lhSummary: domainData.lhSummary,
                 totalStats: domainData.totalStats,
+                historicalSummariesFlatPerUrl: domainData.historicalSummariesFlatPerUrl,
                 historicalSummariesFlatPerUrlString: JSON.stringify(domainData.historicalSummariesFlatPerUrl),
                 domainDataAsString : JSON.stringify(domainData.summaryByDomain[req.query.details]),
                 helpers: {

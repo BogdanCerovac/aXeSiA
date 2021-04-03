@@ -1,6 +1,3 @@
-<script src="res/d3.v4.13.0.min.js"></script>
-<script src="res/d3.donuts.js?{{timestamp}}"></script>
-<script src="res/d3.histograms.js?{{timestamp}}"></script>
 <div class="home">
 
     <div id="top" tabindex="-1"></div>
@@ -37,9 +34,22 @@
 
     <article aria-labelledby="overallHistoricalSummary">
         <h2 id="overallHistoricalSummary" tabindex="-1">Overall Historical summary</h2>
-        <div id="js-histogram_urls" class="js_histogram"></div>
-        <div id="js-histogram_a11y" class="js_histogram"></div>
-        <div id="js-histogram_seo" class="js_histogram"></div>
+       
+        <div class="svg-grid">
+
+            <div data-set="js-histogram_urls" data-prop="urls" class="js_histogram"></div>
+        
+            <div data-set="js-histogram_a11y" data-prop="a11yPassesAvg" class="js_histogram"></div>
+
+            <div data-set="js-histogram_a11y" data-prop="a11yViolationsAvg" class="js_histogram"></div>
+
+            <div data-set="js-histogram_a11y" data-prop="a11yIncompletesAvg" class="js_histogram"></div>
+
+            <div data-set="js-histogram_seo" data-prop="seoAvgShort" class="js_histogram"></div>
+
+
+        </div>
+
         <script>
             const historicalStr = '{{historicalSummariesFlatPerUrlString}}';
             const historicalCleaned = JSON.parse(historicalStr.replaceAll("&quot;", '"'));
@@ -143,3 +153,6 @@
 const dataStr = '{{domainDataAsString}}';
 const dataCleaned = JSON.parse(dataStr.replaceAll("&quot;", '"'));
 </script>
+<script src="res/d3.v4.13.0.min.js"></script>
+<script src="res/d3.donuts.js?{{timestamp}}"></script>
+<script src="res/d3.histograms.js"></script>
