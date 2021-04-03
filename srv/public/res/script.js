@@ -55,18 +55,7 @@ function renderDetailsForA11y(details, type){
     }
 
     const total = [details.passes, details.incomplete, details.inapplicable, details.violations].map( num => !isNaN(num) && num >= 0 ? num : 0  ).reduce(function(a, b) { return a + b; }, 0);
-
-    /*return `
-    <div class="details ${type}-details">
-        <p>Time: ${details.time} ms</p>
-        <p>Passes: ${details.passes}</p>
-        ${violationsHTML}
-        <p>Incomplete: ${details.incomplete}</p>
-        <p>Inapplicable: ${details.inapplicable}</p>
-        <p>Total: ${total}</p>
-    </div>
-  `;*/
-  return `<table class="audit-details-table ${type}-details-table">
+    return `<table class="audit-details-table ${type}-details-table">
     <caption>${typeToTitleString(type)} - audit details </caption>
     <tr>
         <th scope="col">Time <span class="sr-only">for ${typeToTitleString(type)}</span></th>
@@ -88,9 +77,7 @@ function renderDetailsForA11y(details, type){
 
   <div class="violations-summary">${violationsHTML}</div>
 `;
-
 }
-
 
 function typeToTitleString(type){
     switch (type) {
@@ -110,7 +97,6 @@ function typeToTitleString(type){
 function renderDetailsForAllTypes(details){
 
     const keys = Object.keys(details).filter( item => item !== "id" && item !== "ts");
-
     let toRender = '';
     keys.map( key => {
         if(details.hasOwnProperty(key)){
@@ -121,15 +107,11 @@ function renderDetailsForAllTypes(details){
         }
         return;
     });
-
     return toRender;
-
 }
 
 //render details based on one type
 function renderDetailsPerType(details, type){
- 
-    // TODO
     switch (type) {
         case 'axe': 
             return renderDetailsForA11y(details, type);
@@ -152,13 +134,11 @@ function renderDetailsPerType(details, type){
       }
 }
 
-
 // generate details based on class and id
 function generateDetails(type, data){
     let out = '';
     for(const url in data){
         const meta = data[url];
-
         let details = '';
         const metaSorted = meta.sort((a, b) => (new Date(a.ts).getTime() < new Date(b.ts).getTime()) ? 1 : -1)
         metaSorted.map( detail => {
@@ -176,7 +156,6 @@ function generateDetails(type, data){
                 </div>
             </details>`;
         })
-         
         out += `
         <details class="details-main-trigger" id="${type}---${cleanUrl(url)}">
             <summary><span>${url}</span></summary>
@@ -193,14 +172,6 @@ document.querySelectorAll('.js_generate_details').forEach( details => {
     const type = details.id.split("_")[1];
     details.innerHTML = generateDetails(type, dataCleaned);
 })
-
-
-/********** */
-//histogram data shuffle
-//document.getElementById('js_histogram')
-//num url
-// num violations axe + siteimprove
-// num passes axe + siteimprove
 
 function histogramDataByType(type, flattened){
     let returned = [];
@@ -222,8 +193,6 @@ function histogramDataByType(type, flattened){
                     })
                 }
             }
-
-            
             break;
         case 'a11y':
 
@@ -260,7 +229,6 @@ function histogramDataByType(type, flattened){
                     })
                 }
             }
-
             break;
         case 'seo' :
 
@@ -293,17 +261,14 @@ function histogramDataByType(type, flattened){
                     })
                 }
             }
-
             break;
         default:
-
             throw new Error(type + 'is not defined as type for histogramDataByType');
     }
     return returned;
 }
 
 function flattenHistogramData(dataAll){
-
     let flattened = [];
     for(let url in dataAll){
         if(dataAll.hasOwnProperty(url)){
@@ -319,22 +284,17 @@ function flattenHistogramData(dataAll){
 }
 
 function generateHistogramTable(details, dataProp, dataPerType){
-
     let node = document.createElement("div");
     node.setAttribute("class", "histogram-table-holder")
-
     let returnedHtml = `<table class="histogram-table ${dataProp}-histogram-table">
     <caption>${dataProp} - histogram table</caption>
     <tr>
     <th scope="col">Date:</th>
     <th scope="col">${dataProp}:</th>
     </tr>
-    <tbody>
-    `;
+    <tbody>`;
 
     let dataPerTypeDesc = dataPerType.sort( (a,b) => new Date(b.date).getTime() -  new Date(a.date).getTime())
-
-    
     dataPerTypeDesc.forEach( item => {
         returnedHtml += `<tr>
         <td>${item.date}</td>
@@ -353,14 +313,8 @@ function generateHistogramTable(details, dataProp, dataPerType){
 document.querySelectorAll('.js_histogram').forEach( details => {
     const type = details.dataset.set.split("_")[1];
     const dataProp = details.dataset.prop;
-
     const flattened = flattenHistogramData(historicalCleaned);
-
     const dataPerType = histogramDataByType(type, flattened);
-    console.log("dataPerType ("+type+"): ", dataPerType)
-
     generateHistogram(details, dataProp, dataPerType);
-
     generateHistogramTable(details, dataProp, dataPerType);
-    
 })
