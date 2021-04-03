@@ -1,5 +1,5 @@
 @echo off
-set loopEnd=3
+set loopEnd=1
 set loop=1
 set start=%DATE% %TIME%
 :loop
