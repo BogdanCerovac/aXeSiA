@@ -50,6 +50,7 @@ app.get('/', (req, res, next) => {
                 siSummary: domainData.siSummary,
                 lhSummary: domainData.lhSummary,
                 totalStats: domainData.totalStats,
+                historicalSummariesFlatPerUrlString: JSON.stringify(domainData.historicalSummariesFlatPerUrl),
                 domainDataAsString : JSON.stringify(domainData.summaryByDomain[req.query.details]),
                 helpers: {
                     decimalToPercent: function (decimal) { return truncateDecimals(decimal * 100, 4); },

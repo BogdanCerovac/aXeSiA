@@ -69,6 +69,8 @@ function generateSummaries(summaryByUrl){
         SEO: 0
     };
 
+    let historicalSummariesFlatPerUrl = {};
+
     for(const url in summaryByUrl){
         
         const auditsPerURL = summaryByUrl[url];
@@ -77,6 +79,38 @@ function generateSummaries(summaryByUrl){
 
         if(auditsPerURL_len > 0){
             distinctUrlsCount++;
+
+            for(let i = 0; i < auditsPerURL_len; i++){
+                const audit = auditsPerURL[i];
+                const axe = audit.axe;
+                const lh = audit.lh;
+                const si = audit.si;
+
+                if(!historicalSummariesFlatPerUrl.hasOwnProperty(url)){
+                    historicalSummariesFlatPerUrl[url] = [];
+                }
+                historicalSummariesFlatPerUrl[url].push({
+                    id: audit.id,
+                    ts: audit.ts,
+                    aXeTime: axe.time,
+                    aXeViolations: axe.violations,
+                    aXeViolationsImpacts: axe.violationsImpacts,
+                    aXeViolationsTags: axe.violationsTags,
+                    aXePasses: axe.passes,
+                    aXeIncomplete: axe.incomplete,
+                    siTime: si.time,
+                    siViolations : si.violations,
+                    siViolationsImpacts: si.violationsImpacts,
+                    siViolationsTags: si.violationsTags,
+                    siPasses : si.passes,
+                    siIncomplete : si.incomplete,
+                    lhTime: lh.time,
+                    lhPerf : lh.Performance,
+                    lhBestPrac: lh.BestPractices,
+                    lhSEO: lh.SEO,
+                    lhA11y: lh.A11y,
+                });
+            }
 
             const latest = auditsPerURL[(auditsPerURL_len - 1)];
             const axe = latest.axe;
@@ -263,8 +297,6 @@ function generateSummaries(summaryByUrl){
     totalStats.a11y.incompletesProc =  totalStats.a11y.incompletes / sumAllAudits;
 
     const dateTimeLatest = latestFlattened.sort( (a,b) => new Date(b.ts).getTime() - new Date(a.ts).getTime())[0].ts;
-    console.log(dateTimeLatest)
-    //console.log(siteimproveStats)
 
     return {
         dateTimeLatest : dateTimeLatest,
@@ -272,9 +304,8 @@ function generateSummaries(summaryByUrl){
         axeSummary: axeStats,
         siSummary: siteimproveStats,
         lhSummary: lighthouseStats,
-        siteimproveSummary: siteimproveStats,
-        lighthouseSummary: lighthouseStats,
-        totalStats: totalStats
+        totalStats: totalStats,
+        historicalSummariesFlatPerUrl: historicalSummariesFlatPerUrl
     }
 }
 
@@ -325,7 +356,8 @@ exports.getAllReports = function(){
             siSummary : summaries.siSummary,
             lhSummary : summaries.lhSummary,
             totalStats : summaries.totalStats,
-            summaryByDomain: summaryByDomain
+            summaryByDomain: summaryByDomain,
+            historicalSummariesFlatPerUrl: summaries.historicalSummariesFlatPerUrl
             
         })
     }

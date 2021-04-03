@@ -1,3 +1,6 @@
+<script src="res/d3.v4.13.0.min.js"></script>
+<script src="res/d3.donuts.js?{{timestamp}}"></script>
+<script src="res/d3.histograms.js?{{timestamp}}"></script>
 <div class="home">
 
     <div id="top" tabindex="-1"></div>
@@ -32,6 +35,19 @@
 
     <hr class="main-hr">
 
+    <article aria-labelledby="overallHistoricalSummary">
+        <h2 id="overallHistoricalSummary" tabindex="-1">Overall Historical summary</h2>
+        <div id="js-histogram_urls" class="js_histogram"></div>
+        <div id="js-histogram_a11y" class="js_histogram"></div>
+        <div id="js-histogram_seo" class="js_histogram"></div>
+        <script>
+            const historicalStr = '{{historicalSummariesFlatPerUrlString}}';
+            const historicalCleaned = JSON.parse(historicalStr.replaceAll("&quot;", '"'));
+        </script>
+    </article>
+
+    <hr class="main-hr">
+
     <article aria-labelledby="overallSummary">
         <h2 id="overallSummary" tabindex="-1">Overall Summary - latest audit ({{dateTimeLatest}})</h2>
 
@@ -43,9 +59,6 @@
                             [{"category": "Failures", "score" : {{this.totalStats.a11y.failuresProc}}, "color":"red"},{"category": "Passes", "score" : {{this.totalStats.a11y.passesProc}}, "color":"green"},{"category": "Incompletes", "score" : {{this.totalStats.a11y.incompletesProc}}, "color":"blue"}]
         </div>
         <div id="graph_a11y____details" class="a11y-graph-holder js_generate_donut" aria-hidden="true"></div>
-
-        <script src="res/d3.v4.13.0.min.js"></script>
-        <script src="res/d3.donuts.js?{{timestamp}}"></script>
 
         <ul aria-labelledby="label_a11y">
                                     <li>Failures: {{decimalToPercent this.totalStats.a11y.failuresProc}}%, Passes: {{decimalToPercent this.totalStats.a11y.passesProc}}%, Incompletes:  {{decimalToPercent this.totalStats.a11y.incompletesProc}}%</li>
