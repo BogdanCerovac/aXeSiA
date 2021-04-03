@@ -373,7 +373,7 @@ font-weight:bold;
 .js_histogram svg text.labelled{
   fill:white;
   font-weight: bold;
-  font-size:1.2rem;
+  font-size:2rem;
   text-shadow: 1px 2px 5px  black
 }
 
@@ -402,8 +402,12 @@ font-weight:bold;
 }
 
 .js_histogram .axis-text{
-  font-size: 1rem;
+  font-size: 2rem;
   font-weight:bold;
+}
+
+.js_histogram .tick{
+  font-size: 2rem;
 }
 
 .svg-grid {
@@ -413,11 +417,11 @@ font-weight:bold;
   flex-direction: column;
 }
 
-@media only screen and (min-width: 1000px){
+@media only screen and (min-width: 800px){
   .svg-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    grid-gap: 10px;
   }
 
 }

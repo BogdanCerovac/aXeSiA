@@ -1,7 +1,7 @@
 function generateHistogram(element, type, data){
 
     const widthSvg = 800;
-    const heightSvg = 600;
+    const heightSvg = 1000;
     
     var tip = d3.select(element)
         .append("div")
@@ -13,7 +13,7 @@ function generateHistogram(element, type, data){
         const svg = d3.create("svg");
         svg.attr("class", "background-style");
         
-    const margin = {top: 40, right: 20, bottom: 20, left: 60};
+    const margin = {top: 20, right: 10, bottom: 60, left: 150};
     const width = +widthSvg - (margin.left + margin.right);
     const height = +heightSvg - (margin.top + margin.bottom);
 
@@ -32,7 +32,15 @@ var g = svg.append("g")
   
   x.domain(data.map(function(d) { return d.date; }));
 
-  const maxY = d3.max(data, function(d) { return d[type]; })
+  let maxY = d3.max(data, function(d) { return d[type]; });
+
+  //some margin
+  if(parseInt(maxY, 10) < 100){
+    const maxYInt = parseInt(maxY, 10);
+    maxY = Math.round(maxYInt + ( maxYInt * 15) / 100);
+  }
+
+  console.log(maxY)
   y.domain([0, maxY]);
 
   g.append("g")
@@ -40,22 +48,24 @@ var g = svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
    .append("text")
-   .attr("class", "axis-text")
-      .attr("y", 6)
-      .attr("dy", "1.5em")
-      .attr("dx", width/2 - margin.left)
+   
+      .attr("y", 10)
+      .attr("dy", "2em")
+      .attr("dx", width/2)
+      .attr("class", "axis-text")
       .attr("text-anchor", "start")
       .text("Date");
 
   g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y).ticks(10))
+      .call(d3.axisLeft(y).ticks(13))
     .append("text")
-    .attr("class", "axis-text")
+    
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", "0.71em")
-      .attr("text-anchor", "end")
+      .attr("class", "axis-text")
+      .attr("y", -110)
+      .attr("dx", -height)
+      .attr("text-anchor", "start")
       .text(type);
  
 
@@ -76,11 +86,18 @@ var g = svg.append("g")
     
     graph.append("text")
     .attr("x", function(d) { return x(d.date) + x.bandwidth()/2; })
-    .attr("y", function(d) { return height - ((y(d[type]) + 20) ) })
+    .attr("dy", function(d) { return height - 50 })
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "central") 
     .attr("class", "labelled")
-    .text(function(d) { return d[type]; });
+    .text(function(d) { 
+        let val = d[type];
+        if(val.toString().includes('.')){
+            const tmp = val.toString().split('.')
+            val = tmp[0] + '.' + tmp[1].substring(0, 2)
+        }
+        return val;
+    });
    
 
 }

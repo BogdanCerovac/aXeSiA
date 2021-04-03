@@ -278,11 +278,18 @@ function histogramDataByType(type, flattened){
                     const seos = seoControl[date];
                     const seos_len = seos.length;
                     const seoAvg = seos.reduce((a, b) => a + b, 0) / seos_len;
-                    const seoAvgShort = seoAvg.toString().split(".");
+                    const seoAvgShort = () => {
+                        if(seoAvg.toString().includes('.')){
+                            const tmp = seoAvg.toString().split(".");
+                            return parseFloat(tmp[0] + '.' + tmp[1].substring(0, 4)) * 100
+                        }else{
+                            return seoAvg;
+                        }
+                    }
                     returned.push({
                         date: date,
                         seoAvg: seoAvg,
-                        seoAvgShort: parseFloat(seoAvgShort[0] + '.' + seoAvgShort[1].substring(0, 4))
+                        seoAvgShort: seoAvgShort()
                     })
                 }
             }
