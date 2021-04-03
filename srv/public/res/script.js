@@ -332,8 +332,10 @@ function generateHistogramTable(details, dataProp, dataPerType){
     <tbody>
     `;
 
+    let dataPerTypeDesc = dataPerType.sort( (a,b) => new Date(b.date).getTime() -  new Date(a.date).getTime())
+
     
-    dataPerType.forEach( item => {
+    dataPerTypeDesc.forEach( item => {
         returnedHtml += `<tr>
         <td>${item.date}</td>
         <td>${item[dataProp]}</td>
@@ -345,30 +347,7 @@ function generateHistogramTable(details, dataProp, dataPerType){
     node.innerHTML = returnedHtml;
 
     details.appendChild(node);
-    /*
-    return `<table class="audit-details-table ${type}-details-table">
-    <caption>${typeToTitleString(type)} - audit details </caption>
-    <tr>
-        <th scope="col">Time <span class="sr-only">for ${typeToTitleString(type)}</span></th>
-        <th scope="col">Passes  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
-        <th scope="col">Violations  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
-        <th scope="col">Incompletes  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
-        <th scope="col">Inapplicable  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
-        <th scope="col">Total  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
-    </tr>
-    <tr>
-        <td>${details.time} ms</td>
-        <td>${details.passes}</td>
-        <td>${details.violations}</td>
-        <td>${details.incomplete}</td>
-        <td>${details.inapplicable}</td>
-        <td>${total}</td>
-    </tr>
-  </table>
-
-  <div class="violations-summary">${violationsHTML}</div>
-`; */
-
+  
 }
 
 document.querySelectorAll('.js_histogram').forEach( details => {
