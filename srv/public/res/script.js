@@ -318,6 +318,59 @@ function flattenHistogramData(dataAll){
     return flattened;
 }
 
+function generateHistogramTable(details, dataProp, dataPerType){
+
+    let node = document.createElement("div");
+    node.setAttribute("class", "histogram-table-holder")
+
+    let returnedHtml = `<table class="histogram-table ${dataProp}-histogram-table">
+    <caption>${dataProp} - histogram table</caption>
+    <tr>
+    <th scope="col">Date:</th>
+    <th scope="col">${dataProp}:</th>
+    </tr>
+    <tbody>
+    `;
+
+    
+    dataPerType.forEach( item => {
+        returnedHtml += `<tr>
+        <td>${item.date}</td>
+        <td>${item[dataProp]}</td>
+        <tr>`;
+    });
+
+    returnedHtml += `</table>`;
+
+    node.innerHTML = returnedHtml;
+
+    details.appendChild(node);
+    /*
+    return `<table class="audit-details-table ${type}-details-table">
+    <caption>${typeToTitleString(type)} - audit details </caption>
+    <tr>
+        <th scope="col">Time <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+        <th scope="col">Passes  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+        <th scope="col">Violations  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+        <th scope="col">Incompletes  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+        <th scope="col">Inapplicable  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+        <th scope="col">Total  <span class="sr-only">for ${typeToTitleString(type)}</span></th>
+    </tr>
+    <tr>
+        <td>${details.time} ms</td>
+        <td>${details.passes}</td>
+        <td>${details.violations}</td>
+        <td>${details.incomplete}</td>
+        <td>${details.inapplicable}</td>
+        <td>${total}</td>
+    </tr>
+  </table>
+
+  <div class="violations-summary">${violationsHTML}</div>
+`; */
+
+}
+
 document.querySelectorAll('.js_histogram').forEach( details => {
     const type = details.dataset.set.split("_")[1];
     const dataProp = details.dataset.prop;
@@ -328,5 +381,7 @@ document.querySelectorAll('.js_histogram').forEach( details => {
     console.log("dataPerType ("+type+"): ", dataPerType)
 
     generateHistogram(details, dataProp, dataPerType);
+
+    generateHistogramTable(details, dataProp, dataPerType);
     
 })

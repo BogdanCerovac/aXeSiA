@@ -343,12 +343,13 @@ font-weight:bold;
 .js_histogram {
   position: relative;
   margin: 2rem 0;
-  
+  box-shadow: 0px 20px 50px -18px #aaa;
+  border-radius: .123rem;
+  padding:1rem;
+
 }
 
 .js_histogram svg{
-  box-shadow: 0px 20px 50px -18px #aaa;
-  border-radius: .123rem;
   width: 100%;
     height: auto;
 }
@@ -378,7 +379,7 @@ font-weight:bold;
 }
 
 .js_histogram .background-style{
-  background: white;
+  
 }
 
 /* tip */
@@ -421,7 +422,30 @@ font-weight:bold;
   .svg-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
+    grid-gap: 30px;
   }
 
+}
+
+
+table.histogram-table{
+  margin: 1rem 0;
+  width: 100%;
+}
+
+table.histogram-table th{
+  padding: 0.5rem;
+  border: 1px solid;
+  text-align: left;
+  background: #03a9f4;
+  color:black;
+}
+
+table.histogram-table td{
+  padding: 0.5rem;
+  border: 1px solid;
+  text-align: left;
+}
+table.histogram-table caption{
+  text-align: left;
 }
