@@ -32,10 +32,12 @@ app.get('/', (req, res, next) => {
     console.log(new Date().toISOString() + ' Request URL:', req.originalUrl);
     console.log("req.query.details: ", req.query.details ? req.query.details : "not provided!")
 
-    const dataFromDB = getAllReports();
+    let dataFromDB = getAllReports();
     //console.log(dataFromDB)
 
     if(req.query && req.query.details){
+
+        dataFromDB = getAllReports(req.query.details);
 
         const domainData = dataFromDB.filter( data => data.domain === req.query.details)[0];
         //console.log(domainData.lhSummary)

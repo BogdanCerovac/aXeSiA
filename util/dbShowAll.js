@@ -10,6 +10,16 @@ const selectAll = db.prepare(
         id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
     FROM audits`,
 );
+/*
+const selectAll = db.prepare(
+    `SELECT 
+        id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit
+    FROM audits
+    WHERE domain = 'cerovac.com/a11y'
+    `,
+);
+*/
+
 let selectedAll = selectAll.all();
 
 // console.log(selectedAll);
@@ -30,5 +40,5 @@ const summaryByDomain = selectedAll.reduce((groups, item) => {
     return groups;
   }, {});
  
-//console.log("summaryByDomain"); 
-//console.log(summaryByDomain);
+console.log("summaryByDomain"); 
+console.log(summaryByDomain);

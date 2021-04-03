@@ -1,5 +1,5 @@
 const Database = require('better-sqlite3');
-const db = new Database('./out/audits.db', { /*verbose: console.log*/ });
+const db = new Database('./out/audits.db', { verbose: console.log });
 
 // check to see if we already initialized this database
 let stmt = db.prepare(`SELECT name

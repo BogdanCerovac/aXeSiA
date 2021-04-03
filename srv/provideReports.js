@@ -1,5 +1,5 @@
 const Database = require('better-sqlite3');
-const db = new Database('./out/audits.db', /*{ verbose: console.log }*/);
+const db = new Database('./out/audits.db', { verbose: console.log });
 const { cleanURL } = require('../util/helpers');
 
 function groupCountArrayItems(array){
@@ -309,15 +309,28 @@ function generateSummaries(summaryByUrl){
     }
 }
 
-exports.getAllReports = function(){
+exports.getAllReports = function(domain = "all"){
 
     let selectedAll = [];
     try {
-        const selectAll = db.prepare(
+
+        let selectAll = db.prepare(
             `SELECT 
                 id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
             FROM audits`,
         );
+
+        if(domain !== "all"){
+
+            selectAll = db.prepare(
+                `SELECT 
+                    id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
+                FROM audits
+                WHERE domain = '${domain}'`,
+            );
+
+        }
+        
         selectedAll = selectAll.all();
     } catch (error) {
         console.error("Failed to run getAllReports: ", error);
