@@ -18,7 +18,7 @@ And there was also the idea of monitoring search engine optimization (SEO), perf
 Open source, automatic auditing of accessibility (and other measurable parameters like SEO and performance) in bulk. 
 So main requirements I wanted to achieve with aXeSiA are:
 - simple cookie consent manipulation (as they can get in way for screen-shots and even other audits)
-- making screenshots of multiple screen resolutions and orientations (usefull for accessibility and UI testing),
+- making screenshots of multiple screen resolutions and orientations (useful for accessibility and UI testing),
 - accessibility evaluation based on multiple different implementations of Accessibility Conformance Testing (ACT) rules (currently Deque's axe and Siteimprove's Alfa),
 - running a full Google's Lighthouse audit and getting SEO, Performance and Best practice scores (as they use axe for accessibility I did not focus on that part).
 
@@ -29,7 +29,7 @@ I've been thinking of aXeSiA long before axe-hackaton 2021 but when I attended a
 
 ### Basic features for axe-hackaton - minimum viable product
 
-Due to time limitations I've decided to limit the scope to bare minimum and concentrate on functionality before other aspects. So code is dirty, design is extremly raw and I tried to make the user interface accessible but it is far from performant and needs a lot more work. But main features work and can be already used.
+Due to time limitations I've decided to limit the scope to bare minimum and concentrate on functionality before other aspects. So code is dirty, design is extremely raw and I tried to make the user interface accessible but it is far from performant and needs a lot more work. But main features work and can be already used.
 
 aXeSiA can:
 
@@ -68,9 +68,9 @@ Standing on the shoulders of giants - aXeSiA would not be possible without amazi
 
 ## Next steps
 
-I must present a demo video to Deque. I've seen that competition have some extremly good projects going on and I would help there as well if I had the time. aXeSia's main motive is not to win this hackaton, but maybe somebody else can join and we can maybe then add more features to it together. I will continue to work on aXeSiA anyway, as I see a lot of potential for my work, so if nothing else I'll use and maybe expand it myself.
+I must present a demo video to Deque. I've seen that competition have some extremely good projects going on and I would help there as well if I had the time. aXeSia's main motive is not to win this hackaton, but maybe somebody else can join and we can maybe then add more features to it together. I will continue to work on aXeSiA anyway, as I see a lot of potential for my work, so if nothing else I'll use and maybe expand it myself.
 
-Please note that I do not have much capacity in regards of feature requests but I will do my best to fix eventual bugs. Pull requests are wellcome.
+Please note that I do not have much capacity in regards of feature requests but I will do my best to fix eventual bugs. Pull requests are welcome.
 
 Please read more about aXeSiA on my blog: https://cerovac.com/a11y/2021/04/my-first-axe-hackaton-with-my-axesia-my-first-contribution-to-accessibility-open-source/
 
