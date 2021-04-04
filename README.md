@@ -74,4 +74,9 @@ Please note that I do not have much capacity in regards of feature requests but 
 
 Please read more about aXeSiA on my blog: https://cerovac.com/a11y/2021/04/my-first-axe-hackaton-with-my-axesia-my-first-contribution-to-accessibility-open-source/
 
-License: Mozilla Public License 2.0
+## More info
+
+- [Please read about terms and conditions - no warranty and do check if you can crawl a page before you do it!](https://github.com/BogdanCerovac/aXeSiA/wiki/Terms-and-conditions)
+- [Wiki page (some additional details, installation and usage)](https://github.com/BogdanCerovac/aXeSiA/wiki)
+- [License: Mozilla Public License 2.0](https://github.com/BogdanCerovac/aXeSiA/blob/main/LICENSE)
+
