@@ -1,9 +1,54 @@
-<article class="home">
-<p>{{axeSummary}}</p>
-<p>{{lighthouseSummary}}</p>
+
+<article class="main-domain-nav-holder" aria-labelledby="title-nav">
+    <h2 id="title-nav">Audits per domain</h2>
+
+    <p>This is a summary of summaries of all audits that were made.</p>
+    <p><strong>Please note that automatic accessibility testing covers only between 20% - 30% of all WCAG success criteria!</strong></p>
+    <p>Please click on the domain links for details;</p>
+
+    <div class="domain-nav">
+        {{#if domains}}
+        <ul class="navi-list">
+            {{#each domains}}
+            <li>
+                <article aria-labelledby="{{this.uid}}">
+                    <h3><a href="?details={{this.domain}}" aria-describedby="{{this.uid}}">{{this.domain}} - {{this.distinctUrlsCount}} unique urls</a></h3>
+                    <div id="{{this.uid}}">
+                        <h4>Overall scores for {{this.domain}}:</h4>
+                        <h5>Latest audit from ({{dateTimeLatest}})</h5>
+
+                        <div id="graph_data_a11y____{{this.uid}}" style="display: none;">
+                            [{"category": "Failures", "score" : {{this.totalStats.a11y.failuresProc}}, "color":"red"},{"category": "Passes", "score" : {{this.totalStats.a11y.passesProc}}, "color":"green"},{"category": "Incompletes", "score" : {{this.totalStats.a11y.incompletesProc}}, "color":"blue"}]
+                        </div>
+                        <div class="a11y-holder">
+                            <div class="a11y-text-holder">
+                                <p><span aria-hidden="true"><strong>A11y</strong></span><span class="sr-only" id="{{this.domain}}">Accessibility</span>:</p>
+                                <ul aria-labelledby="{{this.domain}}">
+                                    <li>Failures: {{decimalToPercent this.totalStats.a11y.failuresProc}}%, Passes: {{decimalToPercent this.totalStats.a11y.passesProc}}%, Incompletes:  {{decimalToPercent this.totalStats.a11y.incompletesProc}}%</li>
+                                    <li>#Failures: {{this.totalStats.a11y.failures}}, #Passes: {{this.totalStats.a11y.passes}}, #Incompletes: {{this.totalStats.a11y.incompletes}}</li>
+                                    <li>Pass versus fail ratio: {{this.totalStats.a11y.passesVsFailures}}</li>
+                                    
+                                </ul>
+                            </div>
+                            <div id="graph_a11y____{{this.uid}}" class="a11y-graph-holder js_generate_donut" aria-hidden="true">Please wait, loading...</div>
+                        </div>
+                        
+                        
+                        <p><span aria-hidden="true"><strong>SEO</strong></span><span class="sr-only">Search engine optimization</span>: {{ decimalToPercent this.totalStats.SEO}}%</p>
+                        <p><strong>Performance</strong>: {{decimalToPercent this.totalStats.Performance}}%</p>
+                    </div>
+                </article>
+            </li>
+            {{/each}}
+        </ul>
+        {{else}}
+            <p role="alert">
+                No audits available. Please check server logs and database!
+            </p>
+        {{/if}}
+    </div>
+
+    <script src="res/d3.v4.13.0.min.js"></script>
+    <script src="res/d3.donuts.js?{{timestamp}}"></script>
+
 </article>
-<script>
-const dataStr = '{{data}}';
-const dataCleaned = JSON.parse(dataStr.replaceAll("&quot;", '"'));
-console.log(dataCleaned);
-</script>

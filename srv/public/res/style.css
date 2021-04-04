@@ -6,6 +6,456 @@ html{
     font-family: sans-serif;
 }
 
-p{
+p,a{
     line-height: 1.6;
+}
+
+.sr-only,
+.screen-reader-only {
+    position: absolute;
+    width: 1px;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+a[target="_blank"]::after {
+    speak: never;
+    pointer-events: none;
+    user-select: none;
+    content: url("data:image/svg+xml,%0A%3Csvg aria-hidden='true' focusable='false' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath fill='blue' d='M576 24v127.984c0 21.461-25.96 31.98-40.971 16.971l-35.707-35.709-243.523 243.523c-9.373 9.373-24.568 9.373-33.941 0l-22.627-22.627c-9.373-9.373-9.373-24.569 0-33.941L442.756 76.676l-35.703-35.705C391.982 25.9 402.656 0 424.024 0H552c13.255 0 24 10.745 24 24zM407.029 270.794l-16 16A23.999 23.999 0 0 0 384 303.765V448H64V128h264a24.003 24.003 0 0 0 16.97-7.029l16-16C376.089 89.851 365.381 64 344 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V287.764c0-21.382-25.852-32.09-40.971-16.97z'%3E%3C/path%3E%3C/svg%3E%0A");
+    display: inline-block;
+    margin-left: 0.2em;
+    width: 1em;
+    height: 1em;
+}
+
+
+/* style details */
+details{
+    box-shadow:0 0 5px lightgrey;
+    border-radius:40px;
+    margin: 1.1rem 0.5rem;
+    border: 1px solid lightgrey;
+    outline: none;
+  }
+
+  details[open]{
+    border-radius:30px;
+  }
+  
+  details:hover,
+  details:focus,
+  details:focus-within{
+    box-shadow: 0 0 5px 4px #372828;
+  }
+  
+  summary{
+    padding:20px;
+    font-size:1.3rem;
+    border-radius:60px;
+    border-bottom: 1px solid lightgrey;
+    line-height: 1;
+    cursor:pointer;
+    outline:0;
+  }
+
+
+  summary span{
+    display: inline-block;
+    max-width: calc(100% - 50px);
+    vertical-align: middle;
+    word-break: break-all;
+  }
+  
+  .details-content{
+    padding: 20px;
+    font-size:1.2rem;
+    line-height:1.5;
+  }
+
+  /**/
+
+  main{
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /**/
+
+  table.audit-details-table{
+    margin: 1rem 0;
+  }
+
+  table.audit-details-table th{
+    padding: 0.5rem;
+    border: 1px solid;
+    text-align: left;
+  }
+
+  table.audit-details-table td{
+    padding: 0.5rem;
+    border: 1px solid;
+    text-align: left;
+  }
+  table.audit-details-table caption{
+    text-align: left;
+  }
+
+  /***/
+  article{
+    margin: 2rem 0;
+  }
+
+  article:focus{
+    outline:0;
+  }
+
+  hr.main-hr{
+    border: 4px dashed grey;
+    margin-block-start: 3em;
+    margin-block-end: 3em;
+  }
+
+  /* main */
+  .main-domain-nav-holder{
+    padding:0 0 1rem 0;
+    margin: 0 0 1rem 0;
+}
+
+.domain-nav ul.navi-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.domain-nav a{
+    padding:1rem;
+    font-size: 1.5rem;
+    display: block;
+    margin: 0.5rem -1rem;
+    outline: none;
+    color:blue;
+}
+
+/*
+.domain-nav a:focus, 
+.domain-nav a:hover{
+    box-shadow: 1px 1px 16px 0px black;
+    border-radius: 4px;
+    color:black;
+}
+*/
+
+.domain-nav a:focus::after, 
+.domain-nav a:hover::after{
+    content: " >>>"
+}
+
+.logo-link{
+  display: inline-block;
+  border-radius: 20px;
+}
+
+.logo-link:focus,
+.logo-link:hover{
+  outline: 0;
+  box-shadow: 2px 2px 4px 2px grey;
+}
+
+.logo-link img{
+  width: 100%;
+  height: auto;
+}
+
+.strong-navi-list a{
+  display: inline-block;
+  font-size:1.2rem;
+  padding: 0.5rem;
+  margin-bottom:10px;
+  border-radius: 20px;
+  color: black;
+}
+
+.strong-navi-list a:focus,
+.strong-navi-list a:hover{
+  outline: 0;
+  box-shadow: 2px 2px 4px 2px grey;
+}
+
+.domain-nav article{
+  border: 2px solid #9e9e9e;
+  margin: 2rem 0;
+  line-height: 1.6;
+  padding: 1rem;
+  border-radius: 20px;
+}
+
+.domain-nav article:focus,
+.domain-nav article:focus-within,
+.domain-nav article:hover{
+  outline: none;
+  box-shadow: 0 0 10px 4px grey;
+}
+
+.domain-nav article p{
+   
+    font-size:1.1rem;
+    margin:0;
+}
+
+.domain-nav article li{
+   
+  font-size:1.6rem;
+  line-height: 2;
+  margin:0;
+}
+
+.domain-nav article li,
+.domain-nav article a,
+.domain-nav article h4{
+  word-break: break-all;
+}
+
+.domain-nav article h3{
+    font-size:1.8rem;
+    margin:0.5rem 0;
+}
+
+
+.domain-nav article h4{
+    font-size:1.6rem;
+    margin:0.25rem 0;
+}
+/**/
+
+h1{
+  margin: 0 0 2rem 0;
+  font-size:2.1rem;
+  line-height: 1;
+}
+
+@media only screen and (min-width: 600px) {
+  h1{
+    margin: 0 0 4rem 0;
+    font-size:2.4rem;
+  }
+}
+
+
+/*
+
+donuts
+
+*/
+
+/* Add shadow effect to chart. If you don't like it, get rid of it. */
+svg {
+  -webkit-filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.3) );
+  filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.25) );
+}
+
+/*Styling for the lines connecting the labels to the slices*/
+polyline{
+  opacity: .3;
+  stroke: black;
+  stroke-width: 2px;
+  fill: none;
+  shape-rendering: geometricPrecision;
+}
+
+/* styling for the donut slices*/
+path {
+  shape-rendering: geometricPrecision;
+}
+
+/* Make the percentage on the text labels bold*/
+.labelName tspan {
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* In biology we generally italicise species names. */
+.labelName {
+  font-size: 1.5rem;
+  font-weight:bold;
+}
+
+.toolCircle tspan{
+font-weight:bold;
+}
+
+.js_generate_donut svg{
+  width: 100%;
+  height:auto;
+}
+/**/
+
+
+.a11y-graph-holder{
+  max-width: 600px;
+  width:100%;
+}
+
+
+
+@media only screen and (min-width: 600px) {
+  .domain-nav .a11y-holder{
+    display: flex;
+  }
+  
+  .domain-nav .a11y-text-holder,
+  .domain-nav .a11y-graph-holder{
+    flex-basis: 50%;
+  }
+
+  .a11y-graph-holder{
+    min-height: 500px;
+  }
+  
+  .domain-nav .a11y-text-holder{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+  }
+}
+
+
+/**/
+
+.main-domain-nav-holder h2{
+  font-size: 1.8rem;
+}
+
+.main-domain-nav-holder h3{
+  font-size: 1.6rem;
+}
+
+.main-domain-nav-holder h4{
+  font-size: 1.4rem; 
+}
+
+.main-domain-nav-holder h5{
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+
+/* histogram */
+
+.js_histogram {
+  position: relative;
+  margin: 2rem 0;
+  box-shadow: 0px 20px 50px -18px #aaa;
+  border-radius: .123rem;
+  padding:1rem;
+
+}
+
+.js_histogram svg{
+  width: 100%;
+    height: auto;
+}
+.js_histogram .bar {
+  fill: #1888d6;
+  transition: all 150ms ease;
+}
+
+.js_histogram .bar:hover,
+.js_histogram .bar:focus{
+  fill: #09163d;
+}
+
+.js_histogram .axis--x path {
+  visibility: hidden;
+}
+
+.js_histogram svg text{
+  fill: black;
+}
+
+.js_histogram svg text.labelled{
+  fill:white;
+  font-weight: bold;
+  font-size:2rem;
+  text-shadow: 1px 2px 5px  black
+}
+
+/* tip */
+.js_histogram .tip{
+  width: 3rem;
+  background-color: #eee;
+  text-align: center;
+  box-shadow: 0px 2px 10px -2px #aaa;
+  border: 2px solid #444;
+  transition: all 160ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+.js_histogram .tip::after{
+    speak: none;
+    content: " ";
+    position: absolute;
+    bottom: -.5rem;
+    left: 50%;
+    margin-left: -.5rem;
+    border-style: solid;
+    border-width: .5rem .5rem 0 .5rem;
+    border-color: #444 transparent transparent transparent;
+}
+
+.js_histogram .axis-text{
+  font-size: 2rem;
+  font-weight:bold;
+}
+
+.js_histogram .tick{
+  font-size: 2.8em;
+}
+
+.svg-grid {
+  display: flex;
+  justify-content: center;
+  flex-basis: 100%;
+  flex-direction: column;
+}
+
+.js_histogram{
+  min-height: 916px;
+}
+
+@media only screen and (min-width: 800px){
+  .svg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+  }
+
+  .js_histogram{
+    min-height: 581px;
+  }
+
+}
+
+
+table.histogram-table{
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 600px;
+
+}
+
+table.histogram-table th{
+  padding: 0.5rem;
+  border: 1px solid;
+  text-align: left;
+  background: #03a9f4;
+  color:black;
+}
+
+table.histogram-table td{
+  padding: 0.5rem;
+  border: 1px solid;
+  text-align: left;
+}
+table.histogram-table caption{
+  text-align: left;
 }

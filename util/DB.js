@@ -14,6 +14,7 @@ if (row === undefined) {
         CREATE TABLE audits (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             ts DEFAULT CURRENT_TIMESTAMP,
+            domain TEXT,
             url TEXT,
             audit JSON
         );
@@ -40,15 +41,20 @@ const get = url => {
 };
 
 const insertAudit = db.prepare(
-  'INSERT INTO audits (url, audit) VALUES ($url, json($audit))',
+  'INSERT INTO audits (domain, url, audit) VALUES ($domain, $url, json($audit))',
 );
-const insert = (url, audit) => {
-  insertAudit.run({ url: url, audit: audit });
+const insert = (domain, url, audit) => {
+  insertAudit.run({ domain:domain, url: url, audit: audit });
   return get(url);
 };
 
 
 const stats = () => {
+
+  const readDomainsDistinct = db.prepare(
+    `SELECT COUNT ( DISTINCT domain ) AS "Distinct"  FROM audits`,
+  );
+  let distinctDomains = readDomainsDistinct.get();
 
   const readAuditsDistinct = db.prepare(
     `SELECT COUNT ( DISTINCT url ) AS "Distinct"  FROM audits`,
@@ -60,7 +66,7 @@ const stats = () => {
   );
   let all = readAuditsAll.get();
 
-  return `DB stats: ${all["All"]} all urls,  ${distinct["Distinct"]} distinct`;
+  return `DB stats: ${distinctDomains["Distinct"]} domains, ${all["All"]} urls,  ${distinct["Distinct"]} distinct urls`;
 
 }
 

@@ -1,5 +1,32 @@
 const Database = require('better-sqlite3');
-const db = new Database('./out/audits.db', /*{ verbose: console.log }*/);
+const db = new Database('./out/audits.db', { /*verbose: console.log*/ });
+const { cleanURL } = require('../util/helpers');
+
+function groupCountArrayItems(array){
+    let arrCount = {};
+    let returned = [];
+    array.map( item => {
+        if(arrCount.hasOwnProperty(item)){
+            arrCount[item]++
+        }else{
+            arrCount[item] = 1;
+        }
+        return;
+    });
+    for(let key in arrCount){
+        const count = arrCount[key];
+        returned.push(key + " : " + count)
+    }
+    return returned;
+
+}
+
+function getSumOfProp(arr, prop){
+    //some may have NA as a result, so we must take them away to get the correct average
+    let filtered = arr.filter( item => item[prop] !== "NA");
+    const sum = filtered.reduce((total, next) => total + next[prop], 0)
+    return sum;
+}
 
 function getAverageOfProp(arr, prop){
     //some may have NA as a result, so we must take them away to get the correct average
@@ -33,16 +60,59 @@ function generateSummaries(summaryByUrl){
     let lighthouseStats = {};
     let siteimproveStats = {};
 
+    let totalStats = {
+        a11y :{
+            passes : 0,
+            failures: 0,
+            incomplete: 0,
+        },
+        SEO: 0
+    };
+
+    let historicalSummariesFlatPerUrl = {};
+
     for(const url in summaryByUrl){
         
         const auditsPerURL = summaryByUrl[url];
         const auditsPerURL_len = auditsPerURL.length;
+       
 
         if(auditsPerURL_len > 0){
             distinctUrlsCount++;
 
-            const latest = auditsPerURL[(auditsPerURL_len - 1)];
+            for(let i = 0; i < auditsPerURL_len; i++){
+                const audit = auditsPerURL[i];
+                const axe = audit.axe;
+                const lh = audit.lh;
+                const si = audit.si;
 
+                if(!historicalSummariesFlatPerUrl.hasOwnProperty(url)){
+                    historicalSummariesFlatPerUrl[url] = [];
+                }
+                historicalSummariesFlatPerUrl[url].push({
+                    id: audit.id,
+                    ts: audit.ts,
+                    aXeTime: axe.time,
+                    aXeViolations: axe.violations,
+                    aXeViolationsImpacts: axe.violationsImpacts,
+                    aXeViolationsTags: axe.violationsTags,
+                    aXePasses: axe.passes,
+                    aXeIncomplete: axe.incomplete,
+                    siTime: si.time,
+                    siViolations : si.violations,
+                    siViolationsImpacts: si.violationsImpacts,
+                    siViolationsTags: si.violationsTags,
+                    siPasses : si.passes,
+                    siIncomplete : si.incomplete,
+                    lhTime: lh.time,
+                    lhPerf : lh.Performance,
+                    lhBestPrac: lh.BestPractices,
+                    lhSEO: lh.SEO,
+                    lhA11y: lh.A11y,
+                });
+            }
+
+            const latest = auditsPerURL[(auditsPerURL_len - 1)];
             const axe = latest.axe;
             const lh = latest.lh;
             const si = latest.si;
@@ -57,17 +127,17 @@ function generateSummaries(summaryByUrl){
                 aXeViolationsTags: axe.violationsTags,
                 aXePasses: axe.passes,
                 aXeIncomplete: axe.incomplete,
-                lhTime: lh.time,
-                lhPerf : lh.Performance,
-                lhBestPrac: lh.BestPractices,
-                lhSEO: lh.SEO,
-                lhA11y: lh.A11y,
                 siTime: si.time,
                 siViolations : si.violations,
                 siViolationsImpacts: si.violationsImpacts,
                 siViolationsTags: si.violationsTags,
                 siPasses : si.passes,
                 siIncomplete : si.incomplete,
+                lhTime: lh.time,
+                lhPerf : lh.Performance,
+                lhBestPrac: lh.BestPractices,
+                lhSEO: lh.SEO,
+                lhA11y: lh.A11y,
             });
 
             // axe
@@ -139,6 +209,7 @@ function generateSummaries(summaryByUrl){
     const numberOfItemsForStats = 5; 
 
     // axe
+    axeStats.name = "aXe";
     axeStats.mostViolations = sortByProp(latestFlattened, "aXeViolations", true).slice(0, numberOfItemsForStats);
     axeStats.leastViolations = sortByProp(latestFlattened, "aXeViolations", false).slice(0, numberOfItemsForStats);
     axeStats.unclearViolations = latestFlattened.filter( all => all.aXeViolations === "NA");
@@ -159,10 +230,11 @@ function generateSummaries(summaryByUrl){
     axeStats.avgIncompletes = getAverageOfProp(latestFlattened, "aXeIncomplete");
     axeStats.avgTime = getAverageOfProp(latestFlattened, "aXeTime");
 
-    axeStats.latestAxeViolations = [... latestAxeViolations];
-    axeStats.overallAxeImpacts = overallAxeImpacts;
+    axeStats.latestViolations = [... latestAxeViolations];
+    axeStats.overallImpacts = groupCountArrayItems(overallAxeImpacts);
 
     // lighthouse
+    lighthouseStats.name = "Lighthouse";
     lighthouseStats.bestA11y = sortByProp(latestFlattened, "lhA11y", true).slice(0, numberOfItemsForStats);
     lighthouseStats.worstA11y = sortByProp(latestFlattened, "lhA11y", false).slice(0, numberOfItemsForStats);
 
@@ -175,8 +247,8 @@ function generateSummaries(summaryByUrl){
     lighthouseStats.bestBestPrac = sortByProp(latestFlattened, "lhBestPrac", true).slice(0, numberOfItemsForStats);
     lighthouseStats.worstBestPrac = sortByProp(latestFlattened, "lhBestPrac", false).slice(0, numberOfItemsForStats);
 
-    lighthouseStats.bestTime = sortByProp(latestFlattened, "lhTime", true).slice(0, numberOfItemsForStats);
-    lighthouseStats.worstTime = sortByProp(latestFlattened, "lhTime", false).slice(0, numberOfItemsForStats);   
+    lighthouseStats.bestTime = sortByProp(latestFlattened, "lhTime", false).slice(0, numberOfItemsForStats);
+    lighthouseStats.worstTime = sortByProp(latestFlattened, "lhTime", true).slice(0, numberOfItemsForStats);   
     
     lighthouseStats.avgA11y = getAverageOfProp(latestFlattened, "lhA11y");
     lighthouseStats.avgSEO = getAverageOfProp(latestFlattened, "lhSEO");
@@ -185,7 +257,7 @@ function generateSummaries(summaryByUrl){
     lighthouseStats.avgTime = getAverageOfProp(latestFlattened, "lhTime");
 
     //siteimprove
-
+    siteimproveStats.name = "Siteimprove";
     siteimproveStats.mostViolations = sortByProp(latestFlattened, "siViolations", true).slice(0, numberOfItemsForStats);
     siteimproveStats.leastViolations = sortByProp(latestFlattened, "siViolations", false).slice(0, numberOfItemsForStats);
     siteimproveStats.unclearViolations = latestFlattened.filter( all => all.siViolations === "NA");
@@ -206,50 +278,103 @@ function generateSummaries(summaryByUrl){
     siteimproveStats.avgIncompletes = getAverageOfProp(latestFlattened, "siIncomplete");
     siteimproveStats.avgTime = getAverageOfProp(latestFlattened, "siTime");
 
-    siteimproveStats.latestSiViolations = [... latestSiViolations];
-    siteimproveStats.overallSiImpacts = overallSiImpacts;
+    siteimproveStats.latestViolations = [... latestSiViolations];
+    siteimproveStats.overallImpacts = groupCountArrayItems(overallSiImpacts);
+
+    totalStats.a11y.passes = (getSumOfProp(latestFlattened, "siPasses") + getSumOfProp(latestFlattened, "aXePasses"));
+    totalStats.a11y.failures = (getSumOfProp(latestFlattened, "siViolations") + getSumOfProp(latestFlattened, "aXeViolations"));
+    totalStats.a11y.passesVsFailures = (totalStats.a11y.passes / totalStats.a11y.failures).toFixed(5);
+    totalStats.a11y.passesAndFailures = ((totalStats.a11y.passes / (totalStats.a11y.passes + totalStats.a11y.failures)) * 100).toFixed(5) ;
+    totalStats.a11y.incompletes = (getSumOfProp(latestFlattened, "siIncomplete") + getSumOfProp(latestFlattened, "aXeIncomplete"));
+
+    totalStats.SEO = ((getSumOfProp(latestFlattened, "lhSEO")) / distinctUrlsCount).toFixed(5);
+    totalStats.Performance = ((getSumOfProp(latestFlattened, "lhPerf")) / distinctUrlsCount).toFixed(5);
+    totalStats.BestPractices = ((getSumOfProp(latestFlattened, "lhBestPrac")) / distinctUrlsCount).toFixed(5);
+    
+    const sumAllAudits = totalStats.a11y.passes + totalStats.a11y.failures + totalStats.a11y.incompletes;
+    totalStats.a11y.passesProc = totalStats.a11y.passes / sumAllAudits;
+    totalStats.a11y.failuresProc = totalStats.a11y.failures / sumAllAudits;
+    totalStats.a11y.incompletesProc =  totalStats.a11y.incompletes / sumAllAudits;
+
+    const dateTimeLatest = latestFlattened.sort( (a,b) => new Date(b.ts).getTime() - new Date(a.ts).getTime())[0].ts;
 
     return {
+        dateTimeLatest : dateTimeLatest,
+        distinctUrlsCount: distinctUrlsCount,
         axeSummary: axeStats,
-        lighthouseSummary: lighthouseStats,
-        siteimproveSummary: siteimproveStats
+        siSummary: siteimproveStats,
+        lhSummary: lighthouseStats,
+        totalStats: totalStats,
+        historicalSummariesFlatPerUrl: historicalSummariesFlatPerUrl
     }
 }
 
-exports.getAllReports = function(){
+exports.getAllReports = function(domain = "all"){
 
     let selectedAll = [];
     try {
-        const selectAll = db.prepare(
+
+        let selectAll = db.prepare(
             `SELECT 
-                id, ts, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
+                id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
             FROM audits`,
         );
+
+        if(domain !== "all"){
+
+            selectAll = db.prepare(
+                `SELECT 
+                    id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
+                FROM audits
+                WHERE domain = '${domain}'`,
+            );
+
+        }
+        
         selectedAll = selectAll.all();
     } catch (error) {
         console.error("Failed to run getAllReports: ", error);
     }
-    
-    const summaryByUrl = selectedAll.reduce((groups, item) => {
-        const group = (groups[item.url] || []);
+
+    const summaryByDomain = selectedAll.reduce((groups, item) => {
+        const group = (groups[item.domain] || {});
         const itemTmp = {
             id: item.id,
             ts: item.ts,
             axe: JSON.parse(item.aXeAudit),
-            lh: JSON.parse(item.lighthouseAudit),
             si: JSON.parse(item.siteimproveAudit),
+            lh: JSON.parse(item.lighthouseAudit),
         };
-        group.push(itemTmp);
-        groups[item.url] = group;
+        
+        if(!group[item.url]){
+            group[item.url] = [];
+        }
+        group[item.url].push(itemTmp);
+
+        groups[item.domain] = group;
         return groups;
       }, {});
 
-    const summaries = generateSummaries(summaryByUrl);
+    let returned = [];
 
-    return {
-        axeSummary : summaries.axeSummary,
-        lighthouseSummary : summaries.lighthouseSummary,
-        summaryByUrl
-    };
+    for(const domain in summaryByDomain){
+        const summaries = generateSummaries(summaryByDomain[domain]);
+
+        returned.push({
+            uid: cleanURL(domain),
+            domain: domain,
+            dateTimeLatest: summaries.dateTimeLatest,
+            distinctUrlsCount: summaries.distinctUrlsCount,
+            axeSummary : summaries.axeSummary,
+            siSummary : summaries.siSummary,
+            lhSummary : summaries.lhSummary,
+            totalStats : summaries.totalStats,
+            summaryByDomain: summaryByDomain,
+            historicalSummariesFlatPerUrl: summaries.historicalSummariesFlatPerUrl
+            
+        })
+    }
+    
+    return returned;
     
 }

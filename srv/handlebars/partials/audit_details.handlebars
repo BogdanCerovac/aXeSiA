@@ -1,0 +1,170 @@
+<h3>{{name}} stats</h3>
+
+        <h4>{{name}} all &amp; avg</h4>
+        <ul>
+            <li>allViolations {{allViolations}}</li>
+            <li>allPasses {{allPasses}}</li>
+            <li>allIncompletes {{allIncompletes}}</li>
+        </ul>
+
+        <ul>
+            <li>avgViolations {{avgViolations}}</li>
+            <li>avgPasses {{avgPasses}}</li>
+            <li>avgIncompletes {{avgIncompletes}}</li>
+        </ul>
+
+        <p>avgTime {{avgTime}}</p>
+
+        <h4>{{name}} tags &amp; severity</h4>
+        <p>latestViolations:</p>
+        {{#if latestViolations}}
+        <ul>
+            {{#each latestViolations}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        {{else}}
+            <p>No latestViolations</p>
+        {{/if}}
+
+        <p>overallImpacts:</p>
+        {{#if overallImpacts}}
+        <ul>
+            {{#each overallImpacts}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        {{else}}
+            <p>No overallImpacts</p>
+        {{/if}}
+
+       
+        <h4>{{name}} mostViolations</h4>
+        {{#if mostViolations}}
+        <ol class="url-list">
+            {{#each mostViolations}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Violations}} violations)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No mostViolations</p>
+        {{/if}}
+        
+
+        <h4>{{name}} unclearViolations</h4>
+        {{#if unclearViolations}}
+        <ol class="url-list">
+            {{#each unclearViolations}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Violations}} violations)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No unclearViolations</p>
+        {{/if}}
+
+        <h4>{{name}} leastViolations</h4>
+        {{#if leastViolations}}
+        <ol class="url-list">
+            {{#each leastViolations}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Violations}} violations)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No leastViolations</p>
+        {{/if}}
+      
+
+        <h4>{{name}} mostPasses</h4>
+        {{#if mostPasses}}
+        <ol class="url-list">
+            {{#each mostPasses}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Passes}} passes)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No mostPasses</p>
+        {{/if}}
+        
+
+        <h4>{{name}} leastPasses</h4>
+        {{#if leastPasses}}
+        <ol class="url-list">
+            {{#each leastPasses}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Passes}} passes)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No leastPasses</p>
+        {{/if}}
+       
+
+        <h4>{{name}} unclearPasses</h4>
+        {{#if unclearPasses}}
+        <ol class="url-list">
+            {{#each unclearPasses}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Passes}} passes)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No unclearPasses</p>
+        {{/if}}
+       
+
+        <h4>{{name}} mostIncompletes</h4>
+        {{#if mostIncompletes}}
+        <ol class="url-list">
+            {{#each mostIncompletes}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Incomplete}} incomplete)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No mostIncompletes</p>
+        {{/if}}
+       
+
+        <h4>{{name}} leastIncompletes</h4>
+        {{#if leastIncompletes}}
+        <ol class="url-list">
+            {{#each leastIncompletes}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Incomplete}} incomplete)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No leastIncompletes</p>
+        {{/if}}
+        
+
+        <h4>{{name}} unclearIncompletes</h4>
+        {{#if unclearIncompletes}}
+        <ol class="url-list">
+            {{#each unclearIncompletes}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Incomplete}} incomplete)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No unclearIncompletes</p>
+        {{/if}}
+       
+
+        <h4>{{name}} mostTime</h4>
+        {{#if mostTime}}
+        <ol class="url-list">
+            {{#each mostTime}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Time}} ms)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No mostTime</p>
+        {{/if}}
+        
+
+        <h4>{{name}} leastTime</h4>
+        {{#if leastTime}}
+        <ol class="url-list">
+            {{#each leastTime}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Time}} ms)</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No leastTime</p>
+        {{/if}}

@@ -1,5 +1,21 @@
 const fs = require('fs');
 
+exports.truncateDecimals = function (num, fixed = 2) {
+    var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
+    return num.toString().match(re)[0];
+}
+
+exports.makeUid = function(length) {
+    let result           = '';
+    const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+ 
+
 exports.sleep = function(ms = 0) {
     return new Promise(r => setTimeout(r, ms));
 }

@@ -1,0 +1,141 @@
+<h3>{{name}} stats</h3>
+
+<h4>{{name}} avg</h4>
+        <ul>
+            <li>avgA11y {{avgA11y}}</li>
+            <li>avgSEO {{avgSEO}}</li>
+            <li>avgPerf {{avgPerf}}</li>
+            <li>avgBestPrac {{avgBestPrac}}</li>
+        </ul>
+
+         <p>avgTime {{avgTime}}</p>
+
+
+           <h4>{{name}} a11y</h4>
+        <p>bestA11y:</p>
+         {{#if bestA11y}}
+        <ol class="url-list">
+            {{#each bestA11y}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.lhA11y}})</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No bestA11y</p>
+        {{/if}}
+
+         
+        <p>worstA11y:</p>
+        {{#if worstA11y}}
+        <ol class="url-list">
+            {{#each worstA11y}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.lhA11y}})</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No worstA11y</p>
+        {{/if}}
+
+
+
+          <h4>{{name}} SEO</h4>
+        <p>bestSEO:</p>
+         {{#if bestSEO}}
+        <ol class="url-list">
+            {{#each bestSEO}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.lhSEO}})</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No bestSEO</p>
+        {{/if}}
+
+          
+        <p>worstSEO:</p>
+        {{#if worstSEO}}
+        <ol class="url-list">
+            {{#each worstSEO}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.lhSEO}})</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No worstSEO</p>
+        {{/if}}
+       
+
+
+
+          <h4>{{name}} Perf</h4>
+        <p>bestPerf:</p>
+         {{#if bestPerf}}
+        <ol class="url-list">
+            {{#each bestPerf}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.lhPerf}})</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No bestPerf</p>
+        {{/if}}
+
+         
+        <p>worstPerf:</p>
+          {{#if worstPerf}}
+        <ol class="url-list">
+            {{#each worstPerf}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.lhPerf}})</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No worstPerf</p>
+        {{/if}}
+
+
+
+          <h4>{{name}} best practices</h4>
+        <p>bestBestPrac:</p>
+         {{#if bestBestPrac}}
+        <ol class="url-list">
+            {{#each bestBestPrac}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.lhBestPrac}})</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No bestBestPrac</p>
+        {{/if}}
+        
+
+         <p>worstBestPrac:</p>
+         {{#if worstBestPrac}}
+        <ol class="url-list">
+            {{#each worstBestPrac}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.lhBestPrac}})</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No worstBestPrac</p>
+        {{/if}}
+
+
+
+          <h4>{{name}} time</h4>
+        <p>bestTime:</p>
+         {{#if bestTime}}
+        <ol class="url-list">
+            {{#each bestTime}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.lhTime}})</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No bestTime</p>
+        {{/if}}
+
+
+<p>worstTime:</p>
+         {{#if worstTime}}
+        <ol class="url-list">
+            {{#each worstTime}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.lhTime}})</li>
+            {{/each}}
+        </ol>
+        {{else}}
+            <p>No worstTime</p>
+        {{/if}}
