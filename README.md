@@ -1,4 +1,7 @@
 # aXeSiA
+
+![aXeSiA logo - just text with custom font, looking like it was drawn by hand](https://github.com/BogdanCerovac/aXeSiA/blob/main/srv/public/res/aXeSiA-logo.png?raw=true)
+
 Make use of open source to achieve simple, site-wide, accessibility evaluation based on multiple different implementations of Accessibility Conformance Testing (ACT) rules.
 
 Main project page: https://github.com/BogdanCerovac/aXeSiA/projects/1
