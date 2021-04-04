@@ -292,7 +292,10 @@ font-weight:bold;
 /**/
 
 
-
+.a11y-graph-holder{
+  max-width: 600px;
+  width:100%;
+}
 
 
 
@@ -307,7 +310,7 @@ font-weight:bold;
   }
 
   .a11y-graph-holder{
-    min-height: 600px;
+    min-height: 500px;
   }
   
   .domain-nav .a11y-text-holder{
@@ -378,20 +381,17 @@ font-weight:bold;
   text-shadow: 1px 2px 5px  black
 }
 
-.js_histogram .background-style{
-  
-}
-
 /* tip */
 .js_histogram .tip{
   width: 3rem;
   background-color: #eee;
   text-align: center;
-    box-shadow: 0px 2px 10px -2px #aaa;
+  box-shadow: 0px 2px 10px -2px #aaa;
   border: 2px solid #444;
   transition: all 160ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 .js_histogram .tip::after{
+    speak: none;
     content: " ";
     position: absolute;
     bottom: -.5rem;
@@ -408,7 +408,7 @@ font-weight:bold;
 }
 
 .js_histogram .tick{
-  font-size: 2rem;
+  font-size: 2.8em;
 }
 
 .svg-grid {
@@ -418,6 +418,10 @@ font-weight:bold;
   flex-direction: column;
 }
 
+.js_histogram{
+  min-height: 916px;
+}
+
 @media only screen and (min-width: 800px){
   .svg-grid {
     display: grid;
@@ -425,12 +429,18 @@ font-weight:bold;
     grid-gap: 30px;
   }
 
+  .js_histogram{
+    min-height: 581px;
+  }
+
 }
 
 
 table.histogram-table{
-  margin: 1rem 0;
+  margin: 1rem auto;
   width: 100%;
+  max-width: 600px;
+
 }
 
 table.histogram-table th{

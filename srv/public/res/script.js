@@ -20,6 +20,16 @@ document.querySelectorAll('a[target="_blank"]').forEach(link => {
     addNewTabMessage(link);
 });
 
+function trimDecimals(decimal){
+    if(decimal.toString().includes('.')){
+        const tmp = decimal.toString().split('.')
+        return parseFloat(tmp[0] + '.' + tmp[1].substring(0, 2));
+    }else{
+        return decimal;
+    }
+
+}
+
 //url as id has to be cleaned
 function cleanUrl(url){
     return url.replace(/[^a-z\_\-A-Z0-9]/g, '_');
@@ -169,6 +179,7 @@ function generateDetails(type, data){
 
 
 document.querySelectorAll('.js_generate_details').forEach( details => {
+    details.innerHTML = "";
     const type = details.id.split("_")[1];
     details.innerHTML = generateDetails(type, dataCleaned);
 })
@@ -248,8 +259,8 @@ function histogramDataByType(type, flattened){
                     const seoAvg = seos.reduce((a, b) => a + b, 0) / seos_len;
                     const seoAvgShort = () => {
                         if(seoAvg.toString().includes('.')){
-                            const tmp = seoAvg.toString().split(".");
-                            return parseFloat(tmp[0] + '.' + tmp[1].substring(0, 4)) * 100
+                            console.log(trimDecimals(seoAvg))
+                            return trimDecimals(seoAvg)
                         }else{
                             return seoAvg;
                         }
@@ -294,7 +305,9 @@ function generateHistogramTable(details, dataProp, dataPerType){
     </tr>
     <tbody>`;
 
-    let dataPerTypeDesc = dataPerType.sort( (a,b) => new Date(b.date).getTime() -  new Date(a.date).getTime())
+    let dataPerTypeDesc = dataPerType.sort( (a,b) => new Date(b.date).getTime() -  new Date(a.date).getTime());
+    
+
     dataPerTypeDesc.forEach( item => {
         returnedHtml += `<tr>
         <td>${item.date}</td>
@@ -311,10 +324,11 @@ function generateHistogramTable(details, dataProp, dataPerType){
 }
 
 document.querySelectorAll('.js_histogram').forEach( details => {
+    details.innerHTML = "";
     const type = details.dataset.set.split("_")[1];
     const dataProp = details.dataset.prop;
     const flattened = flattenHistogramData(historicalCleaned);
     const dataPerType = histogramDataByType(type, flattened);
     generateHistogram(details, dataProp, dataPerType);
-    generateHistogramTable(details, dataProp, dataPerType);
+    generateHistogramTable(details, dataProp, dataPerType, 5);
 })

@@ -8,6 +8,7 @@ const donuts = document.getElementsByClassName("js_generate_donut");
 const donuts_len = donuts.length;
 for(let i = 0; i < donuts_len; i++){
     const singleDonutHolder = donuts[i];
+    singleDonutHolder.innerHTML = "";
     const id = singleDonutHolder.id;
     const dataId = "graph_data_a11y____" + id.split("____")[1];
     const dataRaw = document.getElementById(dataId).innerText.trim().replace(/\r?\n|\r\s/g, '');
@@ -76,6 +77,7 @@ function donutChart() {
                    .attr('viewBox', ' 0 0 ' +width + ' ' +height)
                    .attr('preserveAspectRatio', 'xMinYMin meet')
                    .attr('focusable', 'false')
+                   .attr('aria', 'hidden')
                  .append('g')
                    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
                // ===========================================================================================

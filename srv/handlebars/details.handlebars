@@ -37,15 +37,15 @@
        
         <div class="svg-grid">
 
-            <div data-set="js-histogram_urls" data-prop="urls" class="js_histogram"></div>
+            <div data-set="js-histogram_urls" data-prop="urls" class="js_histogram">Please wait, loading...</div>
         
-            <div data-set="js-histogram_a11y" data-prop="a11yPassesAvg" class="js_histogram"></div>
+            <div data-set="js-histogram_a11y" data-prop="a11yPassesAvg" class="js_histogram">Please wait, loading...</div>
 
-            <div data-set="js-histogram_a11y" data-prop="a11yViolationsAvg" class="js_histogram"></div>
+            <div data-set="js-histogram_a11y" data-prop="a11yViolationsAvg" class="js_histogram">Please wait, loading...</div>
 
-            <div data-set="js-histogram_a11y" data-prop="a11yIncompletesAvg" class="js_histogram"></div>
+            <div data-set="js-histogram_a11y" data-prop="a11yIncompletesAvg" class="js_histogram">Please wait, loading...</div>
 
-            <div data-set="js-histogram_seo" data-prop="seoAvgShort" class="js_histogram"></div>
+            <div data-set="js-histogram_seo" data-prop="seoAvgShort" class="js_histogram">Please wait, loading...</div>
 
 
         </div>
@@ -66,14 +66,14 @@
         <h3 id="label_a11y">Overall automatic accessibility testing score</h3>
 
         <div id="graph_data_a11y____details" style="display: none;">
-                            [{"category": "Failures", "score" : {{this.totalStats.a11y.failuresProc}}, "color":"red"},{"category": "Passes", "score" : {{this.totalStats.a11y.passesProc}}, "color":"green"},{"category": "Incompletes", "score" : {{this.totalStats.a11y.incompletesProc}}, "color":"blue"}]
+            [{"category": "Failures", "score" : {{this.totalStats.a11y.failuresProc}}, "color":"red"},{"category": "Passes", "score" : {{this.totalStats.a11y.passesProc}}, "color":"green"},{"category": "Incompletes", "score" : {{this.totalStats.a11y.incompletesProc}}, "color":"blue"}]
         </div>
-        <div id="graph_a11y____details" class="a11y-graph-holder js_generate_donut" aria-hidden="true"></div>
+        <div id="graph_a11y____details" class="a11y-graph-holder js_generate_donut" aria-hidden="true">Please wait, loading...</div>
 
         <ul aria-labelledby="label_a11y">
-                                    <li>Failures: {{decimalToPercent this.totalStats.a11y.failuresProc}}%, Passes: {{decimalToPercent this.totalStats.a11y.passesProc}}%, Incompletes:  {{decimalToPercent this.totalStats.a11y.incompletesProc}}%</li>
-                                    <li>#Failures: {{this.totalStats.a11y.failures}}, #Passes: {{this.totalStats.a11y.passes}}, #Incompletes: {{this.totalStats.a11y.incompletes}}</li>
-                                    <li>Pass versus fail ratio: {{this.totalStats.a11y.passesVsFailures}}</li>
+            <li>Failures: {{decimalToPercent this.totalStats.a11y.failuresProc}}%, Passes: {{decimalToPercent this.totalStats.a11y.passesProc}}%, Incompletes:  {{decimalToPercent this.totalStats.a11y.incompletesProc}}%</li>
+            <li>#Failures: {{this.totalStats.a11y.failures}}, #Passes: {{this.totalStats.a11y.passes}}, #Incompletes: {{this.totalStats.a11y.incompletes}}</li>
+            <li>Pass versus fail ratio: {{this.totalStats.a11y.passesVsFailures}}</li>
         </ul>
        
         <h3>Overall Search engine optimization score: {{ decimalToPercent this.totalStats.SEO}}%</h3>
@@ -91,7 +91,7 @@
         <h3>Overview of all URLs in the audit</h3>
         <p>You can expand them and observe details of audits per page</p>
 
-        <div id="js_all" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}"></div>
+        <div id="js_all" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
 
     </article>
 
@@ -104,7 +104,7 @@
         {{> audit_details axeSummary}}
        
         <h3 id="axeDetails" tabindex="-1">axe details</h3>
-        <div id="js_axe" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}"></div>
+        <div id="js_axe" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
 
     </article>
 
@@ -116,7 +116,7 @@
         {{> audit_details siSummary}}
 
         <h3 id="siteimproveDetails" tabindex="-1">siteimprove details</h3>
-        <div id="js_si" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}"></div>
+        <div id="js_si" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
 
     </article>
 
@@ -128,7 +128,7 @@
         {{> lighthouse_details lhSummary}}
 
         <h3 id="lighthouseDetails" tabindex="-1">lighthouse details</h3>
-        <div id="js_lh" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}"></div>
+        <div id="js_lh" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
 
     </article>
 

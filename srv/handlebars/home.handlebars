@@ -1,17 +1,17 @@
 
-<article class="main-domain-nav-holder">
+<article class="main-domain-nav-holder" aria-labelledby="title-nav">
     <h2 id="title-nav">Audits per domain</h2>
 
     <p>This is a summary of summaries of all audits that were made.</p>
     <p><strong>Please note that automatic accessibility testing covers only between 20% - 30% of all WCAG success criteria!</strong></p>
     <p>Please click on the domain links for details;</p>
 
-    <nav aria-labelledby="title-nav" class="domain-nav">
+    <div class="domain-nav">
         {{#if domains}}
         <ul class="navi-list">
             {{#each domains}}
             <li>
-                <article>
+                <article aria-labelledby="{{this.uid}}">
                     <h3><a href="?details={{this.domain}}" aria-describedby="{{this.uid}}">{{this.domain}} - {{this.distinctUrlsCount}} unique urls</a></h3>
                     <div id="{{this.uid}}">
                         <h4>Overall scores for {{this.domain}}:</h4>
@@ -30,7 +30,7 @@
                                     
                                 </ul>
                             </div>
-                            <div id="graph_a11y____{{this.uid}}" class="a11y-graph-holder js_generate_donut" aria-hidden="true"></div>
+                            <div id="graph_a11y____{{this.uid}}" class="a11y-graph-holder js_generate_donut" aria-hidden="true">Please wait, loading...</div>
                         </div>
                         
                         
@@ -46,7 +46,7 @@
                 No audits available. Please check server logs and database!
             </p>
         {{/if}}
-    </nav>
+    </div>
 
     <script src="res/d3.v4.13.0.min.js"></script>
     <script src="res/d3.donuts.js?{{timestamp}}"></script>

@@ -1,7 +1,9 @@
-function generateHistogram(element, type, data){
+function generateHistogram(element, type, dataRaw, dataLimit = 5){
 
-    const widthSvg = 800;
-    const heightSvg = 1000;
+    //limiting histogram due to width...
+    const data = dataRaw.slice(0, dataLimit);
+    const widthSvg = 1000;
+    const heightSvg = 900;
     
     var tip = d3.select(element)
         .append("div")
@@ -11,7 +13,8 @@ function generateHistogram(element, type, data){
         .style("visibility", "hidden");
 
         const svg = d3.create("svg");
-        svg.attr("class", "background-style");
+        svg.attr("aria-hidden", "true");
+        svg.attr("focusable", "false")
         
     const margin = {top: 20, right: 10, bottom: 60, left: 150};
     const width = +widthSvg - (margin.left + margin.right);
@@ -23,7 +26,7 @@ function generateHistogram(element, type, data){
 
     d3.select(element).append(() => svg.node());
 
-var x = d3.scaleBand().rangeRound([0, width]).padding(0.15),
+var x = d3.scaleBand().rangeRound([0, width]).padding(0.25),
     y = d3.scaleLinear().rangeRound([height, 0.5]);
 
 var g = svg.append("g")
@@ -32,15 +35,16 @@ var g = svg.append("g")
   
   x.domain(data.map(function(d) { return d.date; }));
 
-  let maxY = d3.max(data, function(d) { return d[type]; });
-
+  let maxYorig = d3.max(data, function(d) { return d[type]; });
+  console.log("maxYorig for " + type + " = " + maxYorig)
+  let maxY = maxYorig;
   //some margin
-  if(parseInt(maxY, 10) < 100){
-    const maxYInt = parseInt(maxY, 10);
-    maxY = Math.round(maxYInt + ( maxYInt * 15) / 100);
+  if(parseFloat(maxY, 10) < 100){
+    const maxYFloat = parseFloat(maxY, 10);
+    maxY = Math.round(maxYFloat + ( maxYFloat * 15) / 100);
   }
 
-  console.log(maxY)
+  console.log("maxY for " + type + " = " + maxY)
   y.domain([0, maxY]);
 
   g.append("g")
@@ -91,12 +95,7 @@ var g = svg.append("g")
     .attr("dominant-baseline", "central") 
     .attr("class", "labelled")
     .text(function(d) { 
-        let val = d[type];
-        if(val.toString().includes('.')){
-            const tmp = val.toString().split('.')
-            val = tmp[0] + '.' + tmp[1].substring(0, 2)
-        }
-        return val;
+        return d[type];
     });
    
 
