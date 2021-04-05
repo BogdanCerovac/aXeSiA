@@ -1,4 +1,4 @@
-/**
+/****************************************************************
         __   __       _____  _           
         \ \ / /      / ____|(_)    /\    
    __ _  \ V /  ___ | (___   _    /  \   
@@ -8,17 +8,16 @@
                                          
                                          
  
- aXeSia - open source automated accessibility analyze tool that can evaluate multiple sites at once
+ aXeSia - open source automated accessibility analyze tool 
+ that can process, audit and evaluate multiple URLs in sequence.
  
  https://github.com/BogdanCerovac/aXeSiA 
  
- */
+******************************************************************/
 
 const Sitemapper = require('sitemapper');
 const puppeteer = require('puppeteer');
 let db = require('./util/DB');
-
-const { sleep } = require('./util/helpers');
 
 const {
   iPhone4,
@@ -55,7 +54,6 @@ let mainCFG = {
   pathForScreenshots : './out/screens/test/'
 };
 
-/*
 mainCFG = {
   mainURL: 'https://www.itumx.no/sitemap.xml',
   cookieConsent: {
@@ -64,7 +62,6 @@ mainCFG = {
   },
   pathForScreenshots : './out/screens/test/'
 };
-*/
 
 /***********************************************/
 
@@ -101,12 +98,12 @@ const devicesForScreenshots = [
   iPhoneX,
   iPhoneX_land,
   iPad,
-  iPad_land,
-  /*iPadPro,
+  iPad_land,*/
+  iPadPro,
   iPadPro_land,
   MacBook_Pro,
   PC_WIN_10_chrome,
-  /*PC_WIN_10_FF,
+  PC_WIN_10_FF,/*
   PC_WIN_10_Opera,
   PC_WIN_10_Brave*/
 ];
@@ -153,7 +150,7 @@ const started = new Date();
         let url = sitesUnique[i];
         //console.log(url)
         console.log("Running tasks for url " + (counter + 1) + " of " + sitesNum);
-        // const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
+        const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
         const aXeAudit = await getAXEreportForURL(browserObj, url);
         const lighthouseAudit = await getLighthouseReportForURL(browserObj, url);
         const siteimproveAudit = await getSiteimproveAlphaReportForURL(browserObj, url);
