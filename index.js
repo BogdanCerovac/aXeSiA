@@ -54,6 +54,7 @@ let mainCFG = {
   pathForScreenshots : './out/screens/test/'
 };
 
+/*
 mainCFG = {
   mainURL: 'https://www.itumx.no/sitemap.xml',
   cookieConsent: {
@@ -62,6 +63,7 @@ mainCFG = {
   },
   pathForScreenshots : './out/screens/test/'
 };
+*/
 
 /***********************************************/
 
@@ -150,7 +152,7 @@ const started = new Date();
         let url = sitesUnique[i];
         //console.log(url)
         console.log("Running tasks for url " + (counter + 1) + " of " + sitesNum);
-        const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
+        //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
         const aXeAudit = await getAXEreportForURL(browserObj, url);
         const lighthouseAudit = await getLighthouseReportForURL(browserObj, url);
         const siteimproveAudit = await getSiteimproveAlphaReportForURL(browserObj, url);

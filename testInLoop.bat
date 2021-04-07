@@ -3,6 +3,7 @@ set loopEnd=2
 set loop=1
 set start=%DATE% %TIME%
 :loop
+node ./util/dbShowAll.js
 echo !!!!!!!!!!!!!!! Processing %loop% started %DATE% %TIME%
 node index.js mainURL=https://cerovac.com/a11y/sitemap.xml
 node index.js mainURL=https://www.itumx.no/sitemap.xml
@@ -13,3 +14,4 @@ goto loop
 
 :next
 echo !!!!!!!!!!!!!!! Looped successfully %loop% times Started @ %start% ended @ %DATE% %TIME%
+node ./util/dbShowAll.js

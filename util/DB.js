@@ -21,7 +21,7 @@ if (row === undefined) {
         `;
   db.exec(sqlInit);
 }else{
-  console.log("audits database exists");
+  // console.log("audits database exists");
 }
 
 
@@ -66,8 +66,17 @@ const stats = () => {
   );
   let all = readAuditsAll.get();
 
-  return `DB stats: ${distinctDomains["Distinct"]} domains, ${all["All"]} urls,  ${distinct["Distinct"]} distinct urls`;
+  const distinctDatesAll = db.prepare(
+    `SELECT COUNT ( DISTINCT DATE(ts) ) AS "Distinct"  FROM audits`,
+  );
+  let distinctDates = distinctDatesAll.get();
+
+  return `DB stats: ${distinctDomains["Distinct"]} domains, ${distinctDates["Distinct"]} distinct dates, ${distinct["Distinct"]} distinct urls, ${all["All"]} all urls`;
 
 }
 
-module.exports = { get, insert, stats };
+const statsForFile = () => {
+  return stats().replaceAll(" ", "_").replaceAll(":", "-");
+}
+
+module.exports = { get, insert, stats, statsForFile };
