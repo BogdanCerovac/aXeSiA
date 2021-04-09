@@ -26,7 +26,7 @@ So main requirements I wanted to achieve with aXeSiA are:
 
 I've been thinking of aXeSiA long before axe-hackaton 2021 but when I attended axe-con I thought it would be interesting to really do something there. And because axe-core is one of the most important parts it felt natural. It was unfortunately not possible to present aXeSiA on the hackaton due to a family emergency, so I did not pitch it there and that is probably also the reason why there are no other contributors (for now at least). But it's OK. I made a simple and working proof of concept and reached the first goal.
 
-[Simple video presentation and demo](https://youtu.be/c2ICfeuM8HE)
+[Simple video presentation and demo (manually captioned)](https://youtu.be/c2ICfeuM8HE)
 
 
 ### Basic features for axe-hackaton - minimum viable product
