@@ -80,5 +80,8 @@ Please read more about aXeSiA on my blog: https://cerovac.com/a11y/2021/04/my-fi
 
 - [Please read about terms and conditions - no warranty and do check if you can crawl a page before you do it!](https://github.com/BogdanCerovac/aXeSiA/wiki/Terms-and-conditions)
 - [Wiki page (some additional details, installation and usage)](https://github.com/BogdanCerovac/aXeSiA/wiki)
+- [How to contribute](https://github.com/BogdanCerovac/aXeSiA/blob/main/CONTRIBUTING.md)
+- [Security concerns or vulnerabilities?](https://github.com/BogdanCerovac/aXeSiA/blob/main/SECURITY.md)
+- [Code of conduct](https://github.com/BogdanCerovac/aXeSiA/blob/main/CODE_OF_CONDUCT.md)
 - [License: Mozilla Public License 2.0](https://github.com/BogdanCerovac/aXeSiA/blob/main/LICENSE)
 
