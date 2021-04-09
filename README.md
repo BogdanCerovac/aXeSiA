@@ -28,7 +28,6 @@ I've been thinking of aXeSiA long before axe-hackaton 2021 but when I attended a
 
 [Simple video presentation and demo (manually captioned)](https://youtu.be/c2ICfeuM8HE)
 
-
 ### Basic features for axe-hackaton - minimum viable product
 
 Due to time limitations I've decided to limit the scope to bare minimum and concentrate on functionality before other aspects. So code is dirty, design is extremely raw and I tried to make the user interface accessible but it is far from performant and needs a lot more work. But main features work and can be already used.
@@ -46,6 +45,11 @@ aXeSiA can:
 - simple web user interface with overview of:
     - overall accessibility, SEO, performance for whole domain (averages of all sites at once),
     - possibility to monitor accessibility, SEO, performance overall status in time (comparing data)
+
+### Update 9. apr. 2021 from axe-hackaton:
+
+aXeSiA did not won the hackathon and I was also not expecting it to win as there were much more interesting projects but I am happy I was able to present it anyway.
+My plan with aXeSiA is to have a simple and open tool that I can use (and happily share with others) for some grunt multi-site audits and will continue to add features as I will see fit (or potential other contributors). It has already saved me some time when I needed to quickly map site-wide situations.
 
 ## Used technologies
 
