@@ -74,6 +74,11 @@ details{
     line-height:1.5;
   }
 
+  a{
+    display: inline-block;
+    word-break: break-all;
+  }
+
   /**/
 
   main{
@@ -458,4 +463,14 @@ table.histogram-table td{
 }
 table.histogram-table caption{
   text-align: left;
+}
+
+.table-wrapper{
+  width: 100%;
+  position: relative;
+  overflow: auto;
+}
+
+tr:hover td {
+  background: #9cc9ef;
 }

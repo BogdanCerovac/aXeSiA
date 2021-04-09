@@ -1,7 +1,13 @@
 function generateHistogram(element, type, dataRaw, dataLimit = 5){
 
-    //limiting histogram due to width...
-    const data = dataRaw.slice(0, dataLimit);
+    if(isNaN(dataLimit) || dataLimit > 5 || dataLimit < 0){
+        throw new Error("generateHistogram needs dataLimit dataLimit > 5 || dataLimit < 0. Aborting - You provided: ", dataLimit );
+    }
+
+    const debug = false;
+
+    //limiting histogram due to width, last "dataLimit" pieces, optimal 5...
+    const data = dataRaw.sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime()).slice(-dataLimit);
     const widthSvg = 1000;
     const heightSvg = 900;
     
@@ -36,15 +42,18 @@ var g = svg.append("g")
   x.domain(data.map(function(d) { return d.date; }));
 
   let maxYorig = d3.max(data, function(d) { return d[type]; });
-  console.log("maxYorig for " + type + " = " + maxYorig)
+  if(debug){
+      console.log("maxYorig for " + type + " = " + maxYorig);
+  }
   let maxY = maxYorig;
   //some margin
   if(parseFloat(maxY, 10) < 100){
     const maxYFloat = parseFloat(maxY, 10);
     maxY = Math.round(maxYFloat + ( maxYFloat * 15) / 100);
   }
-
-  console.log("maxY for " + type + " = " + maxY)
+  if(debug){
+    console.log("maxY for " + type + " = " + maxY);
+  }
   y.domain([0, maxY]);
 
   g.append("g")

@@ -65,7 +65,7 @@ function renderDetailsForA11y(details, type){
     }
 
     const total = [details.passes, details.incomplete, details.inapplicable, details.violations].map( num => !isNaN(num) && num >= 0 ? num : 0  ).reduce(function(a, b) { return a + b; }, 0);
-    return `<table class="audit-details-table ${type}-details-table">
+    return `<div class="table-wrapper"><table class="audit-details-table ${type}-details-table">
     <caption>${typeToTitleString(type)} - audit details </caption>
     <tr>
         <th scope="col">Time <span class="sr-only">for ${typeToTitleString(type)}</span></th>
@@ -83,7 +83,7 @@ function renderDetailsForA11y(details, type){
         <td>${details.inapplicable}</td>
         <td>${total}</td>
     </tr>
-  </table>
+  </table></div>
 
   <div class="violations-summary">${violationsHTML}</div>
 `;
@@ -259,7 +259,6 @@ function histogramDataByType(type, flattened){
                     const seoAvg = seos.reduce((a, b) => a + b, 0) / seos_len;
                     const seoAvgShort = () => {
                         if(seoAvg.toString().includes('.')){
-                            console.log(trimDecimals(seoAvg))
                             return trimDecimals(seoAvg)
                         }else{
                             return seoAvg;
@@ -296,7 +295,7 @@ function flattenHistogramData(dataAll){
 
 function generateHistogramTable(details, dataProp, dataPerType){
     let node = document.createElement("div");
-    node.setAttribute("class", "histogram-table-holder")
+    node.setAttribute("class", "histogram-table-holder table-wrapper")
     let returnedHtml = `<table class="histogram-table ${dataProp}-histogram-table">
     <caption>${dataProp} - histogram table</caption>
     <tr>
