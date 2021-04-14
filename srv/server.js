@@ -56,9 +56,10 @@ app.get('/', (req, res, next) => {
                 historicalSummariesFlatPerUrlString: JSON.stringify(domainData.historicalSummariesFlatPerUrl),
                 domainDataAsString : JSON.stringify(domainData.summaryByDomain[req.query.details]),
                 helpers: {
-                    decimalToPercent: function (decimal) { return truncateDecimals(decimal * 100, 4); },
-                    timestamp: function() {return new Date().getTime();},
-                    heightPerUrl : function(items, heightPerItem) {return items * heightPerItem}
+                    decimalToPercent: (decimal) => truncateDecimals(decimal * 100, 4),
+                    timestamp: () => new Date().getTime(),
+                    heightPerUrl : (items, heightPerItem) => items * heightPerItem,
+                    auditPropNameByType: (data, type, origProp) => data[type + origProp],
                 }
             })
         }else{

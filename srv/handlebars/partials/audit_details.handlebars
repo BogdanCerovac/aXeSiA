@@ -43,7 +43,7 @@
         {{#if mostViolations}}
         <ol class="url-list">
             {{#each mostViolations}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Violations}} violations)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Violations" }} Violations)</li>
             {{/each}}
         </ol>
         {{else}}
@@ -55,7 +55,7 @@
         {{#if unclearViolations}}
         <ol class="url-list">
             {{#each unclearViolations}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Violations}} violations)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Violations" }} Violations)</li>
             {{/each}}
         </ol>
         {{else}}
@@ -66,7 +66,7 @@
         {{#if leastViolations}}
         <ol class="url-list">
             {{#each leastViolations}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Violations}} violations)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Violations" }} Violations)</li>
             {{/each}}
         </ol>
         {{else}}
@@ -78,7 +78,7 @@
         {{#if mostPasses}}
         <ol class="url-list">
             {{#each mostPasses}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Passes}} passes)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Passes" }} Passes)</li>
             {{/each}}
         </ol>
         {{else}}
@@ -90,7 +90,7 @@
         {{#if leastPasses}}
         <ol class="url-list">
             {{#each leastPasses}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Passes}} passes)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Passes" }} Passes)</li>
             {{/each}}
         </ol>
         {{else}}
@@ -102,7 +102,7 @@
         {{#if unclearPasses}}
         <ol class="url-list">
             {{#each unclearPasses}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Passes}} passes)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Passes" }} Passes)</li>
             {{/each}}
         </ol>
         {{else}}
@@ -114,7 +114,7 @@
         {{#if mostIncompletes}}
         <ol class="url-list">
             {{#each mostIncompletes}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Incomplete}} incomplete)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Incomplete" }} Incomplete)</li>
             {{/each}}
         </ol>
         {{else}}
@@ -126,7 +126,7 @@
         {{#if leastIncompletes}}
         <ol class="url-list">
             {{#each leastIncompletes}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Incomplete}} incomplete)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Incomplete" }} Incomplete)</li>
             {{/each}}
         </ol>
         {{else}}
@@ -138,7 +138,7 @@
         {{#if unclearIncompletes}}
         <ol class="url-list">
             {{#each unclearIncompletes}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Incomplete}} incomplete)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Incomplete" }} Incomplete)</li>
             {{/each}}
         </ol>
         {{else}}
@@ -150,7 +150,7 @@
         {{#if mostTime}}
         <ol class="url-list">
             {{#each mostTime}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Time}} ms)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Time" }} ms)</li>
             {{/each}}
         </ol>
         {{else}}
@@ -162,7 +162,7 @@
         {{#if leastTime}}
         <ol class="url-list">
             {{#each leastTime}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.Time}} ms)</li>
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{ auditPropNameByType this ../type "Time" }} ms)</li>
             {{/each}}
         </ol>
         {{else}}

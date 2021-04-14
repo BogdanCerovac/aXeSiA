@@ -210,6 +210,7 @@ function generateSummaries(summaryByUrl){
 
     // axe
     axeStats.name = "aXe";
+    axeStats.type = "aXe"; // same as start of prop names - "aXeViolations"
     axeStats.mostViolations = sortByProp(latestFlattened, "aXeViolations", true).slice(0, numberOfItemsForStats);
     axeStats.leastViolations = sortByProp(latestFlattened, "aXeViolations", false).slice(0, numberOfItemsForStats);
     axeStats.unclearViolations = latestFlattened.filter( all => all.aXeViolations === "NA");
@@ -235,6 +236,7 @@ function generateSummaries(summaryByUrl){
 
     // lighthouse
     lighthouseStats.name = "Lighthouse";
+    lighthouseStats.type = "lh"; // same as start of prop names - "lhA11y"
     lighthouseStats.bestA11y = sortByProp(latestFlattened, "lhA11y", true).slice(0, numberOfItemsForStats);
     lighthouseStats.worstA11y = sortByProp(latestFlattened, "lhA11y", false).slice(0, numberOfItemsForStats);
 
@@ -258,6 +260,7 @@ function generateSummaries(summaryByUrl){
 
     //siteimprove
     siteimproveStats.name = "Siteimprove";
+    siteimproveStats.type = "si"; // same as start of prop names - "siViolations"
     siteimproveStats.mostViolations = sortByProp(latestFlattened, "siViolations", true).slice(0, numberOfItemsForStats);
     siteimproveStats.leastViolations = sortByProp(latestFlattened, "siViolations", false).slice(0, numberOfItemsForStats);
     siteimproveStats.unclearViolations = latestFlattened.filter( all => all.siViolations === "NA");

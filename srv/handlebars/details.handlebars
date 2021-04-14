@@ -91,7 +91,7 @@
         <h3>Overview of all URLs in the audit</h3>
         <p>You can expand them and observe details of audits per page</p>
 
-        <div id="js_all" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
+        <div id="js_all" class="js_generate_details" data-title="Details for all {{distinctUrlsCount}} URLs - all audits per date" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
 
     </article>
 
@@ -104,7 +104,7 @@
         {{> audit_details axeSummary}}
        
         <h3 id="axeDetails" tabindex="-1">axe details</h3>
-        <div id="js_axe" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
+        <div id="js_axe" class="js_generate_details" data-title="All {{distinctUrlsCount}} URLs with aXe audit"  style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
 
     </article>
 
@@ -116,7 +116,7 @@
         {{> audit_details siSummary}}
 
         <h3 id="siteimproveDetails" tabindex="-1">siteimprove details</h3>
-        <div id="js_si" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
+        <div id="js_si" class="js_generate_details" data-title="All {{distinctUrlsCount}} URLs with Siteimprove audit"  style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
 
     </article>
 
@@ -128,7 +128,7 @@
         {{> lighthouse_details lhSummary}}
 
         <h3 id="lighthouseDetails" tabindex="-1">lighthouse details</h3>
-        <div id="js_lh" class="js_generate_details" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
+        <div id="js_lh" class="js_generate_details" data-title="All {{distinctUrlsCount}} URLs with Lighthouse audit" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
 
     </article>
 
