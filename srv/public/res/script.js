@@ -145,8 +145,8 @@ function renderDetailsPerType(details, type){
 }
 
 // generate details based on class and id
-function generateDetails(type, data){
-    let out = '';
+function generateDetails(title, type, data){
+    let out = `<details class="details-first-level"><summary><span>${title}</span></summary><div class="details-content details-sub">`;
     for(const url in data){
         const meta = data[url];
         let details = '';
@@ -174,14 +174,16 @@ function generateDetails(type, data){
         `;
         
     }
-    return out;
+    return out +  `</div>
+    </details>`;
 }
 
 
 document.querySelectorAll('.js_generate_details').forEach( details => {
     details.innerHTML = "";
     const type = details.id.split("_")[1];
-    details.innerHTML = generateDetails(type, dataCleaned);
+    const title = details.dataset.title;
+    details.innerHTML = generateDetails(title, type, dataCleaned);
 })
 
 function histogramDataByType(type, flattened){

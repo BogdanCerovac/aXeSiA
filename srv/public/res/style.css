@@ -474,3 +474,13 @@ table.histogram-table caption{
 tr:hover td {
   background: #9cc9ef;
 }
+
+
+.details-sub-trigger{
+
+}
+
+.details-first-level > summary span{
+  padding: 1rem;
+  font-size: 2rem;
+}
