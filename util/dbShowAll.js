@@ -6,24 +6,42 @@ const {statsForFile} = require('./DB');
 // JSON example: https://stackoverflow.com/questions/33432421/sqlite-json1-example-for-json-extract-set/33433552
 
 const selectAll = db.prepare(
-    `SELECT 
-        id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
-    FROM audits`,
+    `
+    SELECT 
+        audits.id,
+        audits.ts, 
+        audits.id_audit, 
+        audits.domain, 
+        url, 
+        json_extract(audit, '$.aXeAudit') as aXeAudit, 
+        json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , 
+        json_extract(audit, '$.siteimproveAudit') as siteimproveAudit, 
+        json_extract(audit, '$.siteComplexityStats') as siteComplexityStats
+    FROM audits
+    LEFT JOIN audits_meta ON audits.id_audit = audits_meta.id_audit
+    WHERE audit_ok = 1`
 );
+
+
 /*
+
 const selectAll = db.prepare(
     `SELECT 
-        id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit
-    FROM audits
-    WHERE domain = 'cerovac.com/a11y'
-    `,
+        id, ts, id_audit, domain, url, 
+        json_extract(audit, '$.aXeAudit') as aXeAudit, 
+        json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , 
+        json_extract(audit, '$.siteimproveAudit') as siteimproveAudit, 
+        json_extract(audit, '$.siteComplexityStats') as siteComplexityStats
+    FROM audits`,
 );
+
 */
+
 
 let selectedAll = selectAll.all();
 
-// console.log(selectedAll);
-console.log(statsForFile());
+console.log(selectedAll);
+//console.log(statsForFile());
 
 
 process.exit();

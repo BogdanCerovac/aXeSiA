@@ -319,17 +319,37 @@ exports.getAllReports = function(domain = "all"){
 
         let selectAll = db.prepare(
             `SELECT 
-                id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
-            FROM audits`,
+            audits.id,
+            audits.ts, 
+            audits.id_audit, 
+            audits.domain, 
+            url, 
+            json_extract(audit, '$.aXeAudit') as aXeAudit, 
+            json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , 
+            json_extract(audit, '$.siteimproveAudit') as siteimproveAudit, 
+            json_extract(audit, '$.siteComplexityStats') as siteComplexityStats
+        FROM audits
+        LEFT JOIN audits_meta ON audits.id_audit = audits_meta.id_audit
+        WHERE audit_ok = 1`,
         );
 
         if(domain !== "all"){
 
             selectAll = db.prepare(
                 `SELECT 
-                    id, ts, domain, url, json_extract(audit, '$.aXeAudit') as aXeAudit, json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , json_extract(audit, '$.siteimproveAudit') as siteimproveAudit 
-                FROM audits
-                WHERE domain = '${domain}'`,
+                audits.id,
+                audits.ts, 
+                audits.id_audit, 
+                audits.domain, 
+                url, 
+                json_extract(audit, '$.aXeAudit') as aXeAudit, 
+                json_extract(audit, '$.lighthouseAudit') as lighthouseAudit , 
+                json_extract(audit, '$.siteimproveAudit') as siteimproveAudit, 
+                json_extract(audit, '$.siteComplexityStats') as siteComplexityStats
+            FROM audits
+            LEFT JOIN audits_meta ON audits.id_audit = audits_meta.id_audit
+            WHERE audit_ok = 1
+                AND audits.domain = '${domain}'`,
             );
 
         }
