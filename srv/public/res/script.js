@@ -307,12 +307,11 @@ function generateHistogramTable(details, dataProp, dataPerType){
     <tbody>`;
 
     let dataPerTypeDesc = dataPerType.sort( (a,b) => new Date(b.date).getTime() -  new Date(a.date).getTime());
-    
 
     dataPerTypeDesc.forEach( item => {
         returnedHtml += `<tr>
         <td>${item.date}</td>
-        <td>${item[dataProp]}</td>
+        <td>${item[dataProp] !== "NaN" ? item[dataProp] : "Unknown"}</td>
         <tr>`;
     });
 
