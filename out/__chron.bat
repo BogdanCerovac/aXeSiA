@@ -53,6 +53,7 @@ set /p stats2=<./out/log.tmp
 cd out
 Rem delete temp holder
 del log.tmp
+node ./util/dbStatsLastAudit.js > ./out/log.tmp
 cd ..
 echo %stats2%  >> ./out/log.txt
 cd out

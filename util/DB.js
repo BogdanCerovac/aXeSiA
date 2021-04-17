@@ -117,7 +117,7 @@ const stats = () => {
   );
   let distinctAuditsValid = distinctAuditsAllValid.get();
 
-  return `DB stats: ${distinctDomains["Distinct"]} domains, ${distinctAudits["Distinct"]} distinct audits (${distinctAuditsValid["Distinct"]} valid), ${distinctDates["Distinct"]} distinct dates, ${distinct["Distinct"]} distinct urls, ${all["All"]} all urls`;
+  return `DB stats: ${distinctDomains["Distinct"]} domains, ${distinctAudits["Distinct"]} audits (${distinctAuditsValid["Distinct"]} full), ${distinctDates["Distinct"]} dates, ${distinct["Distinct"]} unique urls, ${all["All"]} all urls`;
 
 }
 
@@ -137,4 +137,20 @@ const insertMeta = (id_audit, domain, urls_all_num, urls_all, urls_ok_num, urls_
   return insertAuditMeta;
 };
 
-module.exports = { get, insert, insertMeta, stats, statsForFile };
+const lastAuditMeta = () => {
+  const lastAuditMeta = db.prepare(
+    `SELECT * FROM audits_meta ORDER BY id DESC LIMIT 1`,
+  );
+  let last = lastAuditMeta.get();
+  return {
+    ts: last.ts,
+    domain: last.domain,
+    urls_all_num: last.urls_all_num,
+    urls_ok_num: last.urls_ok_num,
+    urls_err_num: last.urls_err_num,
+    urls_na_num: last.urls_na_num,
+    audit_ok: last.audit_ok,
+  };
+}
+
+module.exports = { get, insert, insertMeta, stats, statsForFile, lastAuditMeta };
