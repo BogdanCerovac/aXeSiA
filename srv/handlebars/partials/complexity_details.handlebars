@@ -1,69 +1,68 @@
 <h3>{{name}} stats</h3>
 
-<h4>{{name}} avg</h4>
+    <h4>{{name}} avg</h4>
         <ul>
             <li>avgElWeights {{avgElWeights}}</li>
             <li>avgEvents {{avgEvents}}</li>
         </ul>
 
-         <p>avgTime {{avgTime}}</p>
+        <p>avgTime {{avgTime}}</p>
 
-
-           <h4>{{name}} elements</h4>
+    <h4>{{name}} elements</h4>
         <p>mostElWeights:</p>
-         {{#if mostElWeights}}
-        <ol class="url-list">
-            {{#each mostElWeights}}
+        {{#if mostElWeights}}
+            <ol class="url-list">
+                {{#each mostElWeights}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.cpxElWeights}})</li>
-            {{/each}}
-        </ol>
+                {{/each}}
+            </ol>
         {{else}}
             <p>No mostElWeights</p>
         {{/if}}
 
-         
-       <p>leastElWeights:</p>
-         {{#if leastElWeights}}
-        <ol class="url-list">
-            {{#each leastElWeights}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.cpxElWeights}})</li>
-            {{/each}}
-        </ol>
+            
+        <p>leastElWeights:</p>
+        {{#if leastElWeights}}
+            <ol class="url-list">
+                {{#each leastElWeights}}
+                    <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.cpxElWeights}})</li>
+                {{/each}}
+            </ol>
         {{else}}
             <p>No leastElWeights</p>
         {{/if}}
 
 
 
-          <h4>{{name}} Events</h4>
+    <h4>{{name}} Events</h4>
         <p>mostEvents:</p>
-         {{#if mostEvents}}
-        <ol class="url-list">
-            {{#each mostEvents}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.cpxEvents}})</li>
+        {{#if mostEvents}}
+            <ol class="url-list">
+                {{#each mostEvents}}
+                    <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.cpxEvents}})</li>
             {{/each}}
-        </ol>
+            </ol>
         {{else}}
             <p>No mostEvents</p>
         {{/if}}
 
           
         <p>leastEvents:</p>
-         {{#if leastEvents}}
-        <ol class="url-list">
-            {{#each leastEvents}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.cpxEvents}})</li>
-            {{/each}}
-        </ol>
+        {{#if leastEvents}}
+            <ol class="url-list">
+                {{#each leastEvents}}
+                    <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.cpxEvents}})</li>
+                {{/each}}
+            </ol>
         {{else}}
             <p>No leastEvents</p>
         {{/if}}
        
 
 
-          <h4>{{name}} time</h4>
+    <h4>{{name}} time</h4>
         <p>mostTime:</p>
-         {{#if mostTime}}
+            {{#if mostTime}}
         <ol class="url-list">
             {{#each mostTime}}
                 <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.cpxTime}})</li>
@@ -74,13 +73,13 @@
         {{/if}}
 
 
-<p>leastTime:</p>
-         {{#if leastTime}}
-        <ol class="url-list">
-            {{#each leastTime}}
-                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.cpxTime}})</li>
-            {{/each}}
-        </ol>
-        {{else}}
-            <p>No leastTime</p>
-        {{/if}}
+        <p>leastTime:</p>
+            {{#if leastTime}}
+                <ol class="url-list">
+                    {{#each leastTime}}
+                        <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.cpxTime}})</li>
+                    {{/each}}
+                </ol>
+            {{else}}
+                <p>No leastTime</p>
+            {{/if}}
