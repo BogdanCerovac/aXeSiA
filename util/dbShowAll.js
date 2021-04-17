@@ -40,8 +40,8 @@ const selectAll = db.prepare(
 
 let selectedAll = selectAll.all();
 
-console.log(selectedAll);
-//console.log(statsForFile());
+//console.log(selectedAll);
+console.log(statsForFile());
 
 
 process.exit();
