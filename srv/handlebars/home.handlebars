@@ -34,8 +34,12 @@
                         </div>
                         
                         
-                        <p><span aria-hidden="true"><strong>SEO</strong></span><span class="sr-only">Search engine optimization</span>: {{ decimalToPercent this.totalStats.SEO}}%</p>
-                        <p><strong>Performance</strong>: {{decimalToPercent this.totalStats.Performance}}%</p>
+                        <p style="margin-top:1rem;"><span aria-hidden="true"><strong>SEO</strong></span><span class="sr-only">Search engine optimization</span>: {{ decimalToPercent this.totalStats.SEO}}%</p>
+                        <p style="margin-top:1rem;"><strong>Performance</strong>: {{decimalToPercent this.totalStats.Performance}}%</p>
+                        <p style="margin-top:1rem;"><strong>Complexity</strong>:<br />
+                            <strong>Avg. elements</strong>: {{this.totalStats.cpx.avgElWeights}}<br />
+                            <strong>Avg. events</strong>: {{this.totalStats.cpx.avgEvents}}
+                        </p>
                     </div>
                 </article>
             </li>
