@@ -97,6 +97,8 @@ function typeToTitleString(type){
             return 'Siteimprove summary';
         case 'lh':
             return 'Lighthouse summary';
+        case 'cpx':
+            return 'Complexity summary';
         default:
             console.error(`typeToTitleString ${type} not supported yet`);
             return  `${type} not supported yet`; 
@@ -120,6 +122,24 @@ function renderDetailsForAllTypes(details){
     return toRender;
 }
 
+function cpxRenderEvents(events){
+    let returned =  `<div class="table-wrapper"><table class="cpxRenderEvents"><caption>Events:</caption><thead><th scope="col">Element</th><th scope="col">ARIAs</th><th scope="col">Event</th></thead><tbody>`;
+    events.map(ev => {
+        returned += `<tr><td>${ev.el}</td><td>${ev.ariaAttrs.join(",")}</td><td>${ev.type}</td></tr>`
+    });
+    returned += `</tbody></table></div>`;
+    return returned;
+}
+
+function cpxRenderTagsSummary(tags){
+    let returned =  `<div class="table-wrapper"><table class="cpxRenderEvents"><caption>Tags summary:</caption><thead><th scope="col">Element</th><th scope="col">Number</th><th scope="col">Weight</th></thead><tbody>`;
+    tags.map(tag => {
+        returned += `<tr><td>${tag.el}</td><td>${tag.num}</td><td>${tag.weight}</td></tr>`
+    });
+    returned += `</tbody></table></div>`;
+    return returned;
+}
+
 //render details based on one type
 function renderDetailsPerType(details, type){
     switch (type) {
@@ -135,6 +155,21 @@ function renderDetailsPerType(details, type){
                 <p>SEO: ${details.SEO}</p>
                 <p>Performance: ${details.Performance}</p>
                 <p>BestPractices: ${details.BestPractices}</p>
+            </div>
+          `;
+        case 'cpx':
+            return `
+            <div class="details ${type}-details">
+                <p>Time: ${details.timeSum} ms</p>
+                <p>allTagsCount: ${details.allTagsCount}</p>
+                <p>allWeigtsSum: ${details.allWeigtsSum}</p>
+                <p>ariaAttrsCount: ${details.ariaAttrsCount}</p>
+                <p>avgWeights: ${details.avgWeights}</p>
+                ${cpxRenderTagsSummary(details.tagsSummary)}
+
+                <p>eventsCount: ${details.eventsCount}</p>
+                ${cpxRenderEvents(details.events)}
+
             </div>
           `;
        
@@ -274,8 +309,39 @@ function histogramDataByType(type, flattened){
                 }
             }
             break;
+        case 'cpx':
+            let cpxControl = {};
+            flattened.forEach( audit => {
+                if(!cpxControl[audit.date]){
+                    cpxControl[audit.date] = {
+                        cpxElWeights : [],
+                        cpxEvents : [],
+                    };
+                }
+                
+                cpxControl[audit.date].cpxElWeights.push(audit.cpxElWeights);
+                cpxControl[audit.date].cpxEvents.push(audit.cpxEvents);
+                
+            });
+
+            for(let date in cpxControl){
+                if(cpxControl.hasOwnProperty(date)){
+                    const audits = cpxControl[date];
+                    const cpxElWeights_len = audits.cpxElWeights.length;
+                    const cpxElWeightsAvg = audits.cpxElWeights.reduce((a, b) => a + b, 0) / cpxElWeights_len;
+                    const cpxEvents_len = audits.cpxEvents.length;
+                    const cpxEventsAvg = audits.cpxEvents.reduce((a, b) => a + b, 0) / cpxEvents_len;
+                    
+                    returned.push({
+                        date: date,
+                        cpxElWeightsAvg: cpxElWeightsAvg.toFixed(0),
+                        cpxEventsAvg: cpxEventsAvg.toFixed(0)
+                    })
+                }
+            }
+            break;
         default:
-            throw new Error(type + 'is not defined as type for histogramDataByType');
+            throw new Error('"' + type + '" is not defined as type for histogramDataByType');
     }
     return returned;
 }
