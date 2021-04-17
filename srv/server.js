@@ -40,7 +40,7 @@ app.get('/', (req, res, next) => {
         dataFromDB = getAllReports(req.query.details);
 
         const domainData = dataFromDB.filter( data => data.domain === req.query.details)[0];
-        //console.log(domainData.lhSummary)
+        // console.log(domainData.cpxSummary)
 
         if(domainData && domainData.domain){
             res.render('details', {
@@ -51,6 +51,8 @@ app.get('/', (req, res, next) => {
                 axeSummary : domainData.axeSummary,
                 siSummary: domainData.siSummary,
                 lhSummary: domainData.lhSummary,
+                lhSummary: domainData.lhSummary,
+                cpxSummary: domainData.cpxSummary,
                 totalStats: domainData.totalStats,
                 historicalSummariesFlatPerUrl: domainData.historicalSummariesFlatPerUrl,
                 historicalSummariesFlatPerUrlString: JSON.stringify(domainData.historicalSummariesFlatPerUrl),
@@ -73,6 +75,7 @@ app.get('/', (req, res, next) => {
         
 
     }else{
+        // console.log(dataFromDB)
         res.render('home', {
             titleEnd: "main overview",
             domains: dataFromDB,
