@@ -12,7 +12,7 @@ cd ..
 Rem 
 Rem log
 echo %DATE% %TIME% "Started" >> ./out/log.txt
-node ./util/dbShowAll.js > ./out/log.tmp
+node ./util/dbStatsForChron.js.js > ./out/log.tmp
 rem /p to allow setting from file
 set /p stats=<./out/log.tmp
 echo %stats%  >> ./out/log.txt
@@ -31,7 +31,7 @@ node index.js mainURL=https://www.itumx.no/sitemap.xml
 echo !!!!!!!!!!!!!!! Processing %loop% stopped ok echo %DATE% %TIME%
 rem
 echo %DATE% %TIME% "Ended loop" %loop% "of" %loopEnd% >> ./out/log.txt
-node ./util/dbShowAll.js > ./out/log.tmp
+node ./util/dbStatsForChron.js.js > ./out/log.tmp
 rem /p to allow setting from file
 set /p stats=<./out/log.tmp
 echo %stats%  >> ./out/log.txt
@@ -47,7 +47,7 @@ goto loop
 Rem ----------- LOOP END -------------
 echo !!!!!!!!!!!!!!! Looped successfully %loop% times Started @ %start% ended @ %DATE% %TIME%
 echo %DATE% %TIME% "Ended all" %loopEnd% "loops" >> ./out/log.txt
-node ./util/dbShowAll.js > ./out/log.tmp
+node ./util/dbStatsForChron.js.js > ./out/log.tmp
 rem /p to allow setting from file
 set /p stats2=<./out/log.tmp
 cd out
