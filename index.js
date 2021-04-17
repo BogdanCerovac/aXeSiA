@@ -79,12 +79,20 @@ if(process.argv && process.argv.slice(2)){
       const splitted = arg.split("=");
       if(splitted[0] === "mainURL"){
         mainCFG.mainURL = splitted[1];
+      }else{
+        throw new Error("mainURL is required!")
       }
+
       if(splitted[0] === "cookieConsent"){
         mainCFG.cookieConsent = splitted[1];
+      }else{
+        mainCFG.cookieConsent = false;
       }
+
       if(splitted[0] === "pathForScreenshots"){
         mainCFG.pathForScreenshots = splitted[1];
+      }else{
+        mainCFG.pathForScreenshots = './out/screens/test/';
       }
 
   })
