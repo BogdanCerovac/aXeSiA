@@ -13,7 +13,7 @@ Rem
 Rem log
 echo %DATE% %TIME% "Started" >> ./out/log.txt
 node ./util/dbStatsForChron.js > ./out/log.tmp
-rem /p to allow setting from file
+Rem /p to allow setting from file
 set /p stats=<./out/log.tmp
 echo %stats%  >> ./out/log.txt
 cd out
@@ -26,20 +26,25 @@ cd ..
 Rem ----------- LOOP START -------------
 :loop
 echo !!!!!!!!!!!!!!! Processing %loop% started %DATE% %TIME%
-node index.js mainURL=https://cerovac.com/a11y/sitemap.xml
-node index.js mainURL=https://www.itumx.no/sitemap.xml
+Rem
+Rem call __domains.bat batch file that includes one or multiple calls to node index audits for example: 'node index.js mainURL=https://cerovac.com/a11y/sitemap.xml'
+Rem
+CALL __domains.bat
+Rem
+Rem /call __domains.bat batch
+Rem
 echo !!!!!!!!!!!!!!! Processing %loop% stopped ok echo %DATE% %TIME%
-rem
+Rem 
 echo %DATE% %TIME% "Ended loop" %loop% "of" %loopEnd% >> ./out/log.txt
 node ./util/dbStatsForChron.js > ./out/log.tmp
-rem /p to allow setting from file
+Rem  /p to allow setting from file
 set /p stats=<./out/log.tmp
 echo %stats%  >> ./out/log.txt
 cd out
 Rem delete temp holder
 del log.tmp
 cd ..
-rem
+Rem
 set /a loop=%loop%+1
 if "%loop%"=="%loopEnd%" goto next
 goto loop
