@@ -29,7 +29,7 @@ echo !!!!!!!!!!!!!!! Processing %loop% started %DATE% %TIME%
 Rem
 Rem call __domains.bat batch file that includes one or multiple calls to node index audits for example: 'node index.js mainURL=https://cerovac.com/a11y/sitemap.xml'
 Rem
-CALL __domains.bat
+CALL ./out/__domains.bat
 Rem
 Rem /call __domains.bat batch
 Rem
