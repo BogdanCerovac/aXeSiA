@@ -10,6 +10,13 @@
                 <a href="#overallSummary">overallSummary</a>
             </li>
             <li>
+                <a href="#overallHistoricalSummary">overallHistoricalSummary</a>
+            </li>
+
+            <li>
+                <a href="#SummaryOfSummaries">SummaryOfSummaries</a>
+            </li>
+            <li>
                 <a href="#axeSummary">axeSummary</a>
             </li>
             <li>
@@ -38,35 +45,6 @@
 
     <hr class="main-hr">
 
-    <article aria-labelledby="overallHistoricalSummary">
-        <h2 id="overallHistoricalSummary" tabindex="-1">Overall Historical summary</h2>
-       
-        <div class="svg-grid">
-
-            <div data-set="js-histogram_urls" data-prop="urls" class="js_histogram">Please wait, loading...</div>
-        
-            <div data-set="js-histogram_a11y" data-prop="a11yPassesAvg" class="js_histogram">Please wait, loading...</div>
-
-            <div data-set="js-histogram_a11y" data-prop="a11yViolationsAvg" class="js_histogram">Please wait, loading...</div>
-
-            <div data-set="js-histogram_a11y" data-prop="a11yIncompletesAvg" class="js_histogram">Please wait, loading...</div>
-
-            <div data-set="js-histogram_seo" data-prop="seoAvgShort" class="js_histogram">Please wait, loading...</div>
-
-            <div data-set="js-histogram_cpx" data-prop="cpxElWeightsAvg" class="js_histogram">Please wait, loading...</div>
-
-            <div data-set="js-histogram_cpx" data-prop="cpxEventsAvg" class="js_histogram">Please wait, loading...</div>
-
-
-        </div>
-
-        <script>
-            const historicalStr = '{{historicalSummariesFlatPerUrlString}}';
-            const historicalCleaned = JSON.parse(historicalStr.replaceAll("&quot;", '"'));
-        </script>
-    </article>
-
-    <hr class="main-hr">
 
     <article aria-labelledby="overallSummary">
         <h2 id="overallSummary" tabindex="-1">Overall Summary - latest audit ({{dateTimeLatest}})</h2>
@@ -103,6 +81,61 @@
 
         <div id="js_all" class="js_generate_details" data-title="Details for all {{distinctUrlsCount}} URLs - all audits per date" style="min-height:{{heightPerUrl distinctUrlsCount 80}}">Please wait, loading...</div>
 
+    </article>
+
+    <hr class="main-hr">
+
+    <article aria-labelledby="overallHistoricalSummary">
+        <h2 id="overallHistoricalSummary" tabindex="-1">Overall Historical summary</h2>
+       
+        <div class="svg-grid">
+
+            <div data-set="js-histogram_urls" data-prop="urls" class="js_histogram">Please wait, loading...</div>
+        
+            <div data-set="js-histogram_a11y" data-prop="a11yPassesAvg" class="js_histogram">Please wait, loading...</div>
+
+            <div data-set="js-histogram_a11y" data-prop="a11yViolationsAvg" class="js_histogram">Please wait, loading...</div>
+
+            <div data-set="js-histogram_a11y" data-prop="a11yIncompletesAvg" class="js_histogram">Please wait, loading...</div>
+
+            <div data-set="js-histogram_seo" data-prop="seoAvgShort" class="js_histogram">Please wait, loading...</div>
+
+            <div data-set="js-histogram_cpx" data-prop="cpxElWeightsAvg" class="js_histogram">Please wait, loading...</div>
+
+            <div data-set="js-histogram_cpx" data-prop="cpxEventsAvg" class="js_histogram">Please wait, loading...</div>
+
+
+        </div>
+
+        <script>
+            const historicalStr = '{{historicalSummariesFlatPerUrlString}}';
+            const historicalCleaned = JSON.parse(historicalStr.replaceAll("&quot;", '"'));
+        </script>
+    </article>
+
+    <hr class="main-hr">
+
+    <article aria-labelledby="SummaryOfSummaries">
+        <h2 id="SummaryOfSummaries" tabindex="-1">Summary Of Summaries</h2>
+
+        <p>This part can be used to complement <a href="https://www.w3.org/TR/WCAG-EM/#step1a" target="_blank">Website Accessibility Conformance Evaluation Methodology (WCAG-EM) 1.0 - Define the Scope of the Website</a>.</p>
+       
+
+        <!-- TODO all pages sorted by custom weight by 
+        
+            axe mostViolations
+            Siteimprove mostViolations
+            mostElWeights
+            mostEvents
+        
+        -->
+
+        <!-- 
+
+            TODO sort all pages based on distinct weights
+
+        -->
+        
     </article>
 
     <hr class="main-hr">

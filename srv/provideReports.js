@@ -344,6 +344,8 @@ function generateSummaries(summaryByUrl){
 
     const dateTimeLatest = latestFlattened.sort( (a,b) => new Date(b.ts).getTime() - new Date(a.ts).getTime())[0].ts;
 
+    // summary of summaries
+
     return {
         dateTimeLatest : dateTimeLatest,
         distinctUrlsCount: distinctUrlsCount,
