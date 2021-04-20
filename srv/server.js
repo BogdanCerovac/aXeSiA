@@ -57,6 +57,7 @@ app.get('/', (req, res, next) => {
                 historicalSummariesFlatPerUrl: domainData.historicalSummariesFlatPerUrl,
                 historicalSummariesFlatPerUrlString: JSON.stringify(domainData.historicalSummariesFlatPerUrl),
                 domainDataAsString : JSON.stringify(domainData.summaryByDomain[req.query.details]),
+                summaryOfSummaries: domainData.summaryOfSummaries,
                 helpers: {
                     decimalToPercent: (decimal) => truncateDecimals(decimal * 100, 4),
                     timestamp: () => new Date().getTime(),

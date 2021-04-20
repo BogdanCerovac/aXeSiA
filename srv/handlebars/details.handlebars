@@ -118,8 +118,11 @@
     <article aria-labelledby="SummaryOfSummaries">
         <h2 id="SummaryOfSummaries" tabindex="-1">Summary Of Summaries</h2>
 
-        <p>This part can be used to complement <a href="https://www.w3.org/TR/WCAG-EM/#step1a" target="_blank">Website Accessibility Conformance Evaluation Methodology (WCAG-EM) 1.0 - Define the Scope of the Website</a>.</p>
+        <p>URL's sorted descending - by most accessibility violations and worst complexity. This should be manually verified and then we should probably improve alghoritm for weights afterwards.</p>
+
+        <p>You can use this to define scope and complement <a href="https://www.w3.org/TR/WCAG-EM/#step1a" target="_blank">Website Accessibility Conformance Evaluation Methodology (WCAG-EM) 1.0 - Define the Scope of the Website</a>.</p>
        
+        {{> summary_of_summaries summaryOfSummaries }}
 
         <!-- TODO all pages sorted by custom weight by 
         
@@ -135,7 +138,7 @@
             TODO sort all pages based on distinct weights
 
         -->
-        
+
     </article>
 
     <hr class="main-hr">

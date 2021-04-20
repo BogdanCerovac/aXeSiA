@@ -345,6 +345,21 @@ function generateSummaries(summaryByUrl){
     const dateTimeLatest = latestFlattened.sort( (a,b) => new Date(b.ts).getTime() - new Date(a.ts).getTime())[0].ts;
 
     // summary of summaries
+    let summaryOfSummaries = {
+        name : "Summary of summaries",
+        urls : []
+    };
+
+    let summaryOfSummariesUrls_tmp = [];
+    latestFlattened.map( item => {
+        // just a simple sum for now. TODO adjust weights after empirical testing
+        item.mainWeight = item.aXeViolations + item.siViolations + item.cpxElWeights + item.cpxEvents;
+        summaryOfSummariesUrls_tmp.push(item);
+    });
+
+
+    summaryOfSummaries.urls = summaryOfSummariesUrls_tmp.sort( (a,b) => b.mainWeight - a.mainWeight);
+
 
     return {
         dateTimeLatest : dateTimeLatest,
@@ -354,6 +369,7 @@ function generateSummaries(summaryByUrl){
         lhSummary: lighthouseStats,
         cpxSummary: complexityStats,
         totalStats: totalStats,
+        summaryOfSummaries: summaryOfSummaries,
         historicalSummariesFlatPerUrl: historicalSummariesFlatPerUrl
     }
 }
@@ -441,7 +457,8 @@ exports.getAllReports = function(domain = "all"){
             cpxSummary: summaries.cpxSummary,
             totalStats : summaries.totalStats,
             summaryByDomain: summaryByDomain,
-            historicalSummariesFlatPerUrl: summaries.historicalSummariesFlatPerUrl
+            historicalSummariesFlatPerUrl: summaries.historicalSummariesFlatPerUrl,
+            summaryOfSummaries: summaries.summaryOfSummaries
             
         })
     }

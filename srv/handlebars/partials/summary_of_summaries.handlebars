@@ -1,0 +1,13 @@
+<h3>{{name}} stats</h3>
+
+  
+        <p>most Weights:</p>
+        {{#if urls}}
+            <ol class="url-list">
+                {{#each urls}}
+                <li><a href="{{this.url}}" target="_blank">{{this.url}}</a> ({{this.mainWeight}})</li>
+                {{/each}}
+            </ol>
+        {{else}}
+            <p>No urls</p>
+        {{/if}}
