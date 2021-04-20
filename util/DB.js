@@ -80,8 +80,7 @@ const insertAudit = db.prepare(
   'INSERT INTO audits (id_audit, domain, url, audit) VALUES ($id_audit, $domain, $url, json($audit))',
 );
 const insert = (id_audit, domain, url, audit) => {
-  insertAudit.run({id_audit:id_audit, domain:domain, url: url, audit: audit });
-  return get(url);
+  return insertAudit.run({id_audit:id_audit, domain:domain, url: url, audit: audit });
 };
 
 

@@ -52,13 +52,13 @@ const urlTaskGetSiteEvents = require('./tasks/urlTaskGetSiteEvents');
 
 /******************* CONFIG *********************/
 
-/*let mainCFG = {
+let mainCFG = {
   mainURL: 'https://cerovac.com/a11y/sitemap.xml',
   cookieConsent: false,
   pathForScreenshots : './out/screens/test/'
-};*/
+};
 
-
+/*
 let mainCFG = {
   mainURL: 'https://www.itumx.no/sitemap.xml',
   cookieConsent: {
@@ -67,7 +67,7 @@ let mainCFG = {
   },
   pathForScreenshots : './out/screens/test/'
 };
-
+*/
 
 /***********************************************/
 
@@ -195,8 +195,13 @@ const started = new Date();
 
             const dbRes = db.insert(id_audit, domain, url, JSON.stringify({aXeAudit , lighthouseAudit, siteimproveAudit, siteComplexityStats}));
 
-            urls_processed_ok.push(url);
-            
+            if(dbRes.changes === 1 && dbRes.lastInsertRowid > 0){
+              urls_processed_ok.push(url);
+            }else{
+              console.error(url + " failed to save audit in the DataBase ! DB responded: ", dbRes)
+              urls_processed_error.push(url);
+            }
+
           } catch (error) {
             console.error(url + " audit not completed OK! Error: ", error)
             urls_processed_error.push(url);
@@ -204,7 +209,7 @@ const started = new Date();
  
 
         }else{
-          console.warn(url + " response was not OK, we got ", urlResponseCheck);
+          console.warn(url + " response was not OK, skipping in audits count. Response check: ", urlResponseCheck);
           urls_not_reachable.push(url);
         }
 
