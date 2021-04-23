@@ -249,8 +249,8 @@ function generateSummaries(summaryByUrl){
     axeStats.avgIncompletes = getAverageOfProp(latestFlattened, "aXeIncomplete");
     axeStats.avgTime = getAverageOfProp(latestFlattened, "aXeTime");
 
-    axeStats.latestViolations = [... latestAxeViolations];
-    axeStats.overallImpacts = groupCountArrayItems(overallAxeImpacts);
+    axeStats.latestViolations = [... latestAxeViolations].sort();
+    axeStats.overallImpacts = groupCountArrayItems(overallAxeImpacts).sort();
 
     // lighthouse
     lighthouseStats.name = "Lighthouse";
@@ -299,8 +299,8 @@ function generateSummaries(summaryByUrl){
     siteimproveStats.avgIncompletes = getAverageOfProp(latestFlattened, "siIncomplete");
     siteimproveStats.avgTime = getAverageOfProp(latestFlattened, "siTime");
 
-    siteimproveStats.latestViolations = [... latestSiViolations];
-    siteimproveStats.overallImpacts = groupCountArrayItems(overallSiImpacts);
+    siteimproveStats.latestViolations = [... latestSiViolations].sort();
+    siteimproveStats.overallImpacts = groupCountArrayItems(overallSiImpacts).sort();
 
 
     //complexitySummary
