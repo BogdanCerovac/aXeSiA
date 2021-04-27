@@ -17,8 +17,12 @@
 
 const Sitemapper = require('sitemapper');
 const puppeteer = require('puppeteer');
+const yargs = require('yargs/yargs')
+const { hideBin } = require('yargs/helpers')
+const argv = yargs(hideBin(process.argv)).argv
 let db = require('./util/DB');
 const {todaysDate} = require('./util/helpers');
+
  
 const {
   iPhone4,
@@ -71,33 +75,24 @@ let mainCFG = {
 
 /***********************************************/
 
-if(process.argv && process.argv.slice(2)){
-  const cliArguments = process.argv.slice(2);
-  console.log('Received arguments from command line: ', cliArguments);
+// example:  node index.js --mainURL=https://www.example.com/sitemap.xml --cookieConsent.selector=[data-js-kb-cc-btn-accept=\"1\"] --cookieConsent.waitForReload=true
 
-  cliArguments.forEach( (arg) => {
-      const splitted = arg.split("=");
-      if(splitted[0] === "mainURL"){
-        mainCFG.mainURL = splitted[1];
-      }else{
-        throw new Error("mainURL is required!")
-      }
+if(process.argv && argv){
+  console.log('Received arguments from command line: ', argv);
 
-      if(splitted[0] === "cookieConsent"){
-        mainCFG.cookieConsent = splitted[1];
-      }else{
-        mainCFG.cookieConsent = false;
-      }
+  if(!argv.mainURL){
+    throw new Error("mainURL argument is required minimum!");
+  }
+  mainCFG.mainURL = argv.mainURL;
 
-      if(splitted[0] === "pathForScreenshots"){
-        mainCFG.pathForScreenshots = splitted[1];
-      }else{
-        mainCFG.pathForScreenshots = './out/screens/test/';
-      }
-
-  })
+  if(argv.cookieConsent && argv.cookieConsent.selector && argv.cookieConsent.waitForReload){
+    mainCFG.cookieConsent = {};
+    mainCFG.cookieConsent.selector = argv.cookieConsent.selector;
+    mainCFG.cookieConsent.waitForReload = argv.cookieConsent.waitForReload;
+  }
 
   console.log('mainCFG set via command line to: ', mainCFG);
+
 }
 
 /***********************************************/
