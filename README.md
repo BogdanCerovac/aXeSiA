@@ -22,7 +22,7 @@ So main requirements I wanted to achieve with aXeSiA are:
 - accessibility evaluation based on multiple different implementations of Accessibility Conformance Testing (ACT) rules (currently Deque's axe and Siteimprove's Alfa),
 - running a full Google's Lighthouse audit and getting SEO, Performance and Best practice scores (as they use axe for accessibility I did not focus on that part).
 
-## axe-hackaton 2021
+## axe-hackaton 2021 and beyond
 
 I've been thinking of aXeSiA long before axe-hackaton 2021 but when I attended axe-con I thought it would be interesting to really do something there. And because axe-core is one of the most important parts it felt natural. It was unfortunately not possible to present aXeSiA on the hackaton due to a family emergency, so I did not pitch it there and that is probably also the reason why there are no other contributors (for now at least). But it's OK. I made a simple and working proof of concept and reached the first goal.
 
@@ -35,21 +35,24 @@ Due to time limitations I've decided to limit the scope to bare minimum and conc
 aXeSiA can:
 
 - parse sitemap.xml and save all URLs to a list,
-- disable cookie consent overlays so that they are not in way - simple click on accept all/ refuse all implemented,
+- disable cookie consent overlays so that they are not in way - simple click on accept all / refuse all implemented,
 - loop through the list of all URLs and process following tasks:
     - per page - save screenshots of a page with different resolutions and orientations,
     - per page - generate and save aXe core accessibility report and build site-wide summary,
     - per page - generate and save Siteimprove alfa report and build site-wide summary,
     - per page - generate and save Lighthouse report (SEO, best practices and performance) and build site-wide summary,
+    - per page - generate and save Page complexity report (based on weighted HTML elements and JavaScript events) and build site-wide summary,
 
 - simple web user interface with overview of:
-    - overall accessibility, SEO, performance for whole domain (averages of all sites at once),
-    - possibility to monitor accessibility, SEO, performance overall status in time (comparing data)
+    - overall accessibility, SEO, performance and complexity for whole domain (averages of all sites at once),
+    - possibility to monitor accessibility, SEO, performance and complexity overall status in time (comparing data)
 
 ### Update 9. apr. 2021 from axe-hackaton:
 
 aXeSiA did not won the hackathon and I was also not expecting it to win as there were much more interesting projects but I am happy I was able to present it anyway.
 My plan with aXeSiA is to have a simple and open tool that I can use (and happily share with others) for some grunt multi-site audits and will continue to add features as I will see fit (or potential other contributors). It has already saved me some time when I needed to quickly map site-wide situations.
+
+(More info about whole axe-hackathon and a transcript of questions and answers)[https://cerovac.com/a11y/2021/04/axe-hackathon-2021-axesia-questions-answered-and-feedback-from-committee/]
 
 ## Used technologies
 
@@ -73,8 +76,6 @@ Standing on the shoulders of giants - aXeSiA would not be possible without amazi
 - User interface regression testing - screenshot comparator++ 
 
 ## Next steps
-
-I must present a demo video to Deque. I've seen that competition have some extremely good projects going on and I would help there as well if I had the time. aXeSia's main motive is not to win this hackaton, but maybe somebody else can join and we can maybe then add more features to it together. I will continue to work on aXeSiA anyway, as I see a lot of potential for my work, so if nothing else I'll use and maybe expand it myself.
 
 Please note that I do not have much capacity in regards of feature requests but I will do my best to fix eventual bugs. Pull requests are welcome.
 
