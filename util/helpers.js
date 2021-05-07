@@ -27,7 +27,7 @@ exports.createFolderIfNotFound = function(folderPath){
 }
 
 exports.cleanURL = function(url){
-    return url.replace(/[^a-zA-Z]/g, '_');
+    return url.replace(/[^a-zA-Z0-9]/g, '_');
 }
 
 exports.todaysDate = function(){
