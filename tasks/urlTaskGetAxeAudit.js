@@ -1,18 +1,21 @@
 const { AxePuppeteer } = require('@axe-core/puppeteer');
 const {sleep} = require('../util/helpers');
 
-async function getAXEreportForURL(browserObj, url){
+async function getAXEreportForURL(browserObj, url, ManualUA, timeout){
   console.log('-- getAXEreportForURL for ' + url);
   return new Promise(async function(resolve, reject) {
       const t0 = new Date().getTime();
       const page = await browserObj.newPage();
-      // await page.setUserAgent(ManualUA);
+      await page.setDefaultNavigationTimeout(timeout);
+      await page.setUserAgent(ManualUA);
       await page.setBypassCSP(true);
       await page.goto(url);
       await sleep(500);
       //const results = await new AxePuppeteer(page).configure(aXeConfig).analyze();
       //const results = await new AxePuppeteer(page).withTags(aXeTags).analyze();
-      const results = await new AxePuppeteer(page).analyze();
+      const results = await new AxePuppeteer(page)
+      .disableRules('frame-tested')
+      .analyze();
       //console.log(results);
 
       //summary

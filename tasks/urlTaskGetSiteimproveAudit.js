@@ -3,12 +3,13 @@ const { Audit } = require("@siteimprove/alfa-act");
 const { default: rules } = require("@siteimprove/alfa-rules");
 const {sleep} = require('../util/helpers');
 
-async function getSiteimproveAlphaReportForURL(browserObj, url){
+async function getSiteimproveAlphaReportForURL(browserObj, url, ManualUA, timeout){
     console.log('-- getSiteimproveAlphaReportForURL for ' + url);
     return new Promise(async function(resolve, reject) {
         const t0 = new Date().getTime();
         const page = await browserObj.newPage();
-        //await page.setUserAgent(ManualUA);
+        await page.setDefaultNavigationTimeout(timeout);
+        await page.setUserAgent(ManualUA);
         await page.setBypassCSP(true);
         await sleep(250);
         await page.goto(url);

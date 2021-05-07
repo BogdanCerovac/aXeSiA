@@ -1,12 +1,13 @@
 const lighthouse = require('lighthouse');
 const {sleep} = require('../util/helpers');
 
-async function getLighthouseReportForURL(browserObj, url){
+async function getLighthouseReportForURL(browserObj, url, ManualUA, timeout){
     console.log('-- getLighthouseReportForURL for ' + url);
     return new Promise(async function(resolve, reject) {
         const t0 = new Date().getTime();
         const page = await browserObj.newPage();
-        // await page.setUserAgent(ManualUA);
+        await page.setDefaultNavigationTimeout(timeout);
+        await page.setUserAgent(ManualUA);
         await page.setBypassCSP(true);
         await sleep(500);
         await page.goto(url);

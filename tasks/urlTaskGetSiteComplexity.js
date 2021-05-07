@@ -1,13 +1,14 @@
 const {sleep} = require('../util/helpers');
 
-module.exports = function (browserObj, url) {
+module.exports = function (browserObj, url, ManualUA, timeout) {
 
     return new Promise(async (resolve, reject) => {
         try {
             console.log('-- urlTaskGetSiteComplexity for ' + url);
             const t0 = new Date().getTime();
             const page = await browserObj.newPage();
-            // await page.setUserAgent(ManualUA);
+            await page.setDefaultNavigationTimeout(timeout);
+            await page.setUserAgent(ManualUA);
             await page.setBypassCSP(true);
             //await sleep(500);
             await page.goto(url);

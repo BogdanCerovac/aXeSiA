@@ -56,6 +56,9 @@ const urlTaskGetSiteEvents = require('./tasks/urlTaskGetSiteEvents');
 
 /******************* CONFIG *********************/
 
+const ManualUA = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4496.0 Safari/537.36 - AXS1'; // custom user agent
+const PageTimeoutMS = 1000 * 60 * 5; // maximum time that we wait for page to be rendered
+
 let mainCFG = {
   mainURL: 'https://cerovac.com/a11y/sitemap.xml',
   cookieConsent: false,
@@ -179,13 +182,13 @@ const started = new Date();
           // some tasks may cause exceptions, let's handle them
           try {
 
-            //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots);
-            const aXeAudit = await getAXEreportForURL(browserObj, url);
-            const lighthouseAudit = await getLighthouseReportForURL(browserObj, url);
-            const siteimproveAudit = await getSiteimproveAlphaReportForURL(browserObj, url);
+            //const screens = await getScreenShotsForAllDevices(browserObj, devicesForScreenshots, url, mainCFG.pathForScreenshots, PageTimeoutMS);
+            const aXeAudit = await getAXEreportForURL(browserObj, url, ManualUA, PageTimeoutMS);
+            const lighthouseAudit = await getLighthouseReportForURL(browserObj, url, ManualUA, PageTimeoutMS);
+            const siteimproveAudit = await getSiteimproveAlphaReportForURL(browserObj, url, ManualUA, PageTimeoutMS);
             
-            const siteComplexity = await urlTaskGetSiteComplexity(browserObj, url);
-            const siteEvents = await urlTaskGetSiteEvents(browserObj, url);
+            const siteComplexity = await urlTaskGetSiteComplexity(browserObj, url, ManualUA, PageTimeoutMS);
+            const siteEvents = await urlTaskGetSiteEvents(browserObj, url, ManualUA, PageTimeoutMS);
             
             let siteComplexityStats = {...siteComplexity, ...siteEvents };
             siteComplexityStats.timeSum = siteComplexity.timeEls + siteEvents.timeEvents;

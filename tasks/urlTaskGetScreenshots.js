@@ -1,11 +1,12 @@
 const {sleep, createFolderIfNotFound, cleanURL, todaysDate} = require('../util/helpers');
 
-async function getScreenShotWithDevice(browserObj, device, url, pathForScreenshots){
+async function getScreenShotWithDevice(browserObj, device, url, pathForScreenshots, timeout){
     // console.log(device)
     console.log('-- getScreenShot as ' + device.name + ' for ' + url);
     return new Promise(async function(resolve, reject) {
       try{
         const page = await browserObj.newPage();
+        await page.setDefaultNavigationTimeout(timeout);
         await page.emulate(device);
         await sleep(500);
         await page.goto(url);
