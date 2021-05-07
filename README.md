@@ -22,15 +22,16 @@ So main requirements I wanted to achieve with aXeSiA are:
 - accessibility evaluation based on multiple different implementations of Accessibility Conformance Testing (ACT) rules (currently Deque's axe and Siteimprove's Alfa),
 - running a full Google's Lighthouse audit and getting SEO, Performance and Best practice scores (as they use axe for accessibility I did not focus on that part).
 
-## axe-hackaton 2021 and beyond
+## Motivation and beyond
 
-I've been thinking of aXeSiA long before axe-hackaton 2021 but when I attended axe-con I thought it would be interesting to really do something there. And because axe-core is one of the most important parts it felt natural. It was unfortunately not possible to present aXeSiA on the hackaton due to a family emergency, so I did not pitch it there and that is probably also the reason why there are no other contributors (for now at least). But it's OK. I made a simple and working proof of concept and reached the first goal.
+I've been thinking of aXeSiA long before axe-hackaton 2021 but when I attended axe-con I thought it would be interesting to really do something there. And because axe-core is one of the most important parts it felt natural. It was unfortunately not possible to present aXeSiA on the hackaton due to a family emergency, so I did not pitch it there and that is probably also the reason why there are no other contributors (for now at least). But it's OK. I made a simple and working proof of concept and reached the first goal and am planning to improve aXeSiA even further.
 
-[Simple video presentation and demo (manually captioned)](https://youtu.be/c2ICfeuM8HE)
+[Simple video presentation and demo from axe-hackathon 2021 (manually captioned)](https://youtu.be/c2ICfeuM8HE)
 
-### Basic features for axe-hackaton - minimum viable product
+### Basic features
 
-Due to time limitations I've decided to limit the scope to bare minimum and concentrate on functionality before other aspects. So code is dirty, design is extremely raw and I tried to make the user interface accessible but it is far from performant and needs a lot more work. But main features work and can be already used.
+Code is still dirty, design is extremely raw and I tried to do my best for user interface accessibility.
+It is far from performant and needs a lot more work, but main features work and I am happy to be able to use them on a daily basis.
 
 aXeSiA can:
 
@@ -47,7 +48,7 @@ aXeSiA can:
     - overall accessibility, SEO, performance and complexity for whole domain (averages of all sites at once),
     - possibility to monitor accessibility, SEO, performance and complexity overall status in time (comparing data)
 
-### Update 9. apr. 2021 from axe-hackaton:
+### axe-hackaton 2021:
 
 aXeSiA did not won the hackathon and I was also not expecting it to win as there were much more interesting projects but I am happy I was able to present it anyway.
 My plan with aXeSiA is to have a simple and open tool that I can use (and happily share with others) for some grunt multi-site audits and will continue to add features as I will see fit (or potential other contributors). It has already saved me some time when I needed to quickly map site-wide situations.
@@ -77,7 +78,7 @@ Standing on the shoulders of giants - aXeSiA would not be possible without amazi
 
 ## Next steps
 
-Please note that I do not have much capacity in regards of feature requests but I will do my best to fix eventual bugs. Pull requests are welcome.
+Please note that I do not have much capacity in regards of feature requests but I will do my best to fix eventual bugs. Pull requests are welcome and I will do my best to attend to them.
 
 Please read more about aXeSiA on my blog: https://cerovac.com/a11y/2021/04/my-first-axe-hackaton-with-my-axesia-my-first-contribution-to-accessibility-open-source/
 
@@ -89,4 +90,3 @@ Please read more about aXeSiA on my blog: https://cerovac.com/a11y/2021/04/my-fi
 - [Security concerns or vulnerabilities?](https://github.com/BogdanCerovac/aXeSiA/blob/main/SECURITY.md)
 - [Code of conduct](https://github.com/BogdanCerovac/aXeSiA/blob/main/CODE_OF_CONDUCT.md)
 - [License: Mozilla Public License 2.0](https://github.com/BogdanCerovac/aXeSiA/blob/main/LICENSE)
-
