@@ -141,7 +141,9 @@ const started = new Date();
 
       // Puppeteer browser object
       const browserObj = await puppeteer.launch({
-        headless: true
+        headless: true,
+        ignoreHTTPSErrors: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-web-security'],
       });
 
       // accept cookie consent
