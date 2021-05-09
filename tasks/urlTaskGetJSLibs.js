@@ -1913,7 +1913,7 @@ module.exports = function (browserObj, url, ManualUA, timeout) {
             });
 
             returned.libs = libs && libs.length > 0 ? libs : false;
-            returned.timeEls = new Date().getTime() - t0;
+            returned.timeLibs = new Date().getTime() - t0;
            
             //await sleep(250);
             await page.close();
