@@ -4,7 +4,7 @@ module.exports = function (browserObj, url, ManualUA, timeout) {
 
     return new Promise(async (resolve, reject) => {
         try {
-            console.log('-- urlTaskGetSiteComplexity for ' + url);
+            console.log('-- urlTaskGetJSLibs for ' + url);
             const t0 = new Date().getTime();
             const page = await browserObj.newPage();
             await page.setDefaultNavigationTimeout(timeout);
@@ -15,7 +15,7 @@ module.exports = function (browserObj, url, ManualUA, timeout) {
 
             let returned = {};
             
-            await waitFor(500);
+            await sleep(500);
             let libs = await page.evaluate(async () => {
                     /**
                     https://github.com/johnmichel/Library-Detector-for-Chrome
@@ -1921,7 +1921,7 @@ module.exports = function (browserObj, url, ManualUA, timeout) {
             resolve(returned);
 
         } catch (e) {
-            console.error("-- urlTaskGetSiteComplexity errored: ", e)
+            console.error("-- urlTaskGetJSLibs errored: ", e)
             reject(e);
         }
     })
