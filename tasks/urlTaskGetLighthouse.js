@@ -7,7 +7,7 @@ async function getLighthouseReportForURL(browserObj, url, ManualUA, timeout){
     return new Promise(async function(resolve, reject) {
         const t0 = new Date().getTime();
 
-        // close all pages before - https://github.com/puppeteer/puppeteer/issues/3250
+        // close all pages before - https://github.com/puppeteer/puppeteer/issues/3250 && https://github.com/GoogleChrome/lighthouse/issues/3024
         // trying to prevent 'You probably have multiple tabs open to the same origin.' error
         /*const openPages = await browserObj.pages();
         for (const openPage of openPages) {
@@ -17,6 +17,12 @@ async function getLighthouseReportForURL(browserObj, url, ManualUA, timeout){
               console.log("Lighthouse closed a page")
           }
         }*/
+
+        /*
+        
+        to prevent this problem I had to comment out throw in the Lighthouse source code for now; node_modules\lighthouse\lighthouse-core\gather\driver.js:490:21
+        
+        */
 
 
         const page = await browserObj.newPage();
