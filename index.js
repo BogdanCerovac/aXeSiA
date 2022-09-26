@@ -77,10 +77,12 @@ let mainCFG = {
 
 /***********************************************/
 
-// example:  node index.js --mainURL=https://www.example.com/sitemap.xml --cookieConsent.selector=[data-js-kb-cc-btn-accept=\"1\"] --cookieConsent.waitForReload=true
+// example:  node index.js --mainURL=https://www.example.com/sitemap.xml --debug=true --cookieConsent.selector=[data-js-kb-cc-btn-accept=\"1\"] --cookieConsent.waitForReload=true
 
 if(process.argv && argv){
-  console.log('Received arguments from command line: ', argv);
+  if(argv.debug){
+    console.log('Received arguments from command line: ', argv);
+  }
 
   if(!argv.mainURL){
     throw new Error("mainURL argument is required minimum!");
