@@ -11,8 +11,8 @@
         <ul class="navi-list">
             {{#each domains}}
             <li>
-                <article aria-labelledby="{{this.uid}}">
-                    <h3><a href="?details={{this.domain}}" aria-describedby="{{this.uid}}">{{this.domain}} - {{this.distinctUrlsCount}} unique urls</a></h3>
+                <article>
+                    <h3><a href="?details={{this.domain}}">{{this.domain}} - {{this.distinctUrlsCount}} unique urls</a></h3>
                     <div id="{{this.uid}}">
                         <h4>Overall scores for {{this.domain}}:</h4>
                         <h5>Latest audit from ({{dateTimeLatest}})</h5>
