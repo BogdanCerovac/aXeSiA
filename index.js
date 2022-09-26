@@ -1,4 +1,5 @@
 /****************************************************************
+Alt: ASCII generated graphics saying aXeSiA in some bold font below (skip to line 10 for normal text)
         __   __       _____  _           
         \ \ / /      / ____|(_)    /\    
    __ _  \ V /  ___ | (___   _    /  \   
@@ -6,8 +7,6 @@
  | (_| | / . \|  __/ ____) || | / ____ \ 
   \__,_|/_/ \_\\___||_____/ |_|/_/    \_\
                                          
-                                         
- 
  aXeSia - open source automated accessibility analyze tool 
  that can process, audit and evaluate multiple URLs in sequence.
  
